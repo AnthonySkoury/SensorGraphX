@@ -3,18 +3,22 @@ package com.example.secretsaucetetris;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    MyCanvas m;
+    int count=0;
+    MyCanvas Screen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-         m = (MyCanvas) findViewById(R.id.MyCanvas);
+        Screen = (MyCanvas) findViewById(R.id.MyCanvas);
 
+        //Buttons
         findViewById(R.id.btn_left).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_down).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(m.row<20) {
-                    m.updateTestArray(1);
+                if(Screen.row<20) {
+                    Screen.updateTestArray(1);
                 }
             }
         });
@@ -44,6 +48,66 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        //Score Thread
+        final TextView scoreText = (TextView)findViewById(R.id.score);
+
+        Thread tScore=new Thread(){
+            @Override
+            public void run(){
+
+                while(!isInterrupted()){
+
+                    try {
+                        Thread.sleep(1000);  //1000ms = 1 sec
+
+                        runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                count++;
+                                String tmp = "Score: "+String.valueOf(count);
+                                scoreText.setText(tmp);
+                            }
+                        });
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        tScore.start();
+
+        //Next Piece Thread
+        final TextView nextPieceText = (TextView)findViewById(R.id.nextpiece);
+
+        Thread tNextPiece=new Thread(){
+            @Override
+            public void run(){
+
+                while(!isInterrupted()){
+
+                    try {
+                        Thread.sleep(1000);  //1000ms = 1 sec
+
+                        runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                count++;
+                                String tmp = "Next Piece: "+String.valueOf(count);
+                                nextPieceText.setText(tmp);
+                            }
+                        });
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        tNextPiece.start();
 
     }
 }

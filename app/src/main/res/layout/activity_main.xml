@@ -25,7 +25,7 @@
         android:layout_below="@+id/MyCanvas"
         android:layout_marginTop="624dp"
         android:layout_marginEnd="264dp"
-        android:text="Left"
+        android:text="@string/left"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +36,7 @@
         android:layout_below="@+id/MyCanvas"
         android:layout_marginTop="624dp"
         android:layout_marginEnd="184dp"
-        android:text="Rotate"
+        android:text="@string/rotate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,7 +47,7 @@
         android:layout_below="@+id/MyCanvas"
         android:layout_marginTop="624dp"
         android:layout_marginEnd="104dp"
-        android:text="Down"
+        android:text="@string/down"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,19 +58,42 @@
         android:layout_below="@+id/MyCanvas"
         android:layout_marginTop="624dp"
         android:layout_marginEnd="24dp"
-        android:text="Right"
+        android:text="@string/right"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Score: "
+        android:text="@string/score"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintHorizontal_bias="0.072"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022" />
+
+    <TextView
+        android:id="@+id/nextpiece"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/nextpiece"
+        app:layout_constraintHorizontal_bias="0.829"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/app_name"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

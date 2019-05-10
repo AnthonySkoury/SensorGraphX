@@ -19,7 +19,7 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
     private static final int numColumns=10;
     private static final int numRows=20;
 
-    Square screenField[][];
+    Square Grid[][];
 
     int testArray[][] = new int[numRows][numColumns];
     int row=0;
@@ -108,13 +108,14 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     }
 
-    public void updatescreenField(int [][] array, int num){
-        screenField = new Square[numRows][numColumns];
+    public void updateGrid(int [][] array, int num){
+        Grid = new Square[numRows][numColumns];
 
         for(int i=0; i<getNumRows(); i++){
             for(int j=0; j<getNumColumns(); j++){
                 if(array[i][j]!=0){
-                    screenField[i][j] = new Square(j, i, getCanvasWidth(), getCanvasHeight(), getNumColumns(), getNumRows());
+                    //j is x coordinate, i is y coordinate, also passing in width, height, columns, and rows to compute coordinates (x1,y1) and (x2,y2) for square area on grid
+                    Grid[i][j] = new Square(j, i, getCanvasWidth(), getCanvasHeight(), getNumColumns(), getNumRows());
                 }
             }
         }
@@ -129,8 +130,8 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
         }
     }
 
-    public Square[][] getscreenField(){
-        return screenField;
+    public Square[][] getGrid(){
+        return Grid;
     }
 
 
@@ -168,15 +169,15 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     private void drawBoard(Canvas canvas){
 
-        updatescreenField(testArray, 0);
+        updateGrid(testArray, 0);
         Paint p = new Paint();
         p.setColor(Color.GREEN);
 
         for(int i=0; i<numRows; i++){
             for(int j=0; j<numColumns; j++){
-                if(screenField[i][j]!=null){
+                if(Grid[i][j]!=null){
                     Rect rect = new Rect();
-                    rect.set(screenField[i][j].x1,screenField[i][j].y1,screenField[i][j].x2,screenField[i][j].y2);
+                    rect.set(Grid[i][j].x1,Grid[i][j].y1,Grid[i][j].x2,Grid[i][j].y2);
                     canvas.drawRect(rect, p);
                 }
             }
