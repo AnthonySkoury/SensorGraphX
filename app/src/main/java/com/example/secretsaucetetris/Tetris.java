@@ -13,7 +13,7 @@ public class Tetris extends Thread{
     public Tetris(MyCanvas sv) {
         this.sv=sv;
     }
-    /*
+
     public void run() {
         SurfaceHolder sh = sv.getHolder();
 // Main game loop.
@@ -22,7 +22,7 @@ public class Tetris extends Thread{
             Canvas c = sh.lockCanvas(null);
             try {
                 synchronized(sh) {
-                    sv.draw(c);
+                    sv.onDraw(c);
                 }
             } catch (Exception e) {
             } finally {
@@ -39,6 +39,6 @@ public class Tetris extends Thread{
             }
         }
     }
-*/
+
 
 }

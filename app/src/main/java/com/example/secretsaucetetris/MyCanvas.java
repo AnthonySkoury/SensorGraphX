@@ -5,7 +5,9 @@ import android.view.*;
 import android.content.*;
 import android.graphics.*;
 import android.support.annotation.Nullable;
-public class MyCanvas extends View{
+
+
+public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
 
     private int canvasWidth;
@@ -19,27 +21,37 @@ public class MyCanvas extends View{
 
     Square screenField[][];
 
+    int testArray[][] = new int[numRows][numColumns];
+    int xpos=0;
+    int ypos=0;
+
+    Tetris thread;
+
     public MyCanvas(Context context) {
         super(context);
-        //getHolder().addCallback(this);
+        getHolder().addCallback(this);
+        setFocusable(true);
         init(null);
     }
 
     public MyCanvas(Context context, AttributeSet attrs) {
         super(context, attrs);
-
+        getHolder().addCallback(this);
+        setFocusable(true);
         init(attrs);
     }
 
     public MyCanvas(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
+        getHolder().addCallback(this);
+        setFocusable(true);
         init(attrs);
     }
 
     public MyCanvas(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-
+        getHolder().addCallback(this);
+        setFocusable(true);
         init(attrs);
     }
 
@@ -51,6 +63,22 @@ public class MyCanvas extends View{
         if (set == null)
             return;
 
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder){
+        thread = new Tetris(this);
+        thread.start();
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height){
+
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder){
+      thread.interrupt();
     }
 
     @Override
@@ -81,7 +109,7 @@ public class MyCanvas extends View{
     }
 
     public void updatescreenField(int [][] array, int num){
-        screenField = new Square[20][10];
+        screenField = new Square[numRows][numColumns];
 
         for(int i=0; i<getNumRows(); i++){
             for(int j=0; j<getNumColumns(); j++){
@@ -92,11 +120,23 @@ public class MyCanvas extends View{
         }
     }
 
+    public void updateTestArray(int motion){
+        System.out.println("Button Pressed");
+        if(motion==1){
+            if(ypos<20){
+                testArray[xpos][++ypos]=1;
+            }
+        }
+    }
+
+    public Square[][] getscreenField(){
+        return screenField;
+    }
 
 
     @Override
     protected void onDraw(Canvas canvas) {
-
+        canvas.drawColor(Color.WHITE);
         drawGrid(canvas);
         drawBoard(canvas);
 
@@ -128,6 +168,21 @@ public class MyCanvas extends View{
 
     private void drawBoard(Canvas canvas){
 
+       updatescreenField(testArray, 0);
+        Paint p = new Paint();
+        p.setColor(Color.GREEN);
+
+        for(int i=0; i<numRows; i++){
+            for(int j=0; j<numColumns; j++){
+                if(screenField[i][j]!=null){
+                    Rect rect = new Rect();
+                    rect.set(screenField[i][j].x1,screenField[i][j].y1,screenField[i][j].x2,screenField[i][j].y2);
+                    canvas.drawRect(rect, p);
+                }
+            }
+        }
+
+        /*
         Paint p = new Paint();
         p.setColor(Color.GREEN);
 
@@ -149,6 +204,7 @@ public class MyCanvas extends View{
 
         rect.set(canvasWidth/10,canvasHeight/20,2*canvasWidth/10,2*canvasHeight/20);
         canvas.drawRect(rect, p);
+        */
 
     }
 

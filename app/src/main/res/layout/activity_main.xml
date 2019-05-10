@@ -7,20 +7,67 @@
     tools:context=".MainActivity">
 
     <com.example.secretsaucetetris.MyCanvas
+        android:id="@+id/MyCanvas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="26dp"
+        android:layout_height="579dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="36dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_left"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/MyCanvas"
+        android:layout_marginTop="624dp"
+        android:layout_marginEnd="264dp"
+        android:text="Left"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_rotate"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/MyCanvas"
+        android:layout_marginTop="624dp"
+        android:layout_marginEnd="184dp"
+        android:text="Rotate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_down"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/MyCanvas"
+        android:layout_marginTop="624dp"
+        android:layout_marginEnd="104dp"
+        android:text="Down"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_right"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/MyCanvas"
+        android:layout_marginTop="624dp"
+        android:layout_marginEnd="24dp"
+        android:text="Right"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="Score: "
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
