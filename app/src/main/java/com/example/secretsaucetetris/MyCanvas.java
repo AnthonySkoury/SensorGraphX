@@ -22,8 +22,8 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
     Square screenField[][];
 
     int testArray[][] = new int[numRows][numColumns];
-    int xpos=0;
-    int ypos=0;
+    int row=0;
+    int col=0;
 
     Tetris thread;
 
@@ -114,7 +114,7 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
         for(int i=0; i<getNumRows(); i++){
             for(int j=0; j<getNumColumns(); j++){
                 if(array[i][j]!=0){
-                    screenField[i][j] = new Square(i, j, getCanvasWidth(), getCanvasHeight(), getNumColumns(), getNumRows());
+                    screenField[i][j] = new Square(j, i, getCanvasWidth(), getCanvasHeight(), getNumColumns(), getNumRows());
                 }
             }
         }
@@ -123,8 +123,8 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
     public void updateTestArray(int motion){
         System.out.println("Button Pressed");
         if(motion==1){
-            if(ypos<20){
-                testArray[xpos][++ypos]=1;
+            if(row<20){
+                testArray[row++][col]=1;
             }
         }
     }
@@ -168,7 +168,7 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     private void drawBoard(Canvas canvas){
 
-       updatescreenField(testArray, 0);
+        updatescreenField(testArray, 0);
         Paint p = new Paint();
         p.setColor(Color.GREEN);
 

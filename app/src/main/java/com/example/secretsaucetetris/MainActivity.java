@@ -32,7 +32,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_down).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                m.updateTestArray(1);
+                if(m.row<20) {
+                    m.updateTestArray(1);
+                }
             }
         });
 
