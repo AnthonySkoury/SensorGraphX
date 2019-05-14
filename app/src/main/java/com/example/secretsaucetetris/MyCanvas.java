@@ -10,8 +10,8 @@ import android.support.annotation.Nullable;
 public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
 
-    private int canvasWidth;
-    private int canvasHeight;
+    private float canvasWidth;
+    private float canvasHeight;
 
     private Paint defPaint = new Paint();
     private Paint linePaint = new Paint();
@@ -88,11 +88,11 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
         super.onSizeChanged(canvasWidth, canvasHeight, oldWidth, oldHeight);
     }
 
-    public int getCanvasWidth(){
+    public float getCanvasWidth(){
         return canvasWidth;
     }
 
-    public int getCanvasHeight(){
+    public float getCanvasHeight(){
         return canvasHeight;
     }
 
@@ -108,14 +108,14 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     }
 
-    public void updateGrid(int [][] array, int num){
+    public void updateGrid(TestGame array){
         Grid = new Square[numRows][numColumns];
 
         for(int i=0; i<getNumRows(); i++){
             for(int j=0; j<getNumColumns(); j++){
-                if(array[i][j]!=0){
+                if(array.boardArray[i][j]!=0){
                     //j is x coordinate, i is y coordinate, also passing in width, height, columns, and rows to compute coordinates (x1,y1) and (x2,y2) for square area on grid
-                    Grid[i][j] = new Square(j, i, getCanvasWidth(), getCanvasHeight(), getNumColumns(), getNumRows());
+                    Grid[i][j] = new Square(j, i, getCanvasWidth(), getCanvasHeight(), getNumColumns(), getNumRows(), array.boardArray[i][j]);
                 }
             }
         }
@@ -132,6 +132,36 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     public Square[][] getGrid(){
         return Grid;
+    }
+
+    private Paint colorCode(Paint p, int code){
+        switch(code){
+            case 1:
+                p.setColor(Color.RED);
+                break;
+            case 2:
+                p.setColor(Color.YELLOW);
+                break;
+            case 3:
+                p.setColor(Color.MAGENTA);
+                break;
+            case 4:
+                p.setColor(Color.BLACK);
+                break;
+            case 5:
+                p.setColor(Color.BLUE);
+                break;
+            case 6:
+                p.setColor(Color.CYAN);
+                break;
+            case 7:
+                p.setColor(Color.GRAY);
+                break;
+            default:
+                p.setColor(Color.LTGRAY);
+                break;
+        }
+        return p;
     }
 
 
@@ -151,8 +181,8 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
   //      canvas.drawLine(getCanvasWidth()/numColumns, 0, getCanvasWidth()/numColumns, getCanvasHeight(), linePaint);
 
-        int width = getCanvasWidth();
-        int height = getCanvasHeight();
+        float width = getCanvasWidth();
+        float height = getCanvasHeight();
         // Vertical lines
         for (int i = 0; i < numColumns; i++) {
             canvas.drawLine(width * i / numColumns, 0, width * i / numColumns, height, linePaint);
@@ -169,15 +199,16 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     private void drawBoard(Canvas canvas){
 
-        updateGrid(testArray, 0);
+        //updateGrid(testArray, 0);
         Paint p = new Paint();
-        p.setColor(Color.GREEN);
+        //p.setColor(Color.GREEN);
 
         for(int i=0; i<numRows; i++){
             for(int j=0; j<numColumns; j++){
                 if(Grid[i][j]!=null){
-                    Rect rect = new Rect();
+                    RectF rect = new RectF();
                     rect.set(Grid[i][j].x1,Grid[i][j].y1,Grid[i][j].x2,Grid[i][j].y2);
+                    p = colorCode(p, Grid[i][j].colorCode);
                     canvas.drawRect(rect, p);
                 }
             }

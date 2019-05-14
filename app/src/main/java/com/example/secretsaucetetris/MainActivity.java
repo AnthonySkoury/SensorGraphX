@@ -9,6 +9,7 @@ public class MainActivity extends AppCompatActivity {
 
     int count=0;
     MyCanvas Screen;
+    TestGame arr = new TestGame(20,10);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,18 +19,23 @@ public class MainActivity extends AppCompatActivity {
 
         Screen = (MyCanvas) findViewById(R.id.MyCanvas);
 
+
         //Buttons
         findViewById(R.id.btn_left).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+               arr.defaultArray();
+               arr.modifyArray(1);
+               Screen.updateGrid(arr);
             }
         });
 
         findViewById(R.id.btn_rotate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                arr.defaultArray();
+                arr.modifyArray(3);
+                Screen.updateGrid(arr);
             }
         });
 
@@ -45,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_right).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                arr.defaultArray();
+                arr.modifyArray(2);
+                Screen.updateGrid(arr);
             }
         });
 

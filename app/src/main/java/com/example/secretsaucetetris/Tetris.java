@@ -19,6 +19,7 @@ public class Tetris extends Thread{
 // Main game loop.
         while( !Thread.interrupted() ) {
 //You might want to do game specific processing in a method you call here
+
             Canvas c = sh.lockCanvas(null);
             try {
                 synchronized(sh) {
