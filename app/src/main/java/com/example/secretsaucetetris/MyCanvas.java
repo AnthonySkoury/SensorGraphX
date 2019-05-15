@@ -108,14 +108,14 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     }
 
-    public void updateGrid(TestGame array){
+    public void updateGrid(int [][] array){
         Grid = new Square[numRows][numColumns];
 
         for(int i=0; i<getNumRows(); i++){
             for(int j=0; j<getNumColumns(); j++){
-                if(array.boardArray[i][j]!=0){
+                if(array[i][j]!=0){
                     //j is x coordinate, i is y coordinate, also passing in width, height, columns, and rows to compute coordinates (x1,y1) and (x2,y2) for square area on grid
-                    Grid[i][j] = new Square(j, i, getCanvasWidth(), getCanvasHeight(), getNumColumns(), getNumRows(), array.boardArray[i][j]);
+                    Grid[i][j] = new Square(j, i, getCanvasWidth(), getCanvasHeight(), getNumColumns(), getNumRows(), array[i][j]);
                 }
             }
         }

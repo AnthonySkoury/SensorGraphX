@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity {
     int count=0;
     MyCanvas Screen;
     TestGame arr = new TestGame(20,10);
+    Board board = new Board();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,36 +25,38 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_left).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               arr.defaultArray();
-               arr.modifyArray(1);
-               Screen.updateGrid(arr);
+              // arr.defaultArray();
+              // arr.modifyArray(1);
+                board.moveLeft();
+                board.updateBoardWithProjection();
+               Screen.updateGrid(board.getBoard_with_projection());
             }
         });
 
         findViewById(R.id.btn_rotate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arr.defaultArray();
-                arr.modifyArray(3);
-                Screen.updateGrid(arr);
+                board.rotate();
+                board.updateBoardWithProjection();
+                Screen.updateGrid(board.getBoard_with_projection());
             }
         });
 
         findViewById(R.id.btn_down).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Screen.row<20) {
-                    Screen.updateTestArray(1);
-                }
+                board.moveDown();
+                board.updateBoardWithProjection();
+                Screen.updateGrid(board.getBoard_with_projection());
             }
         });
 
         findViewById(R.id.btn_right).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arr.defaultArray();
-                arr.modifyArray(2);
-                Screen.updateGrid(arr);
+                board.moveRight();
+                board.updateBoardWithProjection();
+                Screen.updateGrid(board.getBoard_with_projection());
             }
         });
 
@@ -73,8 +76,11 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void run() {
+                                board.tick();
+                                board.updateBoardWithProjection();
                                 count++;
                                 String tmp = "Score: "+String.valueOf(count);
+                                Screen.updateGrid(board.getBoard_with_projection());
                                 scoreText.setText(tmp);
                             }
                         });
@@ -103,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void run() {
-                                count++;
+                                //count++;
                                 String tmp = "Next Piece: "+String.valueOf(count);
                                 nextPieceText.setText(tmp);
                             }
