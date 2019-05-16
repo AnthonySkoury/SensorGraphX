@@ -148,7 +148,7 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
                 p.setColor(Color.MAGENTA);
                 break;
             case 4:
-                p.setColor(Color.BLACK);
+                p.setColor(Color.rgb(255, 140, 0));
                 break;
             case 5:
                 p.setColor(Color.BLUE);

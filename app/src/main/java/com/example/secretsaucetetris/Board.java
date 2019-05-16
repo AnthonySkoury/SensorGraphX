@@ -23,9 +23,13 @@ public class Board {
         board_with_projection = new int[M][N];
         a = new int[4][2];//0 corresponds to x; 1 corresponds to y
         b = new int[4][2];
-        pieceType = 0;
+        pieceType = generateRandomNumber(0,6);
         rotateState =0;
         this.set_projection_figure(pieceType);
+        this.moveRight();
+        this.moveRight();
+        this.moveRight();
+        this.moveRight();
         this.updateBoardWithProjection();
     }
     public void printBoard(){
@@ -128,16 +132,12 @@ public class Board {
         }
         /*if(pieceType == 0){
             if(rotateState == 0){
-
             }
             else if(rotateState == 1){
-
             }
             else if(rotateState == 2){
-
             }
             else{
-
             }
         }*/
         int center_x = a[1][0];
@@ -166,15 +166,19 @@ public class Board {
             a[i][1] += direction; //shift y value down
         }
         if(!check()){//if the check fails, revert back to original state
-            updateBoard(b,5);//need to update with color-------------------
+            updateBoard(b,generateRandomNumber(1, 7));//need to update with color-------------------
             for(int i = 0; i < board.length; i++){
                 if(checkRow(i)){
                     clearRowAndShiftAllDown(i);
                 }
             }
-            pieceType = 0;
+            pieceType = generateRandomNumber(0, 6);//next piece is generated
             rotateState = 0;
             set_projection_figure(pieceType);
+            moveRight();
+            moveRight();
+            moveRight();
+            moveRight();
         }
     }
 
@@ -200,5 +204,8 @@ public class Board {
         for (int j = 0; j < board[0].length; j++){//push in row of zeros for top row
             board[0][j] = 0;
         }
+    }
+    public int generateRandomNumber(int min, int max){
+        return (int)(Math.random() * ((max - min) + 1)) + min;
     }
 }
