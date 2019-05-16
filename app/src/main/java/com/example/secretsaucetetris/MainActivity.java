@@ -97,32 +97,7 @@ public class MainActivity extends AppCompatActivity {
         //Next Piece Thread *USE IMAGE VIEW INSTEAD OF TEXT VIEW
         final TextView nextPieceText = (TextView)findViewById(R.id.nextpiece);
 
-        Thread tNextPiece=new Thread(){
-            @Override
-            public void run(){
 
-                while(!isInterrupted()){
-
-                    try {
-                        Thread.sleep(1000);  //1000ms = 1 sec
-
-                        runOnUiThread(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                //count++;
-                                String tmp = "Next Piece: "+String.valueOf(count);
-                                nextPieceText.setText(tmp);
-                            }
-                        });
-
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
-        tNextPiece.start();
 
     }
 }
