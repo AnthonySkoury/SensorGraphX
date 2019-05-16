@@ -10,8 +10,8 @@ import android.support.annotation.Nullable;
 public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
 
-    private float canvasWidth;
-    private float canvasHeight;
+    private int canvasWidth;
+    private int canvasHeight;
 
     private Paint defPaint = new Paint();
     private Paint linePaint = new Paint();
@@ -86,13 +86,15 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         super.onSizeChanged(canvasWidth, canvasHeight, oldWidth, oldHeight);
+        System.out.println("canvas width is " + oldWidth);
+        System.out.println("Canvas height is " + oldHeight);
     }
 
-    public float getCanvasWidth(){
+    public int getCanvasWidth(){
         return canvasWidth;
     }
 
-    public float getCanvasHeight(){
+    public int getCanvasHeight(){
         return canvasHeight;
     }
 
@@ -181,18 +183,18 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
   //      canvas.drawLine(getCanvasWidth()/numColumns, 0, getCanvasWidth()/numColumns, getCanvasHeight(), linePaint);
 
-        float width = getCanvasWidth();
-        float height = getCanvasHeight();
+        int width = getCanvasWidth();
+        int height = getCanvasHeight();
         // Vertical lines
         for (int i = 0; i < numColumns; i++) {
-            canvas.drawLine(width * i / numColumns, 0, width * i / numColumns, height, linePaint);
+            canvas.drawLine((i * width) / numColumns, 0, (i * width) / numColumns, height, linePaint);
         }
 
         canvas.drawLine(width-1, 0, width-1, height, linePaint);
 
         // Horizontal lines
         for (int i = 0; i < numRows; i++) {
-            canvas.drawLine(0, height * i / numRows, width, height * i / numRows, linePaint);
+            canvas.drawLine(0, (i * height) / numRows, width, (i * height) / numRows, linePaint);
         }
 
     }
@@ -206,7 +208,7 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
         for(int i=0; i<numRows; i++){
             for(int j=0; j<numColumns; j++){
                 if(Grid[i][j]!=null){
-                    RectF rect = new RectF();
+                    Rect rect = new Rect();
                     rect.set(Grid[i][j].x1,Grid[i][j].y1,Grid[i][j].x2,Grid[i][j].y2);
                     p = colorCode(p, Grid[i][j].colorCode);
                     canvas.drawRect(rect, p);

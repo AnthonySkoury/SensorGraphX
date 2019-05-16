@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                                 String tmp = "Score: "+String.valueOf(count);
                                 Screen.updateGrid(board.getBoard_with_projection());
                                 scoreText.setText(tmp);
+
                             }
                         });
 
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         };
         tScore.start();
 
-        //Next Piece Thread
+        //Next Piece Thread *USE IMAGE VIEW INSTEAD OF TEXT VIEW
         final TextView nextPieceText = (TextView)findViewById(R.id.nextpiece);
 
         Thread tNextPiece=new Thread(){

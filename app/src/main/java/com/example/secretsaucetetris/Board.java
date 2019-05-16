@@ -1,6 +1,8 @@
 package com.example.secretsaucetetris;
 
 public class Board {
+    private int pieceType;
+    private int rotateState;
     private int M = 20;
     private int N = 10;
     private int board[][];
@@ -21,7 +23,9 @@ public class Board {
         board_with_projection = new int[M][N];
         a = new int[4][2];//0 corresponds to x; 1 corresponds to y
         b = new int[4][2];
-        this.set_projection_figure(0);
+        pieceType = 0;
+        rotateState =0;
+        this.set_projection_figure(pieceType);
         this.updateBoardWithProjection();
     }
     public void printBoard(){
@@ -122,19 +126,36 @@ public class Board {
             b[i][0]=a[i][0];//store b to hold old a values
             b[i][1]=a[i][1];
         }
+        /*if(pieceType == 0){
+            if(rotateState == 0){
+
+            }
+            else if(rotateState == 1){
+
+            }
+            else if(rotateState == 2){
+
+            }
+            else{
+
+            }
+        }*/
         int center_x = a[1][0];
         int center_y = a[1][1];
         for (int i=0; i <a.length; i++){
             int diff_x = a[i][1] - center_y;
             int diff_y = a[i][0] - center_x;
             a[i][0] = center_x - diff_x;
-            a[i][1] = center_y - diff_y;
+            a[i][1] = center_y + diff_y;
         }
         if(!check()){//if check fails, revert back to original state
             for(int i=0; i<a.length; i++){
                 a[i][0] = b[i][0];
                 a[i][1] = b[i][1];
             }
+        }
+        else{
+            rotateState = (rotateState + 1)%4;
         }
     }
     public void tick(){
@@ -146,11 +167,38 @@ public class Board {
         }
         if(!check()){//if the check fails, revert back to original state
             updateBoard(b,5);//need to update with color-------------------
-            set_projection_figure(2);
+            for(int i = 0; i < board.length; i++){
+                if(checkRow(i)){
+                    clearRowAndShiftAllDown(i);
+                }
+            }
+            pieceType = 0;
+            rotateState = 0;
+            set_projection_figure(pieceType);
         }
     }
 
     public int[][] getBoard_with_projection() {
         return board_with_projection;
+    }
+    public boolean checkRow(int rowToCheck){
+        boolean full = true;
+        for(int i = 0; i < board[0].length; i++) {//check if board.length or board[0].length
+            if (board[rowToCheck][i] == 0) {
+                full = false;
+                break;
+            }
+        }
+        return full;
+    }
+    public void clearRowAndShiftAllDown(int rowToCheck){
+        for(int i = rowToCheck; i > 0; i--){
+            for(int j = 0; j < board[0].length; j++){
+                board[i][j] = board[i-1][j];
+            }
+        }
+        for (int j = 0; j < board[0].length; j++){//push in row of zeros for top row
+            board[0][j] = 0;
+        }
     }
 }
