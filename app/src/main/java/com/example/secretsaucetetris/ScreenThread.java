@@ -7,10 +7,10 @@ import android.content.*;
 import android.graphics.*;
 import android.support.annotation.Nullable;
 
-public class Tetris extends Thread{
+public class ScreenThread extends Thread{
 
     MyCanvas sv;
-    public Tetris(MyCanvas sv) {
+    public ScreenThread(MyCanvas sv) {
         this.sv=sv;
     }
 

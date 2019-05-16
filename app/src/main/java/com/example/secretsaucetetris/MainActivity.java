@@ -3,6 +3,7 @@ package com.example.secretsaucetetris;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -12,21 +13,19 @@ public class MainActivity extends AppCompatActivity {
     TestGame arr = new TestGame(20,10);
     Board board = new Board();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Screen = (MyCanvas) findViewById(R.id.MyCanvas);
 
-
         //Buttons
         findViewById(R.id.btn_left).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              // arr.defaultArray();
-              // arr.modifyArray(1);
                 board.moveLeft();
                 board.updateBoardWithProjection();
                Screen.updateGrid(board.getBoard_with_projection());
@@ -60,20 +59,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Score Thread
-        final TextView scoreText = (TextView)findViewById(R.id.score);
 
-        Thread tScore=new Thread(){
+        //Score Thread
+        final TextView GameState = (TextView)findViewById(R.id.score);
+
+        Thread tGame=new Thread(){
             @Override
             public void run(){
-
                 while(!isInterrupted()){
-
                     try {
                         Thread.sleep(1000);  //1000ms = 1 sec
 
                         runOnUiThread(new Runnable() {
-
                             @Override
                             public void run() {
                                 board.tick();
@@ -81,22 +78,43 @@ public class MainActivity extends AppCompatActivity {
                                 count++;
                                 String tmp = "Score: "+String.valueOf(count);
                                 Screen.updateGrid(board.getBoard_with_projection());
-                                scoreText.setText(tmp);
-
+                                GameState.setText(tmp);
                             }
                         });
-
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }
         };
-        tScore.start();
+        tGame.start();
 
-        //Next Piece Thread *USE IMAGE VIEW INSTEAD OF TEXT VIEW
-        final TextView nextPieceText = (TextView)findViewById(R.id.nextpiece);
+        final ImageView nextPiece = (ImageView)findViewById(R.id.nextpiece);
+        Thread tnextPiece=new Thread(){
+            @Override
+            public void run(){
+                while(!isInterrupted()){
+                    try {
+                        Thread.sleep(1000);  //1000ms = 1 sec
 
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(count%2==0) {
+                                    nextPiece.setImageResource(R.drawable.j_block);
+                                }
+                                else{
+                                    nextPiece.setImageResource(R.drawable.t_block);
+                                }
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        tnextPiece.start();
 
 
     }

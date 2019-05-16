@@ -25,7 +25,7 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
     int row=0;
     int col=0;
 
-    Tetris thread;
+    ScreenThread thread;
 
     public MyCanvas(Context context) {
         super(context);
@@ -67,7 +67,7 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     @Override
     public void surfaceCreated(SurfaceHolder holder){
-        thread = new Tetris(this);
+        thread = new ScreenThread(this);
         thread.start();
     }
 
