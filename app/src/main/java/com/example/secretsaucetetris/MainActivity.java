@@ -19,16 +19,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        StartGame();
 
+    }
+
+    protected void StartGame(){
         Screen = (MyCanvas) findViewById(R.id.MyCanvas);
 
         //Buttons
+        Buttons();
+
+        //GameThread
+        GameThread();
+    }
+
+    protected void Buttons(){
         findViewById(R.id.btn_left).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 board.moveLeft();
                 board.updateBoardWithProjection();
-               Screen.updateGrid(board.getBoard_with_projection());
+                Screen.updateGrid(board.getBoard_with_projection());
             }
         });
 
@@ -58,10 +69,12 @@ public class MainActivity extends AppCompatActivity {
                 Screen.updateGrid(board.getBoard_with_projection());
             }
         });
+    }
 
+    protected void GameThread(){
 
-        //Score Thread
         final TextView GameState = (TextView)findViewById(R.id.score);
+        final ImageView nextPiece = (ImageView)findViewById(R.id.nextpiece);
 
         Thread tGame=new Thread(){
             @Override
@@ -79,27 +92,7 @@ public class MainActivity extends AppCompatActivity {
                                 String tmp = "Score: "+String.valueOf(count);
                                 Screen.updateGrid(board.getBoard_with_projection());
                                 GameState.setText(tmp);
-                            }
-                        });
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
-        tGame.start();
 
-        final ImageView nextPiece = (ImageView)findViewById(R.id.nextpiece);
-        Thread tnextPiece=new Thread(){
-            @Override
-            public void run(){
-                while(!isInterrupted()){
-                    try {
-                        Thread.sleep(1000);  //1000ms = 1 sec
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
                                 if(count%2==0) {
                                     nextPiece.setImageResource(R.drawable.j_block);
                                 }
@@ -114,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-        tnextPiece.start();
-
+        tGame.start();
 
     }
+
 }
