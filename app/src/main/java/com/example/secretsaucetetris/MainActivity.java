@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         song = MediaPlayer.create(getApplicationContext(), R.raw.tetris);
         song.start();
         song.setLooping(true);
-        
+
         Screen = (MyCanvas) findViewById(R.id.MyCanvas);
 
         //Buttons
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             public void run(){
                 while(!isInterrupted()){
                     try {
-                        Thread.sleep(1000);  //1000ms = 1 sec
+                        Thread.sleep(750);  //1000ms = 1 sec
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -94,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
                                 board.tick();
                                 board.updateBoardWithProjection();
                                 count++;
-                                String tmp = "Score: "+String.valueOf(count);
+                                int score = board.getScore();
+                                String tmp = "Score: "+String.valueOf(score);
                                 Screen.updateGrid(board.getBoard_with_projection());
                                 GameState.setText(tmp);
 

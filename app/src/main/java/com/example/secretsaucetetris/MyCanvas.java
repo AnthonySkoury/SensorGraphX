@@ -5,6 +5,7 @@ import android.view.*;
 import android.content.*;
 import android.graphics.*;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 
 public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
@@ -214,11 +215,16 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
         for(int i=0; i<numRows; i++){
             for(int j=0; j<numColumns; j++){
-                if(Grid[i][j]!=null){
-                    Rect rect = new Rect();
-                    rect.set(Grid[i][j].x1,Grid[i][j].y1,Grid[i][j].x2,Grid[i][j].y2);
-                    p = colorCode(p, Grid[i][j].colorCode);
-                    canvas.drawRect(rect, p);
+                try {
+                    if (Grid[i][j] != null) {
+                        Rect rect = new Rect();
+                        rect.set(Grid[i][j].x1, Grid[i][j].y1, Grid[i][j].x2, Grid[i][j].y2);
+                        p = colorCode(p, Grid[i][j].colorCode);
+                        canvas.drawRect(rect, p);
+                    }
+                }
+                catch (NullPointerException e){
+                    System.out.println("NullPo");
                 }
             }
         }

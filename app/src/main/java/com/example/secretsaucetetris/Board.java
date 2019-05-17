@@ -1,6 +1,7 @@
 package com.example.secretsaucetetris;
 
 public class Board {
+    private int score=0;
     private int pieceType;
     private int rotateState;
     private int M = 20;
@@ -167,11 +168,18 @@ public class Board {
         }
         if(!check()){//if the check fails, revert back to original state
             updateBoard(b,generateRandomNumber(1, 7));//need to update with color-------------------
+            int count = 0;
             for(int i = 0; i < board.length; i++){
                 if(checkRow(i)){
                     clearRowAndShiftAllDown(i);
+                    count++;
+                    score+=100;
                 }
             }
+            if(count!=0) {
+                score = score * count;
+            }
+            score+=10;
             pieceType = generateRandomNumber(0, 6);//next piece is generated
             rotateState = 0;
             set_projection_figure(pieceType);
@@ -207,5 +215,9 @@ public class Board {
     }
     public int generateRandomNumber(int min, int max){
         return (int)(Math.random() * ((max - min) + 1)) + min;
+    }
+
+    public int getScore(){
+        return score;
     }
 }
