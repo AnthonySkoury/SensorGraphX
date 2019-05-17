@@ -10,7 +10,8 @@ public class Board {
     private int board_with_projection[][];
     private int a[][];//0 corresponds to x; 1 corresponds to y
     private int b[][];
-    int nextPiece;
+    private int nextPiece;
+    private boolean gameOver;
     private int figures[][] = {
             {1,3,5,7}, // I
             {2,4,5,7}, // Z
@@ -21,6 +22,7 @@ public class Board {
             {2,3,4,5}, // O
     };
     public Board(){
+        gameOver = false; //intialize game over to false
         board = new int[M][N];
         board_with_projection = new int[M][N];
         a = new int[4][2];//0 corresponds to x; 1 corresponds to y
@@ -54,7 +56,7 @@ public class Board {
         }
         //update according to projection
         for(int i=0; i<a.length; i++){
-            board_with_projection[a[i][1]][a[i][0]] = 9;//set to 9 as test value
+            board_with_projection[a[i][1]][a[i][0]] = pieceType+1;//set to 9 as test value
         }
     }
     public void printBoardWithProjection(){
@@ -196,6 +198,9 @@ public class Board {
             moveRight();
             moveRight();
             moveRight();
+            if(!check()){//if there is a collision on attemped spawn
+                gameOver=true;
+            }
         }
     }
 
@@ -240,5 +245,8 @@ public class Board {
     }
     public int getPieceType(){
         return pieceType;
+    }
+    public boolean getGameOver(){//if returns true if game is over
+        return gameOver;
     }
 }
