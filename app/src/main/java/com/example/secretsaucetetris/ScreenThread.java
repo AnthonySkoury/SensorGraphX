@@ -33,7 +33,7 @@ public class ScreenThread extends Thread{
             }
 // Set the frame rate by setting this delay
             try {
-                Thread.sleep(1);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
 // Thread was interrupted while sleeping.
                 return;
