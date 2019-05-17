@@ -1,17 +1,17 @@
 package com.example.secretsaucetetris;
 
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    int count=0;
     MyCanvas Screen;
-    //TestGame arr = new TestGame(20,10);
     Board board = new Board();
     MediaPlayer song;
 
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         GameThread();
     }
 
+    //All 5 buttons
     protected void Buttons(){
         findViewById(R.id.btn_left).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.restart).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"Restarting Game, your score was: "+String.valueOf(board.getScore()), Toast.LENGTH_LONG).show();
                 board = new Board();
             }
         });
@@ -98,9 +100,12 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                if(board.getGameOver()){
+                                    Toast.makeText(MainActivity.this,"Game Over, your score was: "+String.valueOf(board.getScore())+" Restarting Game...", Toast.LENGTH_LONG).show();
+                                    board = new Board();
+                                }
                                 board.tick();
                                 board.updateBoardWithProjection();
-                                count++;
                                 int score = board.getScore();
                                 String tmp = "Score: "+String.valueOf(score);
                                 Screen.updateGrid(board.getBoard_with_projection());

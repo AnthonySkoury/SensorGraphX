@@ -35,6 +35,10 @@ public class Board {
         this.unconditionalMoveRight();
         this.unconditionalMoveRight();
         this.unconditionalMoveRight();
+       if(pieceType != 0) {
+           unconditionalMoveUp();
+       }
+
         //this.unconditionalMoveUp();
         this.updateBoardWithProjection();
     }
@@ -83,13 +87,13 @@ public class Board {
     }
     public boolean check()//determine whether a collision will occur
     {
-        for (int i=0;i<4;i++)
-            if (a[i][0]<0 || a[i][0]>=N || a[i][1]>=M) return false;//collision with edge
+        for (int i=0;i<4;i++) {
+            if (a[i][0] < 0 || a[i][0] >= N || a[i][1] >= M) return false;//collision with edge
             else if (board[a[i][1]][a[i][0]] != 0) return false;//collision with filled square
-
+        }
         return true;
     };
-    public void moveLeft(){ //direction must either be 1 or -1
+     public void moveLeft(){ //direction must either be 1 or -1
         int direction = -1;
         for(int i=0; i < a.length; i++){
             b[i][0]=a[i][0];//store b to hold old a values
@@ -103,7 +107,7 @@ public class Board {
             }
         }
     }
-    public void moveRight(){ //direction must either be 1 or -1
+     public void moveRight(){ //direction must either be 1 or -1
         int direction = 1;
         for(int i=0; i < a.length; i++){
             b[i][0]=a[i][0];//store b to hold old a values
@@ -117,7 +121,7 @@ public class Board {
             }
         }
     }
-    public void unconditionalMoveRight(){ //direction must either be 1 or -1
+     public void unconditionalMoveRight(){ //direction must either be 1 or -1
         int direction = 1;
         for(int i=0; i < a.length; i++){
             b[i][0]=a[i][0];//store b to hold old a values
@@ -125,7 +129,7 @@ public class Board {
             a[i][0] += direction;
         }
     }
-    public void moveDown(){
+     public void moveDown(){
         int direction = 1;
         for(int i=0; i < a.length; i++){
             b[i][0]=a[i][0];//store b to hold old a values
@@ -139,7 +143,7 @@ public class Board {
             }
         }
     }
-    public void unconditionalMoveUp(){
+     public void unconditionalMoveUp(){
         int direction = -1;
         for(int i=0; i < a.length; i++){
             b[i][0]=a[i][0];//store b to hold old a values
@@ -164,29 +168,30 @@ public class Board {
         }*/
         int center_x = a[1][0];
         int center_y = a[1][1];
-        for (int i=0; i <a.length; i++){
-            int diff_x = a[i][1] - center_y;
-            int diff_y = a[i][0] - center_x;
-            a[i][0] = center_x - diff_x;
-            a[i][1] = center_y + diff_y;
-        }
-        if(!check()){//if check fails, revert back to original state
-            for(int i=0; i<a.length; i++){
-                a[i][0] = b[i][0];
-                a[i][1] = b[i][1];
-            }
+        if((pieceType==0 || pieceType==4 || pieceType==5) && center_y<=1){
+            return;
         }
         if(pieceType == 6){//if the piece is a square, revert back to original state
-            for(int i=0; i<a.length; i++){
-                a[i][0] = b[i][0];
-                a[i][1] = b[i][1];
+
+        }
+        else {
+            for (int i = 0; i < a.length; i++) {
+                int diff_x = a[i][1] - center_y;
+                int diff_y = a[i][0] - center_x;
+                a[i][0] = center_x - diff_x;
+                a[i][1] = center_y + diff_y;
+            }
+            if (!check()) {//if check fails, revert back to original state
+                for (int i = 0; i < a.length; i++) {
+                    a[i][0] = b[i][0];
+                    a[i][1] = b[i][1];
+                }
+            } else {
+                rotateState = (rotateState + 1) % 4;
             }
         }
-        else{
-            rotateState = (rotateState + 1)%4;
-        }
     }
-    public void tick(){
+     public void tick(){
         int direction = 1;
         for(int i=0; i < a.length; i++){
             b[i][0]=a[i][0];//store b to hold old a values
