@@ -175,7 +175,7 @@ public class Board {
             a[i][1] += direction; //shift y value down
         }
         if(!check()){//if the check fails, revert back to original state
-            updateBoard(b,generateRandomNumber(1, 7));//need to update with color-------------------
+            updateBoard(b,pieceType+1);//need to update with color-------------------piecetype + 1 determines color
             int count = 0;
             for(int i = 0; i < board.length; i++){
                 if(checkRow(i)){
@@ -237,5 +237,8 @@ public class Board {
 
     public int getNextPiece(){
         return nextPiece;
+    }
+    public int getPieceType(){
+        return pieceType;
     }
 }
