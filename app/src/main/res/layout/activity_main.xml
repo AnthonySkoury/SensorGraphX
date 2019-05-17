@@ -26,6 +26,7 @@
         android:layout_marginTop="624dp"
         android:layout_marginEnd="264dp"
         android:text="@string/left"
+        android:state_pressed="true" android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,6 +38,7 @@
         android:layout_marginTop="624dp"
         android:layout_marginEnd="184dp"
         android:text="@string/rotate"
+        android:state_pressed="true" android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,6 +50,7 @@
         android:layout_marginTop="624dp"
         android:layout_marginEnd="104dp"
         android:text="@string/down"
+        android:state_pressed="true" android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,6 +62,7 @@
         android:layout_marginTop="624dp"
         android:layout_marginEnd="24dp"
         android:text="@string/right"
+        android:state_pressed="true" android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,6 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/score"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.043"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -79,6 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintHorizontal_bias="0.376"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -90,6 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:text="@string/nextpiece"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintHorizontal_bias="0.953"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -106,5 +113,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/i_block"
         android:contentDescription="@string/np_behavior" />
+
+    <Button
+        android:id="@+id/restart"
+        android:layout_width="80dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="172dp"
+        android:state_pressed="true" android:backgroundTint="@color/colorAccent"
+        android:text="@string/restart"
+        app:layout_constraintHorizontal_bias="0.993"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

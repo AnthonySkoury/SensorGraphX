@@ -8,4 +8,5 @@
     <string name="nextpiecetitle">Next Piece</string>
     <string name="nextpiece">Next Piece</string>
     <string name="np_behavior">Shows Next Piece</string>
+    <string name="restart">New Game</string>
 </resources>

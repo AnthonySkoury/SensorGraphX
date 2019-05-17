@@ -74,6 +74,13 @@ public class MainActivity extends AppCompatActivity {
                 Screen.updateGrid(board.getBoard_with_projection());
             }
         });
+
+        findViewById(R.id.restart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                board = new Board();
+            }
+        });
     }
 
     protected void GameThread(){
@@ -98,13 +105,7 @@ public class MainActivity extends AppCompatActivity {
                                 String tmp = "Score: "+String.valueOf(score);
                                 Screen.updateGrid(board.getBoard_with_projection());
                                 GameState.setText(tmp);
-
-                                if(count%2==0) {
-                                    nextPiece.setImageResource(R.drawable.j_block);
-                                }
-                                else{
-                                    nextPiece.setImageResource(R.drawable.t_block);
-                                }
+                                setNextPiece(nextPiece, board.getNextPiece());
                             }
                         });
                     } catch (InterruptedException e) {
@@ -115,6 +116,35 @@ public class MainActivity extends AppCompatActivity {
         };
         tGame.start();
 
+    }
+
+    public void setNextPiece(ImageView nextPiece, int flag){
+        switch(flag){
+            case 0:
+                nextPiece.setImageResource(R.drawable.i_block);
+                break;
+            case 1:
+                nextPiece.setImageResource(R.drawable.z_block);
+                break;
+            case 2:
+                nextPiece.setImageResource(R.drawable.s_block);
+                break;
+            case 3:
+                nextPiece.setImageResource(R.drawable.t_block);
+                break;
+            case 4:
+                nextPiece.setImageResource(R.drawable.l_block);
+                break;
+            case 5:
+                nextPiece.setImageResource(R.drawable.j_block);
+                break;
+            case 6:
+                nextPiece.setImageResource(R.drawable.o_block);
+                break;
+            default:
+                nextPiece.setImageResource(R.drawable.i_block);
+                break;
+        }
     }
 
 }
