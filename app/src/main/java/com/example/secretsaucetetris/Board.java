@@ -215,7 +215,8 @@ public class Board {
             unconditionalMoveRight();
             unconditionalMoveRight();
             unconditionalMoveRight();
-            //unconditionalMoveUp();
+            if(pieceType != 0)
+                unconditionalMoveUp();
             if(!check()){//if there is a collision on attempted spawn
                 gameOver=true;
             }
