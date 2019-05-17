@@ -35,7 +35,7 @@ public class Board {
         this.unconditionalMoveRight();
         this.unconditionalMoveRight();
         this.unconditionalMoveRight();
-        this.unconditionalMoveUp();
+        //this.unconditionalMoveUp();
         this.updateBoardWithProjection();
     }
     public void printBoard(){
@@ -215,7 +215,7 @@ public class Board {
             unconditionalMoveRight();
             unconditionalMoveRight();
             unconditionalMoveRight();
-            unconditionalMoveUp();
+            //unconditionalMoveUp();
             if(!check()){//if there is a collision on attempted spawn
                 gameOver=true;
             }
