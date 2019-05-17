@@ -35,6 +35,7 @@ public class Board {
         this.unconditionalMoveRight();
         this.unconditionalMoveRight();
         this.unconditionalMoveRight();
+        this.unconditionalMoveUp();
         this.updateBoardWithProjection();
     }
     public void printBoard(){
@@ -138,6 +139,14 @@ public class Board {
             }
         }
     }
+    public void unconditionalMoveUp(){
+        int direction = -1;
+        for(int i=0; i < a.length; i++){
+            b[i][0]=a[i][0];//store b to hold old a values
+            b[i][1]=a[i][1];
+            a[i][1] += direction; //shift y value up
+        }
+    }
     public void rotate(){ //rotate 90*
         for(int i=0; i < a.length; i++){
             b[i][0]=a[i][0];//store b to hold old a values
@@ -206,6 +215,7 @@ public class Board {
             unconditionalMoveRight();
             unconditionalMoveRight();
             unconditionalMoveRight();
+            unconditionalMoveUp();
             if(!check()){//if there is a collision on attempted spawn
                 gameOver=true;
             }
