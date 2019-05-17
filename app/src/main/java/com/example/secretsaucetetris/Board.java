@@ -31,10 +31,10 @@ public class Board {
         nextPiece = generateRandomNumber(0,6);
         rotateState =0;
         this.set_projection_figure(pieceType);
-        this.moveRight();
-        this.moveRight();
-        this.moveRight();
-        this.moveRight();
+        this.unconditionalMoveRight();
+        this.unconditionalMoveRight();
+        this.unconditionalMoveRight();
+        this.unconditionalMoveRight();
         this.updateBoardWithProjection();
     }
     public void printBoard(){
@@ -116,6 +116,14 @@ public class Board {
             }
         }
     }
+    public void unconditionalMoveRight(){ //direction must either be 1 or -1
+        int direction = 1;
+        for(int i=0; i < a.length; i++){
+            b[i][0]=a[i][0];//store b to hold old a values
+            b[i][1]=a[i][1];
+            a[i][0] += direction;
+        }
+    }
     public void moveDown(){
         int direction = 1;
         for(int i=0; i < a.length; i++){
@@ -194,11 +202,11 @@ public class Board {
             nextPiece = generateRandomNumber(0, 6);//new next piece is generated
             rotateState = 0;
             set_projection_figure(pieceType);
-            moveRight();
-            moveRight();
-            moveRight();
-            moveRight();
-            if(!check()){//if there is a collision on attemped spawn
+            unconditionalMoveRight();
+            unconditionalMoveRight();
+            unconditionalMoveRight();
+            unconditionalMoveRight();
+            if(!check()){//if there is a collision on attempted spawn
                 gameOver=true;
             }
         }
