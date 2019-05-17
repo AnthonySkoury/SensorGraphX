@@ -220,4 +220,9 @@ public class Board {
     public int getScore(){
         return score;
     }
+
+    public int setScore(int new_score){
+        this.score = new_score;
+        return score;
+    }
 }
