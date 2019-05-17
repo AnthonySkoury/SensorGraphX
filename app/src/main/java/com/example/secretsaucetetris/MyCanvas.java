@@ -19,6 +19,14 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
     private static final int numColumns=10;
     private static final int numRows=20;
 
+    private int purple_T = Color.rgb(128,0,128);
+    private int aqua_I = Color.rgb(0,255,255);
+    private int blue_J = Color.rgb(255,165,0);
+    private int orange_L = Color.rgb(255,165,0);
+    private int yellow_O = Color.rgb(255,255,0);
+    private int green_S = Color.rgb(0,255,0);
+    private int red_Z = Color.rgb(255,0,0);
+
     Square Grid[][];
 
     int testArray[][] = new int[numRows][numColumns];
@@ -139,25 +147,25 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
     private Paint colorCode(Paint p, int code){
         switch(code){
             case 1:
-                p.setColor(Color.RED);
+                p.setColor(purple_T);
                 break;
             case 2:
-                p.setColor(Color.YELLOW);
+                p.setColor(aqua_I);
                 break;
             case 3:
-                p.setColor(Color.MAGENTA);
+                p.setColor(blue_J);
                 break;
             case 4:
-                p.setColor(Color.rgb(255, 140, 0));
+                p.setColor(orange_L);
                 break;
             case 5:
-                p.setColor(Color.BLUE);
+                p.setColor(yellow_O);
                 break;
             case 6:
-                p.setColor(Color.CYAN);
+                p.setColor(green_S);
                 break;
             case 7:
-                p.setColor(Color.GRAY);
+                p.setColor(red_Z);
                 break;
             default:
                 p.setColor(Color.LTGRAY);
@@ -170,14 +178,13 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.WHITE);
-        drawGrid(canvas);
         drawBoard(canvas);
-
+        drawGrid(canvas);
     }
 
     private void drawGrid(Canvas canvas){
 
-        canvas.drawColor(Color.WHITE);
+        //canvas.drawColor(Color.WHITE);
 
 //        canvas.drawLine(0, 0, 0, getCanvasHeight(), linePaint);
 

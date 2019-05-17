@@ -1,5 +1,6 @@
 package com.example.secretsaucetetris;
 
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,9 +11,9 @@ public class MainActivity extends AppCompatActivity {
 
     int count=0;
     MyCanvas Screen;
-    TestGame arr = new TestGame(20,10);
+    //TestGame arr = new TestGame(20,10);
     Board board = new Board();
-
+    MediaPlayer song;
 
 
     @Override
@@ -24,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void StartGame(){
+        song = MediaPlayer.create(getApplicationContext(), R.raw.tetris);
+        song.start();
+        song.setLooping(true);
+        
         Screen = (MyCanvas) findViewById(R.id.MyCanvas);
 
         //Buttons
