@@ -10,6 +10,7 @@ public class Board {
     private int board_with_projection[][];
     private int a[][];//0 corresponds to x; 1 corresponds to y
     private int b[][];
+    int nextPiece;
     private int figures[][] = {
             {1,3,5,7}, // I
             {2,4,5,7}, // Z
@@ -25,6 +26,7 @@ public class Board {
         a = new int[4][2];//0 corresponds to x; 1 corresponds to y
         b = new int[4][2];
         pieceType = generateRandomNumber(0,6);
+        nextPiece = generateRandomNumber(0,6);
         rotateState =0;
         this.set_projection_figure(pieceType);
         this.moveRight();
@@ -79,8 +81,8 @@ public class Board {
     public boolean check()//determine whether a collision will occur
     {
         for (int i=0;i<4;i++)
-            if (a[i][0]<0 || a[i][0]>=N || a[i][1]>=M) return false;
-            else if (board[a[i][1]][a[i][0]] != 0) return false;
+            if (a[i][0]<0 || a[i][0]>=N || a[i][1]>=M) return false;//collision with edge
+            else if (board[a[i][1]][a[i][0]] != 0) return false;//collision with filled square
 
         return true;
     };
@@ -155,6 +157,12 @@ public class Board {
                 a[i][1] = b[i][1];
             }
         }
+        if(pieceType == 6){//if the piece is a square, revert back to original state
+            for(int i=0; i<a.length; i++){
+                a[i][0] = b[i][0];
+                a[i][1] = b[i][1];
+            }
+        }
         else{
             rotateState = (rotateState + 1)%4;
         }
@@ -180,7 +188,8 @@ public class Board {
                 score = score * count;
             }
             score+=10;
-            pieceType = generateRandomNumber(0, 6);//next piece is generated
+            pieceType = nextPiece;//set new piece to next piece
+            nextPiece = generateRandomNumber(0, 6);//new next piece is generated
             rotateState = 0;
             set_projection_figure(pieceType);
             moveRight();
@@ -224,5 +233,9 @@ public class Board {
     public int setScore(int new_score){
         this.score = new_score;
         return score;
+    }
+
+    public int getNextPiece(){
+        return nextPiece;
     }
 }
