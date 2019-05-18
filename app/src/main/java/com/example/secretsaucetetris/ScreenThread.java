@@ -1,11 +1,8 @@
 package com.example.secretsaucetetris;
 
 import java.lang.*;
-import android.util.AttributeSet;
 import android.view.*;
-import android.content.*;
 import android.graphics.*;
-import android.support.annotation.Nullable;
 
 public class ScreenThread extends Thread{
 
@@ -16,9 +13,9 @@ public class ScreenThread extends Thread{
 
     public void run() {
         SurfaceHolder sh = sv.getHolder();
-// Main game loop.
+
+    //Loop for updating screen
         while( !Thread.interrupted() ) {
-//You might want to do game specific processing in a method you call here
 
             Canvas c = sh.lockCanvas(null);
             try {
@@ -31,11 +28,9 @@ public class ScreenThread extends Thread{
                     sh.unlockCanvasAndPost(c);
                 }
             }
-// Set the frame rate by setting this delay
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
-// Thread was interrupted while sleeping.
                 return;
             }
         }

@@ -4,7 +4,9 @@ public class Board {
     private int score=0;
     private int pieceType;
     private int rotateState;
+    //rows
     private int M = 20;
+    //columns
     private int N = 10;
     private int board[][];
     private int board_with_projection[][];
@@ -12,6 +14,7 @@ public class Board {
     private int b[][];
     private int nextPiece;
     private boolean gameOver;
+    //tetronimo values for matrix math
     private int figures[][] = {
             {1,3,5,7}, // I
             {2,4,5,7}, // Z
@@ -156,16 +159,7 @@ public class Board {
             b[i][0]=a[i][0];//store b to hold old a values
             b[i][1]=a[i][1];
         }
-        /*if(pieceType == 0){
-            if(rotateState == 0){
-            }
-            else if(rotateState == 1){
-            }
-            else if(rotateState == 2){
-            }
-            else{
-            }
-        }*/
+
         int center_x = a[1][0];
         int center_y = a[1][1];
         if((pieceType==0 || pieceType==4 || pieceType==5) && center_y<=1){

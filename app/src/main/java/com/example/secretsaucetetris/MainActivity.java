@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //starts song, initializes buttons and gamethread
     protected void StartGame(){
         song = MediaPlayer.create(getApplicationContext(), R.raw.tetris);
         song.start();
@@ -31,10 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         Screen = (MyCanvas) findViewById(R.id.MyCanvas);
 
-        //Buttons
         Buttons();
 
-        //GameThread
         GameThread();
     }
 
@@ -85,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //game thread has thread inner class with Ui threads
     protected void GameThread(){
 
         final TextView GameState = (TextView)findViewById(R.id.score);
@@ -95,11 +95,12 @@ public class MainActivity extends AppCompatActivity {
             public void run(){
                 while(!isInterrupted()){
                     try {
-                        Thread.sleep(750);  //1000ms = 1 sec
+                        Thread.sleep(750);  //75% of 1sec
 
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                //checking if game is over before making piece come down
                                 if(board.getGameOver()){
                                     Toast.makeText(MainActivity.this,"Game Over, your score was: "+String.valueOf(board.getScore())+" Restarting Game...", Toast.LENGTH_LONG).show();
                                     board = new Board();
