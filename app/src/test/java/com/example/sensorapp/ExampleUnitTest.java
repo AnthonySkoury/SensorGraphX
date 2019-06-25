@@ -1,4 +1,4 @@
-package com.example.secretsaucetetris;
+package com.example.sensorapp;
 
 import org.junit.Test;
 
