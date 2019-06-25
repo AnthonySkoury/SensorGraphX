@@ -91,7 +91,7 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
     //update method for screen
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(Color.BLUE);
+        canvas.drawColor(Color.LTGRAY);
     }
 
 }
