@@ -6,7 +6,7 @@ import android.content.*;
 import android.graphics.*;
 import android.support.annotation.Nullable;
 
-public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
+public class AltitudeDisplay extends SurfaceView implements SurfaceHolder.Callback{
 
 
     private int canvasWidth;
@@ -17,28 +17,28 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
     ScreenThread thread;
 
     /* Constructors */
-    public MyCanvas(Context context) {
+    public AltitudeDisplay(Context context) {
         super(context);
         getHolder().addCallback(this);
         setFocusable(true);
         init(null);
     }
 
-    public MyCanvas(Context context, AttributeSet attrs) {
+    public AltitudeDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
         getHolder().addCallback(this);
         setFocusable(true);
         init(attrs);
     }
 
-    public MyCanvas(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AltitudeDisplay(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         getHolder().addCallback(this);
         setFocusable(true);
         init(attrs);
     }
 
-    public MyCanvas(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public AltitudeDisplay(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         getHolder().addCallback(this);
         setFocusable(true);

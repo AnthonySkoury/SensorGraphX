@@ -6,30 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.example.sensorapp.MyCanvas
-        android:id="@+id/MyCanvas"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="415dp"
-        android:layout_marginBottom="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.jjoe64.graphview.GraphView
+    <com.example.sensorapp.PositionDisplay
+        android:id="@+id/PositionDisplay"
         android:layout_width="match_parent"
-        android:layout_height="370dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_height="380dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/graph" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 
@@ -39,8 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -50,7 +38,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/blue"
+            android:backgroundTint="@color/green"
+            android:textSize="18sp"
             android:text="@string/start" />
 
         <Button
@@ -58,18 +47,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/stop" />
+            android:text="@string/stop"
+            android:textSize="18sp"
+            android:backgroundTint="@color/red" />
 
         <Button
             android:id="@+id/btn_reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/restart" />
+            android:text="@string/restart"
+            android:textSize="18sp"
+            android:backgroundTint="@color/yellow" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/textlayout"
+        android:id="@+id/titlelayout"
         android:layout_width="match_parent"
         android:layout_height="28dp"
         android:layout_marginTop="8dp"
@@ -81,18 +74,91 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="22sp"
             android:text="@string/app_name" />
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="@string/time"
-            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/infolayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="64dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PositionDisplay"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/datalayout"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/x_coordinate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity=""
+                android:textSize="18sp"
+                android:text="@string/x_coord" />
+
+            <TextView
+                android:id="@+id/y_coordinate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity=""
+                android:textSize="18sp"
+                android:text="@string/y_coord" />
+
+            <TextView
+                android:id="@+id/z_coordinate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity=""
+                android:textSize="18sp"
+                android:text="@string/z_coord" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity=""
+                android:textSize="18sp"
+                android:text="@string/time" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/altitudelayout"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" >
+
+            <com.example.sensorapp.AltitudeDisplay
+                android:id="@+id/AltitudeDisplay"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+
+
     </LinearLayout>
 
 
