@@ -11,6 +11,7 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     private int canvasWidth;
     private int canvasHeight;
+    int count=0;
 
 
     ScreenThread thread;
@@ -91,7 +92,13 @@ public class MyCanvas extends SurfaceView implements SurfaceHolder.Callback{
     //update method for screen
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(Color.LTGRAY);
-    }
+        count++;
+        if(count%100==0){
+            canvas.drawColor(Color.LTGRAY);
+        }
+        else{
+            canvas.drawColor(Color.LTGRAY);
 
+        }
+    }
 }
