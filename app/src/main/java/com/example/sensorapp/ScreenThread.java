@@ -6,8 +6,8 @@ import android.graphics.*;
 
 public class ScreenThread extends Thread{
 
-    MyCanvas sv;
-    public ScreenThread(MyCanvas sv) {
+    AltitudeDisplay sv;
+    public ScreenThread(AltitudeDisplay sv) {
         this.sv=sv;
     }
 

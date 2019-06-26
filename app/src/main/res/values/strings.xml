@@ -4,4 +4,7 @@
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="restart">Reset</string>
+    <string name="x_coord">X Position:</string>
+    <string name="y_coord">Y Position:</string>
+    <string name="z_coord">Z Position:</string>
 </resources>

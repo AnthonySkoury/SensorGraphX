@@ -9,7 +9,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class MainActivity extends AppCompatActivity {
 
-    MyCanvas Screen;
+    AltitudeDisplay Screen;
 
     LineGraphSeries<DataPoint> series;
 
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void StartApp(){
 
 
-        Screen = (MyCanvas) findViewById(R.id.MyCanvas);
+        Screen = (AltitudeDisplay) findViewById(R.id.AltitudeDisplay);
         CreatePlot();
 
     }
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void CreatePlot(){
         double y,x;
         x=-5.0;
-        GraphView graph = (GraphView) findViewById(R.id.graph);
+        PositionDisplay positionGraph = (PositionDisplay) findViewById(R.id.PositionDisplay);
         series = new LineGraphSeries<DataPoint>();
 
         for(int i=0; i<500; i++){
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             y=Math.sin(x);
             series.appendData(new DataPoint(x,y), true, 500);
         }
-        graph.addSeries(series);
+        positionGraph.addSeries(series);
     }
 
 
