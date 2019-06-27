@@ -6,6 +6,7 @@ import android.content.*;
 import android.graphics.*;
 import android.support.annotation.Nullable;
 
+/* Custom Display for graphics if needed for altitude */
 public class AltitudeDisplay extends SurfaceView implements SurfaceHolder.Callback{
 
 

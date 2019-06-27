@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 
 import com.jjoe64.graphview.GraphView;
 
+/* Simple trajectory plot for x and y position */
 public class PositionDisplay extends GraphView {
 
     public PositionDisplay(Context context) {

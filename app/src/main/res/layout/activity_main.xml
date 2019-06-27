@@ -20,7 +20,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <LinearLayout
         android:id="@+id/buttonlayout"
         style="?android:attr/buttonBarStyle"
@@ -150,11 +149,23 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" >
 
-            <com.example.sensorapp.AltitudeDisplay
-                android:id="@+id/AltitudeDisplay"
-                android:layout_width="fill_parent"
+            <com.example.sensorapp.AltitudeBar
+                android:id="@+id/AltitudeBar"
+                android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1" />
+
+            <!-- custom graphics for altitude
+
+            <com.example.sensorapp.AltitudeDisplay
+                android:id="@+id/AltitudeDisplay"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" />
+
+            -->
+
+
         </LinearLayout>
 
 
