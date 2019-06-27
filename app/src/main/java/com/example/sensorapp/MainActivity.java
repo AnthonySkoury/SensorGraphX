@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         x=-5.0;
         PositionDisplay positionGraph = (PositionDisplay) findViewById(R.id.PositionDisplay);
         series = new LineGraphSeries<DataPoint>();
+        GridLabelRenderer gridLabel = positionGraph.getGridLabelRenderer();
+        gridLabel.setHorizontalAxisTitle("Position (X, Y)");
 
         for(int i=0; i<500; i++){
             x=x+0.1;
@@ -60,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
         positionGraph.getViewport().setYAxisBoundsManual(true);
         positionGraph.getViewport().setMinY(-60);
         positionGraph.getViewport().setMaxY(60);
+
+        positionGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+
+        GridLabelRenderer gridLabel = positionGraph.getGridLabelRenderer();
+        gridLabel.setHorizontalAxisTitle("Altitude (Z)");
 
         for(int i=0; i<1; i++){
             series.appendData(new DataPoint(0,30), true, 1);
