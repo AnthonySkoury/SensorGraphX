@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //starts song, initializes buttons and gamethread
+
     protected void StartApp(){
 
         CreatePlots();
@@ -96,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
 
 }
