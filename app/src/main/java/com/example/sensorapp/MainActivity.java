@@ -27,20 +27,27 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 public class MainActivity extends AppCompatActivity {
+    DataReceiver dataReceiver;
+    PositionDisplay positionGraph;
+    AltitudeBar altitudeBar;
+    AppManager appManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         StartApp();
-
     }
 
 
     protected void StartApp(){
 
         CreatePlots();
+        appManager = new AppManager(positionGraph, altitudeBar);
+        dataReceiver = new DataReceiver("http://XXX.XXX.XXX.XXX:8080/MobileAPI/SampleTemp", appManager);
+
     }
 
     protected void CreatePlots(){
@@ -53,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         double y,x;
         x=-5.0;
-        PositionDisplay positionGraph = (PositionDisplay) findViewById(R.id.PositionDisplay);
+        positionGraph = (PositionDisplay) findViewById(R.id.PositionDisplay);
         series = new LineGraphSeries<DataPoint>();
         GridLabelRenderer gridLabel = positionGraph.getGridLabelRenderer();
         gridLabel.setHorizontalAxisTitle("Position (X, Y)");
@@ -71,26 +78,26 @@ public class MainActivity extends AppCompatActivity {
 
         double y,x;
         x=-5.0;
-        AltitudeBar positionGraph = (AltitudeBar) findViewById(R.id.AltitudeBar);
+        altitudeBar = (AltitudeBar) findViewById(R.id.AltitudeBar);
         series = new BarGraphSeries<>();
 
-        positionGraph.getViewport().setXAxisBoundsManual(true);
-        positionGraph.getViewport().setMinX(0);
-        positionGraph.getViewport().setMaxX(2);
+        altitudeBar.getViewport().setXAxisBoundsManual(true);
+        altitudeBar.getViewport().setMinX(0);
+        altitudeBar.getViewport().setMaxX(2);
 
-        positionGraph.getViewport().setYAxisBoundsManual(true);
-        positionGraph.getViewport().setMinY(-60);
-        positionGraph.getViewport().setMaxY(60);
+        altitudeBar.getViewport().setYAxisBoundsManual(true);
+        altitudeBar.getViewport().setMinY(-60);
+        altitudeBar.getViewport().setMaxY(60);
 
-        positionGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+        altitudeBar.getGridLabelRenderer().setHorizontalLabelsVisible(false);
 
-        GridLabelRenderer gridLabel = positionGraph.getGridLabelRenderer();
+        GridLabelRenderer gridLabel = altitudeBar.getGridLabelRenderer();
         gridLabel.setHorizontalAxisTitle("Altitude (Z)");
 
         for(int i=0; i<1; i++){
             series.appendData(new DataPoint(0,30), true, 1);
         }
-        positionGraph.addSeries(series);
+        altitudeBar.addSeries(series);
 
         DataPoint[] dp = new DataPoint[]{new DataPoint(0,1)};
 
