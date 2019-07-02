@@ -51,7 +51,8 @@ public class DataReceiver extends Thread {
                         .getNodeValue();
                 // Create an array of data to add to the chart. There is only one
                 // channel of data right now, so just add one point.
-                Vector<Double> data = new Vector<Double>();
+                // will need to add more things to parse for in the xml file because there's 3 variables
+                Vector<Double> data = new Vector<>();
                 data.add(Double.parseDouble(value));
                 // Add the data to the chart.
                 //mChart.addDataPoint(data);
