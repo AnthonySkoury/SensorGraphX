@@ -2,12 +2,14 @@ package com.example.sensorapp;
 
 public class AppManager {
 
-    PositionDisplay pd;
-    AltitudeBar ab;
+    PositionDisplay positionDisplay;
+    AltitudeBar altitudeBar;
+    DataSaver dataSaver;
 
-    public AppManager(PositionDisplay pd, AltitudeBar ab){
-        this.pd = pd;
-        this.ab = ab;
+    public AppManager(PositionDisplay positionDisplay, AltitudeBar altitudeBar, DataSaver dataSaver){
+        this.positionDisplay = positionDisplay;
+        this.altitudeBar = altitudeBar;
+        this.dataSaver = dataSaver;
     }
 
     public int updatePosition(){
