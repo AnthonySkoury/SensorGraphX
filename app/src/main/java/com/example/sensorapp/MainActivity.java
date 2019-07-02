@@ -45,14 +45,19 @@ public class MainActivity extends AppCompatActivity {
     protected void StartApp(){
 
         CreatePlots();
-        appManager = new AppManager(positionGraph, altitudeBar);
-        dataReceiver = new DataReceiver("http://XXX.XXX.XXX.XXX:8080/MobileAPI/SampleTemp", appManager);
+        CreateConnection();
 
     }
 
     protected void CreatePlots(){
         CreatePlotXY();
         CreatePlotZ();
+    }
+
+    protected void CreateConnection(){
+        appManager = new AppManager(positionGraph, altitudeBar);
+        dataReceiver = new DataReceiver("http://192.168.48.2:8080/MobileAPI/SampleTemp", appManager);
+        dataReceiver.start();
     }
 
     protected void CreatePlotXY(){

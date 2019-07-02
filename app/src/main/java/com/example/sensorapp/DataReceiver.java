@@ -58,11 +58,13 @@ public class DataReceiver extends Thread {
                 appManager.updatePosition();
                 appManager.updateAltitude();
 
+                System.out.println("Updated with no Errors");
             }
         }
         catch (Exception e)
         {
-
+            System.out.println("Printing stack trace... ");
+            e.printStackTrace();
 
         }
     }
