@@ -29,6 +29,25 @@ public class DataReceiver extends Thread {
         this.appManager = appManager;
     }
 
+    public void ParseXML(Document doc){
+        // Now, pull out the value attribute of the first channel element
+        doc.getDocumentElement().normalize();
+        System.out.println("Root element : " + doc.getDocumentElement().getNodeName());
+        NodeList nList = doc.getElementsByTagName("Terminal");
+        System.out.println("----------------------------");
+
+        for (int temp = 0; temp < nList.getLength(); temp++) {
+            Node nNode = nList.item(temp);
+            System.out.println("\nCurrent Element : " + nNode.getNodeName());
+
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) nNode;
+                System.out.println("Name : " + eElement.getElementsByTagName("Name").item(0).getTextContent());
+                System.out.println("Value : " + eElement.getElementsByTagName("Value").item(0).getTextContent());
+            }
+        }
+    }
+
     @Override
     public void run()
     {
@@ -71,30 +90,7 @@ public class DataReceiver extends Thread {
                         .newDocumentBuilder();
                 // Parse XML from the web service into a DOM tree
                 Document doc = docbuilder.parse(connection.getInputStream());
-                // Now, pull out the value attribute of the first channel element
-                doc.getDocumentElement().normalize();
-                System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-                NodeList nList = doc.getElementsByTagName("Terminal");
-                System.out.println("----------------------------");
-
-                for (int temp = 0; temp < nList.getLength(); temp++) {
-                    Node nNode = nList.item(temp);
-                    System.out.println("\nCurrent Element :" + nNode.getNodeName());
-
-                    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                        Element eElement = (Element) nNode;
-                        System.out.println("Name : "
-                                + eElement
-                                .getElementsByTagName("Name")
-                                .item(0)
-                                .getTextContent());
-                        System.out.println("Value : "
-                                + eElement
-                                .getElementsByTagName("Value")
-                                .item(0)
-                                .getTextContent());
-                    }
-                }
+                ParseXML(doc);
                 /*
                 String value = doc.getElementsByTagName("Value")
                         .item(0)
@@ -115,7 +111,7 @@ public class DataReceiver extends Thread {
                 appManager.updateAltitude();
                 */
                 System.out.println("Updated with no Errors");
-                this.sleep(1000); //adjust delay in milliseconds, 1000=1s, 10=0.01s
+                this.sleep(10); //adjust delay in milliseconds, 1000=1s, 10=0.01s
             }
         }
         catch (Exception e)
