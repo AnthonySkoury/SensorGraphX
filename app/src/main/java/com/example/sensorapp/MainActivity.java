@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     protected void CreateConnection(){
         dataSaver = new DataSaver();
         appManager = new AppManager(positionGraph, altitudeBar, dataSaver);
-        dataReceiver = new DataReceiver("http://192.168.48.2:8080/MobileAPI/SampleTemp", appManager);
+        dataReceiver = new DataReceiver("http://128.195.207.30:8001/Service/xyzDisplay", appManager);
         dataReceiver.start();
     }
 
