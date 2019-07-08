@@ -28,14 +28,23 @@ public class AppManager {
         return 0;
     }
 
-    public int updatePosition(){
-
+    public int updatePosition(double currentPos[]){
+        dataSaver.updatePosition(currentPos);
         return 0;
     }
 
     public int updateAltitude(){
 
         return 0;
+    }
+
+    public void printPositionHistory(){
+        for(int i =0; i<dataSaver.position.size(); i++){
+            System.out.println(dataSaver.getXPos(i));
+            System.out.println(dataSaver.getYPos(i));
+            System.out.println(dataSaver.getZPos(i));
+            System.out.println("--------------------");
+        }
     }
 
 
