@@ -6,28 +6,30 @@ import java.util.Vector;
 
 public class DataSaver {
 
-
+    /*
     LinkedList<Double> x_position;
     LinkedList<Double> y_position;
     LinkedList<Double> z_position;
-
-    /*
-    Vector<Double> x_position;
-    Vector<Double> y_position;
-    Vector<Double> z_position;
     */
+
+
+    protected Vector<Double> x_position;
+    protected Vector<Double> y_position;
+    protected Vector<Double> z_position;
+
 
     public DataSaver(){
 
+        /*
         this.x_position = new LinkedList<>();
         this.y_position = new LinkedList<>();
         this.z_position = new LinkedList<>();
+       */
 
-        /*
         this.x_position = new Vector<>();
         this.y_position = new Vector<>();
         this.z_position = new Vector<>();
-        */
+
 
     }
 
@@ -49,6 +51,7 @@ public class DataSaver {
         z_position.add(z);
     }
 
+    /*
     public double getLastX(){
         return x_position.getLast();
     }
@@ -60,6 +63,7 @@ public class DataSaver {
     public double getLastZ(){
         return z_position.getLast();
     }
+    */
 
     public int SaveToFile(){
         Iterator<Double> iterX = x_position.iterator();
