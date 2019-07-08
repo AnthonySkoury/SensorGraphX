@@ -24,10 +24,12 @@ public class DataReceiver extends Thread {
     public volatile Boolean mStop = false;
     protected String url;
     AppManager appManager;
+    double currentPosition[];
 
     public DataReceiver(String url, AppManager appManager){
         this.url = url;
         this.appManager = appManager;
+        this.currentPosition  = new double[3];
     }
 
     public void ParseXML(Document doc){
@@ -47,30 +49,39 @@ public class DataReceiver extends Thread {
                 String value = eElement.getElementsByTagName("Value").item(0).getTextContent();
                 System.out.println("Name : " + name);
                 System.out.println("Value : " + value);
+                ParseData(name, value);
             }
         }
+        updateCurrentPosition();
     }
 
     public void ParseURL(){
 
     }
 
-    public void AppendData(String name, String value){
+    public void ParseData(String name, String value){
         switch(name){
             case "run time":
                 break;
             case "x":
-                appManager.updatePositionX(Double.parseDouble(value)+genRandomDouble());
+                currentPosition[0]=Double.parseDouble(value)+genRandomDouble();
+                //appManager.updatePositionX(Double.parseDouble(value)+genRandomDouble());
                 break;
             case "y":
-                appManager.updatePositionY(Double.parseDouble(value)+genRandomDouble());
+                currentPosition[1]=Double.parseDouble(value)+genRandomDouble();
+                //appManager.updatePositionY(Double.parseDouble(value)+genRandomDouble());
                 break;
             case "z":
-                appManager.updatePositionZ(Double.parseDouble(value)+genRandomDouble());
+                currentPosition[2]=Double.parseDouble(value)+genRandomDouble();
+                //appManager.updatePositionZ(Double.parseDouble(value)+genRandomDouble());
                 break;
             default:
                 break;
         }
+    }
+
+    public void updateCurrentPosition(){
+        appManager.updatePosition(currentPosition);
     }
 
     public double genRandomDouble(){
@@ -149,7 +160,7 @@ public class DataReceiver extends Thread {
                 appManager.updateAltitude();
                 */
                 System.out.println("Updated with no Errors");
-                System.out.println(genRandomDouble());
+                appManager.printPositionHistory();
                 this.sleep(10); //adjust delay in milliseconds, 1000=1s, 10=0.01s
             }
         }

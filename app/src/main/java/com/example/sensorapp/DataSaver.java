@@ -17,6 +17,7 @@ public class DataSaver {
     protected Vector<Double> y_position;
     protected Vector<Double> z_position;
 
+    protected final Vector<double[]> position = new Vector<>();
 
     public DataSaver(){
 
@@ -33,11 +34,29 @@ public class DataSaver {
 
     }
 
-    public void updatePosition(double x, double y, double z){
+    public void updatePosition(double currentPos[]){
+
+        position.add(currentPos);
+
+        /*
         updateXPos(x);
         updateYPos(y);
         updateZPos(z);
+        */
     }
+
+    public double getXPos(int index){
+        return position.get(index)[0];
+    }
+
+    public double getYPos(int index){
+        return position.get(index)[1];
+    }
+
+    public double getZPos(int index){
+        return position.get(index)[2];
+    }
+
 
     public void updateXPos(double x){
         x_position.add(x);
