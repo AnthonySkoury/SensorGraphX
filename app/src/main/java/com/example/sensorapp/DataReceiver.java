@@ -112,19 +112,6 @@ public class DataReceiver extends Thread {
         {
             while (!mStop)
             {
-                /*
-                URL url = new URL("http://128.195.207.30:8001/Service/xyzDisplay");
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                try {
-                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                    System.out.println("it worked");
-                } finally {
-                    urlConnection.disconnect();
-                }
-                */
-
-                // First, open a connection to the machine where LabVIEW is
-                // running
 
                 URL url = new URL(this.url);
                 URLConnection connection = url.openConnection();
@@ -140,25 +127,7 @@ public class DataReceiver extends Thread {
                 // Parse XML from the web service into a DOM tree
                 Document doc = docbuilder.parse(connection.getInputStream());
                 ParseXML(doc);
-                /*
-                String value = doc.getElementsByTagName("Value")
-                        .item(0)
-                       // .getAttributes()
-                       // .getNamedItem("value")
-                        .getNodeValue();
 
-                System.out.println(value);
-
-                // Create an array of data to add to the chart. There is only one
-                // channel of data right now, so just add one point.
-                // will need to add more things to parse for in the xml file because there's 3 variables
-                Vector<Double> data = new Vector<>();
-                data.add(Double.parseDouble(value));
-                // Add the data to the chart.
-                //mChart.addDataPoint(data);
-                appManager.updatePosition();
-                appManager.updateAltitude();
-                */
                 System.out.println("Updated with no Errors");
                 appManager.printPositionHistory();
                 this.sleep(10); //adjust delay in milliseconds, 1000=1s, 10=0.01s
