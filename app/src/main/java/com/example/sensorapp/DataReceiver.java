@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -42,10 +43,47 @@ public class DataReceiver extends Thread {
 
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
-                System.out.println("Name : " + eElement.getElementsByTagName("Name").item(0).getTextContent());
-                System.out.println("Value : " + eElement.getElementsByTagName("Value").item(0).getTextContent());
+                String name = eElement.getElementsByTagName("Name").item(0).getTextContent();
+                String value = eElement.getElementsByTagName("Value").item(0).getTextContent();
+                System.out.println("Name : " + name);
+                System.out.println("Value : " + value);
             }
         }
+    }
+
+    public void ParseURL(){
+
+    }
+
+    public void AppendData(String name, String value){
+        switch(name){
+            case "run time":
+                break;
+            case "x":
+                appManager.updatePositionX(Double.parseDouble(value)+genRandomDouble());
+                break;
+            case "y":
+                appManager.updatePositionY(Double.parseDouble(value)+genRandomDouble());
+                break;
+            case "z":
+                appManager.updatePositionZ(Double.parseDouble(value)+genRandomDouble());
+                break;
+            default:
+                break;
+        }
+    }
+
+    public double genRandomDouble(){
+        double rangeMin = -50.0;
+        double rangeMax = 50.0;
+
+        /*alternate way
+        Random r = new Random();
+        double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+        */
+
+        double randomDouble = ThreadLocalRandom.current().nextDouble(rangeMin, rangeMax);
+        return randomDouble;
     }
 
     @Override
@@ -111,6 +149,7 @@ public class DataReceiver extends Thread {
                 appManager.updateAltitude();
                 */
                 System.out.println("Updated with no Errors");
+                System.out.println(genRandomDouble());
                 this.sleep(10); //adjust delay in milliseconds, 1000=1s, 10=0.01s
             }
         }
