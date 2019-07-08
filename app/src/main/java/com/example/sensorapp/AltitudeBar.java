@@ -20,4 +20,12 @@ public class AltitudeBar extends GraphView {
         super(context, attrs, defStyle);
     }
 
+    public void updateZPos(){
+
+    }
+
+    public void plotZPos(){
+
+    }
+
 }

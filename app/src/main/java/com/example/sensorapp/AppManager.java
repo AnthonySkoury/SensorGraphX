@@ -18,6 +18,14 @@ public class AppManager {
         return 0;
     }
 
+    public void tracePosition(){
+        positionDisplay.updateXPos();
+        positionDisplay.plotXYPos();
+
+        altitudeBar.updateZPos();
+        altitudeBar.plotZPos();
+    }
+
 
     public void printPositionHistory(){
         for(int i =0; i<dataSaver.getDataLength(); i++){
