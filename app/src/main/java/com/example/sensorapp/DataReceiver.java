@@ -32,6 +32,24 @@ public class DataReceiver extends Thread {
         this.currentPosition  = new double[3];
     }
 
+    public Document ParseURL() throws Exception{
+        URL url = new URL(this.url);
+        URLConnection connection = url.openConnection();
+        // Set resonable timeouts
+        connection.setConnectTimeout(5000);
+        connection.setReadTimeout(5000);
+
+        connection.getInputStream(); //test case
+        // Create an XML document builder with the default settings
+
+        DocumentBuilder docbuilder = DocumentBuilderFactory.newInstance()
+                .newDocumentBuilder();
+        // Parse XML from the web service into a DOM tree
+        //Document doc = docbuilder.parse(connection.getInputStream());
+        //ParseXML(doc);
+        return docbuilder.parse(connection.getInputStream());
+    }
+
     public void ParseXML(Document doc){
         // Now, pull out the value attribute of the first channel element
         doc.getDocumentElement().normalize();
@@ -52,11 +70,6 @@ public class DataReceiver extends Thread {
                 ParseData(name, value);
             }
         }
-        updateCurrentPosition();
-    }
-
-    public void ParseURL(){
-
     }
 
     public void ParseData(String name, String value){
@@ -65,15 +78,12 @@ public class DataReceiver extends Thread {
                 break;
             case "x":
                 currentPosition[0]=Double.parseDouble(value)+genRandomDouble();
-                //appManager.updatePositionX(Double.parseDouble(value)+genRandomDouble());
                 break;
             case "y":
                 currentPosition[1]=Double.parseDouble(value)+genRandomDouble();
-                //appManager.updatePositionY(Double.parseDouble(value)+genRandomDouble());
                 break;
             case "z":
                 currentPosition[2]=Double.parseDouble(value)+genRandomDouble();
-                //appManager.updatePositionZ(Double.parseDouble(value)+genRandomDouble());
                 break;
             default:
                 break;
@@ -105,31 +115,19 @@ public class DataReceiver extends Thread {
                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-        // This is all the same as before, except we will parse the double and
-        // add
-        // it to a chart.
         try
         {
             while (!mStop)
             {
 
-                URL url = new URL(this.url);
-                URLConnection connection = url.openConnection();
-                // Set resonable timeouts
-                connection.setConnectTimeout(5000);
-                connection.setReadTimeout(5000);
+                ParseXML(ParseURL());
+                updateCurrentPosition();
 
-                connection.getInputStream(); //test case
-                // Create an XML document builder with the default settings
+                //this is where to update graphs
+                appManager.tracePosition();
 
-                DocumentBuilder docbuilder = DocumentBuilderFactory.newInstance()
-                        .newDocumentBuilder();
-                // Parse XML from the web service into a DOM tree
-                Document doc = docbuilder.parse(connection.getInputStream());
-                ParseXML(doc);
-
-                System.out.println("Updated with no Errors");
                 appManager.printPositionHistory();
+                System.out.println("Updated with no Errors");
                 this.sleep(10); //adjust delay in milliseconds, 1000=1s, 10=0.01s
             }
         }
