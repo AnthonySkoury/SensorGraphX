@@ -34,6 +34,10 @@ public class DataSaver {
         return position.size();
     }
 
+    public Vector<double[]> getPosition(){
+        return position;
+    }
+
     public int SaveToFile(){
 
         return 0;
