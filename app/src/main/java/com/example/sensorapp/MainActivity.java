@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         double y,x;
         x=-5.0;
         positionGraph = (PositionDisplay) findViewById(R.id.PositionDisplay);
+        /*
         series = new LineGraphSeries<DataPoint>();
         GridLabelRenderer gridLabel = positionGraph.getGridLabelRenderer();
         gridLabel.setHorizontalAxisTitle("Position (X, Y)");
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
             series.appendData(new DataPoint(x,y), true, 500);
         }
         positionGraph.addSeries(series);
+        */
     }
 
     protected void CreatePlotZ(){
