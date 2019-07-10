@@ -25,6 +25,7 @@ public class DataReceiver extends Thread {
     protected String url;
     AppManager appManager;
     double currentPosition[];
+    double tempXYZ;
 
     public DataReceiver(String url, AppManager appManager){
         this.url = url;
@@ -72,6 +73,30 @@ public class DataReceiver extends Thread {
         }
     }
 
+    public void TestData(){
+        ParseData("x");
+        ParseData("y");
+        ParseData("z");
+    }
+
+    public void ParseData(String name){
+        switch(name){
+            case "run time":
+                break;
+            case "x":
+                currentPosition[0]=genNextDouble();
+                break;
+            case "y":
+                currentPosition[1]=genNextDouble();
+                break;
+            case "z":
+                currentPosition[2]=genNextDouble();
+                break;
+            default:
+                break;
+        }
+    }
+
     public void ParseData(String name, String value){
         switch(name){
             case "run time":
@@ -107,6 +132,15 @@ public class DataReceiver extends Thread {
         return randomDouble;
     }
 
+    public double genNextDouble(){
+        if(tempXYZ>58){
+            mStop=true;
+            return tempXYZ;
+        }
+        tempXYZ+=0.5;
+        return tempXYZ;
+    }
+
     @Override
     public void run()
     {
@@ -120,7 +154,8 @@ public class DataReceiver extends Thread {
             while (!mStop)
             {
 
-                ParseXML(ParseURL());
+                // ParseXML(ParseURL());
+                TestData();
                 updateCurrentPosition();
 
                 //this is where to update graphs

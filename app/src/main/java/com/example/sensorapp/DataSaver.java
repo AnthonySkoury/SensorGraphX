@@ -38,6 +38,10 @@ public class DataSaver {
         return position;
     }
 
+    public double[] getCurrentPosition(){
+        return position.lastElement();
+    }
+
     public int SaveToFile(){
 
         return 0;

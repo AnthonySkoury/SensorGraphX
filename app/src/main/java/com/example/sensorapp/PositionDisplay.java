@@ -23,6 +23,8 @@ public class PositionDisplay extends GraphView {
     LineGraphSeries<DataPoint> y_coord = new LineGraphSeries<>();
 
     PointsGraphSeries<DataPoint> xySeries;
+   // LineGraphSeries<DataPoint> xySeries;
+
 
     public PositionDisplay(Context context) {
         super(context);
@@ -60,9 +62,48 @@ public class PositionDisplay extends GraphView {
 
     }
 
-    public void plotXY(Vector<double[]> position){
+    public void initGraph(){
+        xySeries = new PointsGraphSeries<>();
+    }
+
+    synchronized public void plotXY(double[] currentPosition){
+        try {
+            xySeries.appendData(new DataPoint(currentPosition[0], currentPosition[1]), true, maxDataPoints);
+        }catch (IllegalArgumentException e){
+            Log.e(TAG, "createScatterPlot: IllegalArgumentException: " + e.getMessage() );
+        }
+
+        //set some properties
+        xySeries.setShape(PointsGraphSeries.Shape.RECTANGLE);
+        xySeries.setColor(Color.BLUE);
+        xySeries.setSize(5f);
+
+        //set Scrollable and Scaleable
+        this.getViewport().setScalable(true);
+        this.getViewport().setScalableY(true);
+        this.getViewport().setScrollable(true);
+        this.getViewport().setScrollableY(true);
+
+        //set manual x bounds
+        this.getViewport().setYAxisBoundsManual(true);
+        this.getViewport().setMaxY(50);
+        this.getViewport().setMinY(-50);
+
+        //set manual y bounds
+        this.getViewport().setXAxisBoundsManual(true);
+        this.getViewport().setMaxX(50);
+        this.getViewport().setMinX(-50);
+
+        this.addSeries(xySeries);
+
+    }
+
+    synchronized public void plotXY(Vector<double[]> position){
 
         xySeries = new PointsGraphSeries<>();
+
+       // xySeries = new LineGraphSeries<>();
+
 
         for(int i = 0;i <position.size(); i++){
             try{
@@ -77,7 +118,7 @@ public class PositionDisplay extends GraphView {
         //set some properties
         xySeries.setShape(PointsGraphSeries.Shape.RECTANGLE);
         xySeries.setColor(Color.BLUE);
-        xySeries.setSize(20f);
+        xySeries.setSize(5f);
 
         //set Scrollable and Scaleable
         this.getViewport().setScalable(true);
@@ -87,13 +128,13 @@ public class PositionDisplay extends GraphView {
 
         //set manual x bounds
         this.getViewport().setYAxisBoundsManual(true);
-        this.getViewport().setMaxY(150);
-        this.getViewport().setMinY(-150);
+        this.getViewport().setMaxY(50);
+        this.getViewport().setMinY(-50);
 
         //set manual y bounds
         this.getViewport().setXAxisBoundsManual(true);
-        this.getViewport().setMaxX(150);
-        this.getViewport().setMinX(-150);
+        this.getViewport().setMaxX(50);
+        this.getViewport().setMinX(-50);
 
         this.addSeries(xySeries);
     }
