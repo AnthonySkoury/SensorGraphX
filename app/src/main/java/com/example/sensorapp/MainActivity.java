@@ -54,11 +54,13 @@ public class MainActivity extends AppCompatActivity {
     protected void CreatePlots(){
         CreatePlotXY();
         CreatePlotZ();
+
+        dataSaver = new DataSaver();
+        appManager = new AppManager(positionGraph, altitudeBar, dataSaver);
+        appManager.initGraphs();
     }
 
     protected void CreateConnection(){
-        dataSaver = new DataSaver();
-        appManager = new AppManager(positionGraph, altitudeBar, dataSaver);
         dataReceiver = new DataReceiver("http://128.195.207.30:8001/Service/xyzDisplay", appManager);
         dataReceiver.start();
     }
