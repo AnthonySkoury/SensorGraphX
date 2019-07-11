@@ -10,6 +10,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 
+import java.util.ConcurrentModificationException;
 import java.util.Vector;
 
 import static android.content.ContentValues.TAG;
@@ -23,6 +24,7 @@ public class PositionDisplay extends GraphView {
     LineGraphSeries<DataPoint> y_coord = new LineGraphSeries<>();
 
     PointsGraphSeries<DataPoint> xySeries;
+    PointsGraphSeries<DataPoint> currentPoint;
    // LineGraphSeries<DataPoint> xySeries;
 
 
@@ -64,6 +66,7 @@ public class PositionDisplay extends GraphView {
 
     public void initGraph(){
         xySeries = new PointsGraphSeries<>();
+        drawGraph();
     }
 
     synchronized public void plotXY(double[] currentPosition){
@@ -98,45 +101,62 @@ public class PositionDisplay extends GraphView {
 
     }
 
-    synchronized public void plotXY(Vector<double[]> position){
-
-        xySeries = new PointsGraphSeries<>();
-
-       // xySeries = new LineGraphSeries<>();
-
-
-        for(int i = 0;i <position.size(); i++){
-            try{
-                double x = position.get(i)[0];
-                double y = position.get(i)[1];
-                xySeries.appendData(new DataPoint(x,y),true, maxDataPoints);
-            }catch (IllegalArgumentException e){
-                Log.e(TAG, "createScatterPlot: IllegalArgumentException: " + e.getMessage() );
+    public void drawGraph(){
+        this.post(new Runnable(){
+            @Override
+            public void run(){
+                removeAllSeries();
+                addSeries(xySeries);
+                //addSeries(currentPoint);
             }
+        });
+    }
+
+    public void plotXY(Vector<double[]> position){
+        try {
+            //xySeries = new PointsGraphSeries<>();
+
+            // xySeries = new LineGraphSeries<>();
+
+
+            for (int i = 0; i < position.size(); i++) {
+                try {
+                    double x = position.get(i)[0];
+                    double y = position.get(i)[1];
+                    xySeries.appendData(new DataPoint(x, y), true, maxDataPoints);
+                } catch (IllegalArgumentException e) {
+                    Log.e(TAG, "createScatterPlot: IllegalArgumentException: " + e.getMessage());
+                }
+            }
+
+            //set some properties
+            xySeries.setShape(PointsGraphSeries.Shape.POINT);
+            xySeries.setColor(Color.BLUE);
+            xySeries.setSize(5f);
+
+
+
+            //set Scrollable and Scaleable
+            getViewport().setScalable(true);
+            getViewport().setScalableY(true);
+            getViewport().setScrollable(true);
+            getViewport().setScrollableY(true);
+
+            //set manual x bounds
+            getViewport().setYAxisBoundsManual(true);
+            getViewport().setMaxY(50);
+            getViewport().setMinY(-50);
+
+            //set manual y bounds
+            getViewport().setXAxisBoundsManual(true);
+            getViewport().setMaxX(50);
+            getViewport().setMinX(-50);
+
+            //addSeries(xySeries);
         }
-
-        //set some properties
-        xySeries.setShape(PointsGraphSeries.Shape.RECTANGLE);
-        xySeries.setColor(Color.BLUE);
-        xySeries.setSize(5f);
-
-        //set Scrollable and Scaleable
-        this.getViewport().setScalable(true);
-        this.getViewport().setScalableY(true);
-        this.getViewport().setScrollable(true);
-        this.getViewport().setScrollableY(true);
-
-        //set manual x bounds
-        this.getViewport().setYAxisBoundsManual(true);
-        this.getViewport().setMaxY(50);
-        this.getViewport().setMinY(-50);
-
-        //set manual y bounds
-        this.getViewport().setXAxisBoundsManual(true);
-        this.getViewport().setMaxX(50);
-        this.getViewport().setMinX(-50);
-
-        this.addSeries(xySeries);
+        catch (ConcurrentModificationException e){
+            System.out.println("Ece");
+        }
     }
 
 }
