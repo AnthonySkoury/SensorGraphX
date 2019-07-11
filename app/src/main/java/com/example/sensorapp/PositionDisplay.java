@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
@@ -19,6 +20,8 @@ import static android.content.ContentValues.TAG;
 public class PositionDisplay extends GraphView {
 
     int maxDataPoints = 1000;
+    int rangeX=60;
+    int rangeY=60;
     LineGraphSeries<DataPoint> xy_coord = new LineGraphSeries<>();
     LineGraphSeries<DataPoint> x_coord = new LineGraphSeries<>();
     LineGraphSeries<DataPoint> y_coord = new LineGraphSeries<>();
@@ -144,14 +147,18 @@ public class PositionDisplay extends GraphView {
 
             //set manual x bounds
             getViewport().setYAxisBoundsManual(true);
-            getViewport().setMaxY(50);
-            getViewport().setMinY(-50);
+            getViewport().setMaxY(rangeY);
+            getViewport().setMinY(-rangeY);
 
             //set manual y bounds
             getViewport().setXAxisBoundsManual(true);
-            getViewport().setMaxX(50);
-            getViewport().setMinX(-50);
+            getViewport().setMaxX(rangeX);
+            getViewport().setMinX(-rangeX);
 
+            getGridLabelRenderer().setHorizontalLabelsVisible(false);
+
+            GridLabelRenderer gridLabel = getGridLabelRenderer();
+            gridLabel.setHorizontalAxisTitle("Position (X,Y)");
             //addSeries(xySeries);
         }
         catch (ConcurrentModificationException e){

@@ -23,10 +23,10 @@ public class AppManager {
         positionDisplay.plotXYPos();
 
         altitudeBar.updateZPos();
-        altitudeBar.plotZPos();
 
         // positionDisplay.plotXY(dataSaver.getCurrentPosition());
-         positionDisplay.plotXY(dataSaver.getPosition());
+        positionDisplay.plotXY(dataSaver.getPosition());
+        altitudeBar.plotZ(dataSaver.getCurrentZ());
     }
 
 
@@ -41,6 +41,7 @@ public class AppManager {
 
     public void initGraphs(){
         positionDisplay.initGraph();
+        altitudeBar.initGraph();
     }
 
 
