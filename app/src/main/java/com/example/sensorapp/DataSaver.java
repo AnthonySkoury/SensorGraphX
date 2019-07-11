@@ -6,6 +6,7 @@ import java.util.Vector;
 
 public class DataSaver {
 
+    private final Vector<double[]> unordered_position = new Vector<>();
     private final Vector<double[]> position = new Vector<>();
 
     public DataSaver(){
@@ -14,6 +15,7 @@ public class DataSaver {
 
     public void updatePosition(double currentPos[]){
 
+        unordered_position.add(currentPos.clone());
         position.add(currentPos.clone());
 
     }
@@ -40,6 +42,10 @@ public class DataSaver {
 
     public double[] getCurrentPosition(){
         return position.lastElement();
+    }
+
+    public void sortData(){
+
     }
 
     public int SaveToFile(){
