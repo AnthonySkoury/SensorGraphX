@@ -32,6 +32,12 @@ public class DataSaver {
         return position.get(index)[2];
     }
 
+    public double getCurrentZ(){
+        double last = unordered_position.lastElement()[2];
+        //return unordered_position.lastElement()[2];
+        return last;
+    }
+
     public int getDataLength(){
         return position.size();
     }

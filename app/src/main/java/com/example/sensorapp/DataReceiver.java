@@ -137,7 +137,7 @@ public class DataReceiver{
             mStop=true;
             return tempXYZ;
         }
-        tempXYZ+=0.5;
+        tempXYZ+=1.5;
         return tempXYZ;
     }
 

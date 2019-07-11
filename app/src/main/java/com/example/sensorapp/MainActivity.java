@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
         CreatePlots();
         CreateConnection();
-        ScreenThread();
+        //FlowThread();
+       // ScreenThread();
     }
 
     protected void CreatePlots(){
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         altitudeBar = (AltitudeBar) findViewById(R.id.AltitudeBar);
 
+        /*
         //rest is random stuff
         BarGraphSeries<DataPoint> series;
 
@@ -103,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         altitudeBar.addSeries(series);
 
         DataPoint[] dp = new DataPoint[]{new DataPoint(0,1)};
-
+        */
 
     }
 
@@ -123,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             public void run(){
                 while(!isInterrupted()){
                     try {
-                        Thread.sleep(10);  //75% of 1sec
+                        Thread.sleep(1000);  //75% of 1sec
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -140,6 +142,26 @@ public class MainActivity extends AppCompatActivity {
         };
         tGame.start();
 
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Runnable run = new Runnable() {
+            public void run() {
+                try {
+                    while(!stop) {
+                        Thread.sleep(1000);  //75% of 1sec
+                        appManager.updatePosition(dataReceiver.connectToDevice());
+                        appManager.tracePosition();
+                    }
+
+                } catch (Exception e) {
+                    System.out.println(" interrupted");
+                }
+            }
+        };
+        new Thread(run).start();
     }
 
 
