@@ -19,7 +19,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 
-public class DataReceiver extends Thread {
+public class DataReceiver{
 
     public volatile Boolean mStop = false;
     protected String url;
@@ -141,9 +141,7 @@ public class DataReceiver extends Thread {
         return tempXYZ;
     }
 
-    @Override
-    public void run()
-    {
+    public double[] connectToDevice(){
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy =
                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -151,20 +149,9 @@ public class DataReceiver extends Thread {
         }
         try
         {
-            while (!mStop)
-            {
-
                 // ParseXML(ParseURL());
                 TestData();
-                updateCurrentPosition();
 
-                //this is where to update graphs
-                appManager.tracePosition();
-
-                appManager.printPositionHistory();
-                System.out.println("Updated with no Errors");
-                this.sleep(10); //adjust delay in milliseconds, 1000=1s, 10=0.01s
-            }
         }
         catch (Exception e)
         {
@@ -172,6 +159,11 @@ public class DataReceiver extends Thread {
             e.printStackTrace();
 
         }
+        finally {
+            return currentPosition;
+        }
+
     }
+
 
 }

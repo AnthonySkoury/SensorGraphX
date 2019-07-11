@@ -35,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     AltitudeBar altitudeBar;
     AppManager appManager;
     DataSaver dataSaver;
+    int count;
+
+    boolean stop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         CreatePlots();
         CreateConnection();
-
+        ScreenThread();
     }
 
     protected void CreatePlots(){
@@ -62,35 +65,23 @@ public class MainActivity extends AppCompatActivity {
 
     protected void CreateConnection(){
         dataReceiver = new DataReceiver("http://128.195.207.30:8001/Service/xyzDisplay", appManager);
-        dataReceiver.start();
     }
 
     protected void CreatePlotXY(){
-        LineGraphSeries<DataPoint> series;
 
-        double y,x;
-        x=-5.0;
         positionGraph = (PositionDisplay) findViewById(R.id.PositionDisplay);
-        /*
-        series = new LineGraphSeries<DataPoint>();
-        GridLabelRenderer gridLabel = positionGraph.getGridLabelRenderer();
-        gridLabel.setHorizontalAxisTitle("Position (X, Y)");
 
-        for(int i=0; i<500; i++){
-            x=x+0.1;
-            y=Math.sin(x);
-            series.appendData(new DataPoint(x,y), true, 500);
-        }
-        positionGraph.addSeries(series);
-        */
     }
 
     protected void CreatePlotZ(){
+
+        altitudeBar = (AltitudeBar) findViewById(R.id.AltitudeBar);
+
+        //rest is random stuff
         BarGraphSeries<DataPoint> series;
 
         double y,x;
         x=-5.0;
-        altitudeBar = (AltitudeBar) findViewById(R.id.AltitudeBar);
         series = new BarGraphSeries<>();
 
         altitudeBar.getViewport().setXAxisBoundsManual(true);
@@ -116,6 +107,40 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void mainLooper(){
+
+        while(!stop){
+            appManager.updatePosition(dataReceiver.connectToDevice());
+            appManager.tracePosition();
+        }
+
+    }
+
+    protected void ScreenThread(){
+
+        Thread tGame=new Thread(){
+            @Override
+            public void run(){
+                while(!isInterrupted()){
+                    try {
+                        Thread.sleep(10);  //75% of 1sec
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                appManager.updatePosition(dataReceiver.connectToDevice());
+                                appManager.tracePosition();
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        tGame.start();
+
+    }
 
 
 
