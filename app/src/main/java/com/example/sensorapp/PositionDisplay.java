@@ -72,6 +72,7 @@ public class PositionDisplay extends GraphView {
         drawGraph();
     }
 
+    /*
     synchronized public void plotXY(double[] currentPosition){
         try {
             xySeries.appendData(new DataPoint(currentPosition[0], currentPosition[1]), true, maxDataPoints);
@@ -102,7 +103,7 @@ public class PositionDisplay extends GraphView {
 
         this.addSeries(xySeries);
 
-    }
+    }*/
 
     public void drawGraph(){
         this.post(new Runnable(){
@@ -115,20 +116,21 @@ public class PositionDisplay extends GraphView {
         });
     }
 
-    public void plotXY(Vector<double[]> position){
+    synchronized public void plotXY(Vector<double[]> position){
         try {
             //xySeries = new PointsGraphSeries<>();
 
             // xySeries = new LineGraphSeries<>();
-
+            xySeries.resetData(new DataPoint[] {});
 
             for (int i = 0; i < position.size(); i++) {
                 try {
                     double x = position.get(i)[0];
                     double y = position.get(i)[1];
-                    xySeries.appendData(new DataPoint(x, y), true, maxDataPoints);
+                    xySeries.appendData(new DataPoint(x, y), true, position.size());
                 } catch (IllegalArgumentException e) {
                     Log.e(TAG, "createScatterPlot: IllegalArgumentException: " + e.getMessage());
+                    e.printStackTrace();
                 }
             }
 
