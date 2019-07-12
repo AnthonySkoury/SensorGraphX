@@ -90,7 +90,7 @@ public class DataReceiver{
                 currentPosition[1]=genRandomDouble();
                 break;
             case "z":
-                currentPosition[2]=genNextDouble();
+                currentPosition[2]=genRandomDouble();
                 break;
             default:
                 break;

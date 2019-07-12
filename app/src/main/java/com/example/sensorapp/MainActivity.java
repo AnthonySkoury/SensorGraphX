@@ -36,13 +36,18 @@ public class MainActivity extends AppCompatActivity {
     AppManager appManager;
     DataSaver dataSaver;
     int count;
-
     boolean stop;
+
+    TextView X_Coord;
+    TextView Y_Coord;
+    TextView Z_Coord;
+    TextView Run_Time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         StartApp();
     }
 
@@ -52,7 +57,16 @@ public class MainActivity extends AppCompatActivity {
         CreatePlots();
         CreateConnection();
         //FlowThread();
+        CreateText();
         ScreenThread();
+
+    }
+
+    protected void CreateText(){
+        X_Coord = (TextView)findViewById(R.id.x_coordinate);
+        Y_Coord = (TextView)findViewById(R.id.y_coordinate);
+        Z_Coord = (TextView)findViewById(R.id.z_coordinate);
+        Run_Time = (TextView)findViewById(R.id.time);
     }
 
     protected void CreatePlots(){
@@ -119,19 +133,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void ScreenThread(){
+        startTime();
 
         Thread tGame=new Thread(){
             @Override
             public void run(){
                 while(!isInterrupted()){
                     try {
-                        Thread.sleep(1000);  //75% of 1sec
+                        Thread.sleep(100);  //75% of 1sec
 
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                appManager.updatePosition(dataReceiver.connectToDevice());
-                                appManager.tracePosition();
+                                Tasks();
+
+
                             }
                         });
                     } catch (InterruptedException e) {
@@ -142,6 +158,19 @@ public class MainActivity extends AppCompatActivity {
         };
         tGame.start();
 
+    }
+
+    public void Tasks(){
+        appManager.updatePosition(dataReceiver.connectToDevice());
+        appManager.tracePosition();
+        String xPos = "X Position: "+String.valueOf(dataSaver.getCurrentX());
+        String yPos = "Y Position: "+String.valueOf(dataSaver.getCurrentY());
+        String zPos = "Z Position: "+String.valueOf(dataSaver.getCurrentZ());
+        String runtime = "Elapsed Time: "+String.valueOf(getElapsedTimeSecs())+" s";
+        X_Coord.setText(xPos);
+        Y_Coord.setText(yPos);
+        Z_Coord.setText(zPos);
+        Run_Time.setText(runtime);
     }
 
     /*
@@ -166,6 +195,45 @@ public class MainActivity extends AppCompatActivity {
     }
     */
 
+    private long startTime = 0;
+    private long stopTime = 0;
+    private boolean running = false;
+
+
+    public void startTime() {
+        this.startTime = System.nanoTime();
+        this.running = true;
+    }
+
+
+    public void stopTime() {
+        this.stopTime = System.nanoTime();
+        this.running = false;
+    }
+
+
+    //elaspsed time in milliseconds
+    public long getElapsedTime() {
+        long elapsed;
+        if (running) {
+            elapsed = (System.nanoTime() - startTime);
+        } else {
+            elapsed = (stopTime - startTime);
+        }
+        return elapsed;
+    }
+
+
+    //elaspsed time in seconds
+    public long getElapsedTimeSecs() {
+        long elapsed;
+        if (running) {
+            elapsed = ((System.nanoTime() - startTime) / 1000000000);
+        } else {
+            elapsed = ((stopTime - startTime) / 1000000000);
+        }
+        return elapsed;
+    }
 
 
 }
