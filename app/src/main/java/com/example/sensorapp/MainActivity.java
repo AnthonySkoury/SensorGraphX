@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         CreatePlots();
         CreateConnection();
         //FlowThread();
-       // ScreenThread();
+        ScreenThread();
     }
 
     protected void CreatePlots(){
@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
     @Override
     protected void onResume(){
         super.onResume();
@@ -163,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
         };
         new Thread(run).start();
     }
+    */
 
 
 

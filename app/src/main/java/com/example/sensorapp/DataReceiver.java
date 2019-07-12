@@ -84,10 +84,10 @@ public class DataReceiver{
             case "run time":
                 break;
             case "x":
-                currentPosition[0]=genNextDouble();
+                currentPosition[0]=genRandomDouble();
                 break;
             case "y":
-                currentPosition[1]=genNextDouble();
+                currentPosition[1]=genRandomDouble();
                 break;
             case "z":
                 currentPosition[2]=genNextDouble();

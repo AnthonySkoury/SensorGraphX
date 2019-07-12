@@ -1,5 +1,8 @@
 package com.example.sensorapp;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Vector;
@@ -7,7 +10,8 @@ import java.util.Vector;
 public class DataSaver {
 
     private final Vector<double[]> unordered_position = new Vector<>();
-    private final Vector<double[]> position = new Vector<>();
+    private Vector<double[]> position = new Vector<>();
+    int threshold=100;
 
     public DataSaver(){
 
@@ -16,7 +20,8 @@ public class DataSaver {
     public void updatePosition(double currentPos[]){
 
         unordered_position.add(currentPos.clone());
-        position.add(currentPos.clone());
+        position = spliceData(calcThreshold());
+        position = sortData(position);
 
     }
 
@@ -50,7 +55,48 @@ public class DataSaver {
         return position.lastElement();
     }
 
-    public void sortData(){
+    public int calcThreshold(){
+        if(unordered_position.size()>threshold){
+            return (unordered_position.size()-threshold);
+        }
+        else{
+            return 0;
+        }
+    }
+
+    public Vector<double[]> spliceData(int startindex){
+        Vector<double[]> splicedData = new Vector<double[]>();
+
+        for(int i=startindex; i<unordered_position.size(); i++){
+            splicedData.add(unordered_position.get(i));
+        }
+        return splicedData;
+    }
+
+    public Vector<double[]> sortData(Vector<double[]> sortedposition){
+        /*
+        Vector<double[]> position = new Vector<>();
+        double []arr1 = {2.0,3.0};
+        double []arr2 = {-4.0,8.0};
+        double []arr3 = {5.0,-19.0};
+        double []arr4 = {1.0,1.0};
+        position.add(arr1);
+        position.add(arr2);
+        position.add(arr3);
+        position.add(arr4);
+        System.out.println(position);
+        */
+        Collections.sort(sortedposition,new Comparator<double[]>() {
+            public int compare(double[] strings, double[] otherStrings) {
+                if(strings[0]<otherStrings[0])
+                    return -1;
+                else if(otherStrings[0]<strings[0])
+                    return 1;
+                return 0;
+            }
+        });
+
+        return sortedposition;
 
     }
 
