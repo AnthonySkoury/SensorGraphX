@@ -157,9 +157,10 @@ public class PositionDisplay extends GraphView {
             getViewport().setMaxX(rangeX);
             getViewport().setMinX(-rangeX);
 
-            getGridLabelRenderer().setHorizontalLabelsVisible(false);
+            //getGridLabelRenderer().setHorizontalLabelsVisible(false);
 
             GridLabelRenderer gridLabel = getGridLabelRenderer();
+            gridLabel.setPadding(32);
             gridLabel.setHorizontalAxisTitle("Position (X,Y)");
             //addSeries(xySeries);
         }
