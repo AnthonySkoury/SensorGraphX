@@ -67,6 +67,15 @@ public class PositionDisplay extends GraphView {
 
     }
 
+    public void resetGraph(){
+        removeAllSeries();
+        removeSeries(xySeries);
+        removeSeries(currentPoint);
+        xySeries = new PointsGraphSeries<>();
+        currentPoint = new PointsGraphSeries<>();
+        initGraph();
+    }
+
     public void initGraph(){
         xySeries = new PointsGraphSeries<>();
         currentPoint = new PointsGraphSeries<>();
