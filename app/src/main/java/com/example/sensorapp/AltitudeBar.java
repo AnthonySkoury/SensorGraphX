@@ -31,9 +31,16 @@ public class AltitudeBar extends GraphView {
         super(context, attrs, defStyle);
     }
 
+    public void resetGraph(){
+        removeAllSeries();
+        removeSeries(zSeries);
+        zSeries = new LineGraphSeries<>();
+        initGraph();
+    }
+
     public void initGraph(){
         zSeries = new LineGraphSeries<>();
-        //drawGraph();
+        drawGraph();
     }
 
     public void drawGraph(){
@@ -41,7 +48,7 @@ public class AltitudeBar extends GraphView {
             @Override
             public void run(){
                 removeAllSeries();
-                System.out.println(zSeries);
+                removeSeries(zSeries);
                 addSeries(zSeries);
                 //addSeries(currentPoint);
             }

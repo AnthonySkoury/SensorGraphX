@@ -44,5 +44,11 @@ public class AppManager {
         altitudeBar.initGraph();
     }
 
+    public void reset(){
+        dataSaver.resetData();
+        positionDisplay.resetGraph();
+        altitudeBar.resetGraph();
+    }
+
 
 }

@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     AppManager appManager;
     DataSaver dataSaver;
     int count;
-    boolean stop;
+    boolean stop=true;
 
     TextView X_Coord;
     TextView Y_Coord;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         CreateConnection();
         //FlowThread();
         CreateText();
-        ScreenThread();
+        setupButtons();
 
     }
 
@@ -92,35 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
         altitudeBar = (AltitudeBar) findViewById(R.id.AltitudeBar);
 
-        /*
-        //rest is random stuff
-        BarGraphSeries<DataPoint> series;
-
-        double y,x;
-        x=-5.0;
-        series = new BarGraphSeries<>();
-
-        altitudeBar.getViewport().setXAxisBoundsManual(true);
-        altitudeBar.getViewport().setMinX(0);
-        altitudeBar.getViewport().setMaxX(2);
-
-        altitudeBar.getViewport().setYAxisBoundsManual(true);
-        altitudeBar.getViewport().setMinY(-60);
-        altitudeBar.getViewport().setMaxY(60);
-
-        altitudeBar.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-
-        GridLabelRenderer gridLabel = altitudeBar.getGridLabelRenderer();
-        gridLabel.setHorizontalAxisTitle("Altitude (Z)");
-
-        for(int i=0; i<1; i++){
-            series.appendData(new DataPoint(0,30), true, 1);
-        }
-        altitudeBar.addSeries(series);
-
-        DataPoint[] dp = new DataPoint[]{new DataPoint(0,1)};
-        */
-
     }
 
     public void mainLooper(){
@@ -135,17 +107,18 @@ public class MainActivity extends AppCompatActivity {
     protected void ScreenThread(){
         startTime();
 
-        Thread tGame=new Thread(){
+        final Thread tGame=new Thread(){
             @Override
             public void run(){
-                while(!isInterrupted()){
+                while(!stop && !isInterrupted()){
                     try {
-                        Thread.sleep(100);  //75% of 1sec
+                        Thread.sleep(1000);  //75% of 1sec
 
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 Tasks();
+                                System.out.println(getName());
 
 
                             }
@@ -163,14 +136,57 @@ public class MainActivity extends AppCompatActivity {
     public void Tasks(){
         appManager.updatePosition(dataReceiver.connectToDevice());
         appManager.tracePosition();
-        String xPos = "X Position: "+String.valueOf(dataSaver.getCurrentX());
-        String yPos = "Y Position: "+String.valueOf(dataSaver.getCurrentY());
-        String zPos = "Z Position: "+String.valueOf(dataSaver.getCurrentZ());
+        String xPos = "X Position (in meters): "+String.valueOf(dataSaver.getCurrentX());
+        String yPos = "Y Position (in meters): "+String.valueOf(dataSaver.getCurrentY());
+        String zPos = "Z Position (in meters): "+String.valueOf(dataSaver.getCurrentZ());
         String runtime = "Elapsed Time: "+String.valueOf(getElapsedTimeSecs())+" s";
         X_Coord.setText(xPos);
         Y_Coord.setText(yPos);
         Z_Coord.setText(zPos);
         Run_Time.setText(runtime);
+    }
+
+    public void setupButtons(){
+        findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                try {
+                    stop = true;
+                    TimeUnit.SECONDS.sleep(1);
+                    stop = false;
+                    appManager.reset();
+                    ScreenThread();
+                }
+                catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        findViewById(R.id.btn_stop).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                stop = true;
+            }
+        });
+
+        findViewById(R.id.btn_reset).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                try {
+                    stop = true;
+                    TimeUnit.SECONDS.sleep(1);
+                    stop = false;
+                    appManager.reset();
+                    ScreenThread();
+                }
+                catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
     }
 
     /*

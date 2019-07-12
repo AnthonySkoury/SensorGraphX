@@ -9,12 +9,17 @@ import java.util.Vector;
 
 public class DataSaver {
 
-    private final Vector<double[]> unordered_position = new Vector<>();
+    private Vector<double[]> unordered_position = new Vector<>();
     private Vector<double[]> position = new Vector<>();
     int threshold=100;
 
     public DataSaver(){
 
+    }
+
+    public void resetData(){
+        unordered_position = new Vector<>();
+        position = new Vector<>();
     }
 
     public void updatePosition(double currentPos[]){
