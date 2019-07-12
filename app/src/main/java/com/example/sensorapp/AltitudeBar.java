@@ -21,14 +21,17 @@ public class AltitudeBar extends GraphView {
 
     public AltitudeBar(Context context) {
         super(context);
+        plotZSettings();
     }
 
     public AltitudeBar(Context context, AttributeSet attrs) {
         super(context, attrs);
+        plotZSettings();
     }
 
     public AltitudeBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        plotZSettings();
     }
 
     public void resetGraph(){

@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Tasks();
-                                System.out.println(getName());
+                                //System.out.println(getName());
 
 
                             }
