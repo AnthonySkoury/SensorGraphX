@@ -64,7 +64,7 @@ public class DataSaver {
     }
 
     public double[] getCurrentPosition(){
-        return position.lastElement();
+        return unordered_position.lastElement();
     }
 
     public int calcThreshold(){

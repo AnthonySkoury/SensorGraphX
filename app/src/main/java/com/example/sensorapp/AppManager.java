@@ -25,7 +25,7 @@ public class AppManager {
         altitudeBar.updateZPos();
 
         // positionDisplay.plotXY(dataSaver.getCurrentPosition());
-        positionDisplay.plotXY(dataSaver.getPosition());
+        positionDisplay.plotXY(dataSaver.getPosition(), dataSaver.getCurrentPosition());
         altitudeBar.plotZ(dataSaver.getCurrentZ());
     }
 

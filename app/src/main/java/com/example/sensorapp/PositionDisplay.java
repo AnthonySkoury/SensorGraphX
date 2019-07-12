@@ -69,6 +69,7 @@ public class PositionDisplay extends GraphView {
 
     public void initGraph(){
         xySeries = new PointsGraphSeries<>();
+        currentPoint = new PointsGraphSeries<>();
         drawGraph();
     }
 
@@ -111,17 +112,19 @@ public class PositionDisplay extends GraphView {
             public void run(){
                 removeAllSeries();
                 addSeries(xySeries);
+                addSeries(currentPoint);
                 //addSeries(currentPoint);
             }
         });
     }
 
-    synchronized public void plotXY(Vector<double[]> position){
+    synchronized public void plotXY(Vector<double[]> position, double[] currentPosition){
         try {
             //xySeries = new PointsGraphSeries<>();
 
             // xySeries = new LineGraphSeries<>();
             xySeries.resetData(new DataPoint[] {});
+            currentPoint.resetData(new DataPoint[] {});
 
             for (int i = 0; i < position.size(); i++) {
                 try {
@@ -134,12 +137,17 @@ public class PositionDisplay extends GraphView {
                 }
             }
 
+            currentPoint.appendData(new DataPoint(currentPosition[0], currentPosition[1]), true, 1);
+
             //set some properties
             xySeries.setShape(PointsGraphSeries.Shape.POINT);
             xySeries.setColor(Color.BLUE);
             xySeries.setSize(5f);
 
-
+            //set some properties
+            currentPoint.setShape(PointsGraphSeries.Shape.RECTANGLE);
+            currentPoint.setColor(Color.RED);
+            currentPoint.setSize(8f);
 
             //set Scrollable and Scaleable
             getViewport().setScalable(true);

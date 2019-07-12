@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             public void run(){
                 while(!isInterrupted()){
                     try {
-                        Thread.sleep(10000);  //75% of 1sec
+                        Thread.sleep(100);  //75% of 1sec
 
                         runOnUiThread(new Runnable() {
                             @Override
