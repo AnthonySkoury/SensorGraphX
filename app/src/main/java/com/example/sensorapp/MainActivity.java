@@ -1,6 +1,8 @@
 package com.example.sensorapp;
 
+import android.content.DialogInterface;
 import android.provider.ContactsContract;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -24,12 +26,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     DataSaver dataSaver;
     int count;
     boolean stop=true;
+    private String m_Text = "";
 
     TextView X_Coord;
     TextView Y_Coord;
@@ -67,21 +72,26 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.item1:
+                itemAction("Enter IP Address");
                 Toast.makeText(this, "Item 1 selected", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.item2:
+                itemAction("Enter Filename");
                 Toast.makeText(this, "Item 2 selected", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.item3:
+                itemAction("Enter Sample Rate");
                 Toast.makeText(this, "Item 3 selected", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.item4:
                 Toast.makeText(this, "Item 4 selected", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.subitem1:
+                itemAction("Enter Number");
                 Toast.makeText(this, "Sub Item 1 selected", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.subitem2:
+                itemAction("Enter String");
                 Toast.makeText(this, "Sub 2 selected", Toast.LENGTH_SHORT).show();
                 return true;
             default:
@@ -90,6 +100,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    protected void itemAction(String title){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                m_Text = input.getText().toString();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
 
     protected void StartApp(){
 
