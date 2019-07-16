@@ -7,4 +7,5 @@
     <string name="x_coord">X Position:</string>
     <string name="y_coord">Y Position:</string>
     <string name="z_coord">Z Position:</string>
+    <string name="download">Download File</string>
 </resources>
