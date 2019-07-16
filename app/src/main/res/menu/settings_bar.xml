@@ -2,35 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/item1"
-        android:title="@string/download"
+    <item
+        android:id="@+id/action_more"
+        android:icon="@drawable/ic_more_vert_black_24dp"
+        android:title=""
+        app:showAsAction="always">
+    <menu>
+    <item
+        android:id="@+id/action_add_contact"
         android:icon="@drawable/ic_wifi_tethering_black_24dp"
+        android:title="Add contact"
         app:showAsAction="ifRoom" />
-
-    <item android:id="@+id/item2"
-        android:title="@string/download"
-        android:icon="@drawable/ic_file_download_black_24dp"
-        app:showAsAction="never" />
-
-    <item android:id="@+id/item3"
-        android:icon="@drawable/ic_file_download_black_24dp"
-        android:title="@string/download"
-        app:showAsAction="never" />
-
-    <item android:id="@+id/item4"
-        android:title="@string/download"
-        app:showAsAction="never">
-
-        <menu>
-            <item android:id="@+id/subitem1"
-                android:title="@string/download"
-                />
-            <item android:id="@+id/subitem2"
-                android:title="@string/download"
-                />
-
-        </menu>
-
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_wifi_tethering_black_24dp"
+        android:title="Settings"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_about_us"
+        android:icon="@drawable/ic_wifi_tethering_black_24dp"
+        android:title="About us"
+        app:showAsAction="ifRoom" />
+    </menu>
     </item>
 
 </menu>

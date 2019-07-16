@@ -6,17 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
 
     <com.example.sensorapp.PositionDisplay
         android:id="@+id/PositionDisplay"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="370dp"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
 
     <LinearLayout
@@ -37,38 +45,37 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/green"
-            android:textSize="18sp"
-            android:text="@string/start" />
+            android:text="@string/start"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btn_stop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@color/red"
             android:text="@string/stop"
-            android:textSize="18sp"
-            android:backgroundTint="@color/red" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btn_reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@color/yellow"
             android:text="@string/restart"
-            android:textSize="18sp"
-            android:backgroundTint="@color/yellow" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/titlelayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="731dp"
         android:orientation="horizontal"
-        app:layout_constrainedHeight="@id/PositionDisplay"
 
+        app:layout_constrainedHeight="@id/PositionDisplay"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="8dp">
 
         <!---
@@ -98,17 +105,17 @@
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="64dp"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/PositionDisplay"
         app:layout_constraintStart_toStartOf="parent"
-        android:baselineAligned="false">
+        app:layout_constraintTop_toBottomOf="@id/PositionDisplay">
 
         <LinearLayout
             android:id="@+id/datalayout"
-            android:layout_weight="1"
-            android:layout_height="fill_parent"
             android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -119,8 +126,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity=""
-                android:textSize="18sp"
-                android:text="@string/x_coord" />
+                android:text="@string/x_coord"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/y_coordinate"
@@ -128,8 +135,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity=""
-                android:textSize="18sp"
-                android:text="@string/y_coord" />
+                android:text="@string/y_coord"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/z_coordinate"
@@ -137,8 +144,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity=""
-                android:textSize="18sp"
-                android:text="@string/z_coord" />
+                android:text="@string/z_coord"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/time"
@@ -146,18 +153,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity=""
-                android:textSize="18sp"
-                android:text="@string/time" />
+                android:text="@string/time"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/altitudelayout"
-            android:layout_weight="1"
-            android:layout_height="fill_parent"
             android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" >
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.example.sensorapp.AltitudeBar
                 android:id="@+id/AltitudeBar"
@@ -177,7 +184,6 @@
 
 
         </LinearLayout>
-
 
 
     </LinearLayout>
