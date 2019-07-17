@@ -72,19 +72,43 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_more:
-                Toast.makeText(this, "Item 1 selected", Toast.LENGTH_SHORT).show();
+
                 return true;
-            case R.id.action_add_contact:
-                itemAction("Enter Filename");
-                Toast.makeText(this, "Item 2 selected", Toast.LENGTH_SHORT).show();
+
+            case R.id.action_set_ip:
+                itemAction("Enter IP Address");
+                return true;
+
+            case R.id.action_graph_settings:
+                return true;
+            case R.id.action_set_sampling:
+                itemAction("Enter Sample Rate");
+                return true;
+            case R.id.action_set_maxpoints:
+                itemAction("Enter Max Points Displayed at a Time");
+                return true;
+            case R.id.action_set_background:
+                itemAction("Enter File Path for Floor Plan");
+                return true;
+
+            case R.id.action_file:
+                return true;
+            case R.id.action_download:
+                itemAction("Enter File Destination");
+                return true;
+            case R.id.action_upload:
+                itemAction("Enter File Path for Data");
+                return true;
+
+            case R.id.action_help:
+                return true;
+            case R.id.action_guide:
+                Toast.makeText(this, "Tutorial", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_about_us:
-                itemAction("Enter Sample Rate");
-                Toast.makeText(this, "Item 3 selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.action_settings:
-                Toast.makeText(this, "Item 4 selected", Toast.LENGTH_SHORT).show();
-                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
