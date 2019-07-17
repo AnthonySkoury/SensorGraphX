@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/UCI_blue"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/yellow"
+            android:backgroundTint="@color/blue"
             android:text="@string/restart"
             android:textSize="18sp" />
     </LinearLayout>
@@ -125,36 +125,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity=""
                 android:text="@string/x_coord"
-                android:textSize="18sp" />
+                android:lines="2"
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/y_coordinate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity=""
                 android:text="@string/y_coord"
-                android:textSize="18sp" />
+                android:lines="2"
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/z_coordinate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity=""
                 android:text="@string/z_coord"
-                android:textSize="18sp" />
+                android:lines="2"
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity=""
                 android:text="@string/time"
-                android:textSize="18sp" />
+                android:lines="1"
+                android:textSize="16dp" />
         </LinearLayout>
 
         <LinearLayout
