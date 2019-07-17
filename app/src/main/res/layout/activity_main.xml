@@ -44,7 +44,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/green"
+            android:drawableStart="@drawable/ic_play_arrow_black_24dp"
+            android:backgroundTint="@color/start_green"
             android:text="@string/start"
             android:textSize="18sp" />
 
@@ -53,7 +54,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/stop_red"
+            android:drawableStart="@drawable/ic_stop_black_24dp"
             android:text="@string/stop"
             android:textSize="18sp" />
 
@@ -62,7 +64,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/blue"
+            android:backgroundTint="@color/reset_blue"
+            android:drawableStart="@drawable/ic_loop_black_24dp"
             android:text="@string/restart"
             android:textSize="18sp" />
     </LinearLayout>
