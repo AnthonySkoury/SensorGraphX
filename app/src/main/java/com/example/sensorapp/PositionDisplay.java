@@ -46,6 +46,11 @@ public class PositionDisplay extends GraphView {
         plotXYSettings();
     }
 
+    public void setMaxDataPoints(int max){
+        maxDataPoints=max;
+        resetGraph();
+    }
+
     public void updateXYPos(double x, double y){
         xy_coord.appendData(new DataPoint(x,y), true, maxDataPoints);
     }

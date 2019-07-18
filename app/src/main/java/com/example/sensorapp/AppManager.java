@@ -50,5 +50,13 @@ public class AppManager {
         altitudeBar.resetGraph();
     }
 
+    public void setIP(String ip){
+
+    }
+
+    public void setMaxDatapoints(int max){
+        positionDisplay.setMaxDataPoints(max);
+    }
+
 
 }

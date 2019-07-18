@@ -44,9 +44,17 @@ public class MainActivity extends AppCompatActivity {
     AltitudeBar altitudeBar;
     AppManager appManager;
     DataSaver dataSaver;
-    int count;
     boolean stop=true;
+
+    private String m_Title = "";
+    private int m_Type;
     private String m_Text = "";
+    private String m_IP = "http://128.195.207.30:8001/Service/xyzDisplay";
+    private long m_Sample_Rate=1000;
+    private int m_Max_Points=100;
+    private String m_Background = "";
+    private String m_File_Upload = "";
+    private String m_File_Download = "";
 
     TextView X_Coord;
     TextView Y_Coord;
@@ -76,28 +84,30 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_set_ip:
-                itemAction("Enter IP Address");
+                itemAction("Enter IP Address", R.id.action_set_ip);
                 return true;
 
             case R.id.action_graph_settings:
                 return true;
             case R.id.action_set_sampling:
-                itemAction("Enter Sample Rate");
+                itemAction("Enter Sample Rate", R.id.action_set_sampling);
+//                Toast.makeText(this, m_Sample_Rate, Toast.LENGTH_SHORT).show();
+//                System.out.println("This is sample rate: "+m_Sample_Rate);
                 return true;
             case R.id.action_set_maxpoints:
-                itemAction("Enter Max Points Displayed at a Time");
+                itemAction("Enter Max Points Displayed at a Time", R.id.action_set_maxpoints);
                 return true;
             case R.id.action_set_background:
-                itemAction("Enter File Path for Floor Plan");
+                itemAction("Enter File Path for Floor Plan", R.id.action_set_background);
                 return true;
 
             case R.id.action_file:
                 return true;
             case R.id.action_download:
-                itemAction("Enter File Destination");
+                itemAction("Enter File Destination", R.id.action_download);
                 return true;
             case R.id.action_upload:
-                itemAction("Enter File Path for Data");
+                itemAction("Enter File Path for Data", R.id.action_upload);
                 return true;
 
             case R.id.action_help:
@@ -115,10 +125,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected void itemAction(String title){
+    protected void itemAction(String title, int id){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
-
+        m_Type = id;
         // Set up the input
         final EditText input = new EditText(this);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
@@ -130,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 m_Text = input.getText().toString();
+                handleInput(m_Text, m_Type);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -140,6 +151,56 @@ public class MainActivity extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    protected void handleInput(String input, int id){
+        switch (id){
+            case R.id.action_set_ip:
+                m_IP=input;
+                handleIP();
+            case R.id.action_set_sampling:
+                m_Sample_Rate=Long.parseLong(input);
+                handleSampling();
+            case R.id.action_set_maxpoints:
+                m_Max_Points=Integer.parseInt(input);
+                handleMaxPoints();
+            case R.id.action_set_background:
+                m_Background=input;
+                handleBackground();
+            case R.id.action_download:
+                m_File_Download=input;
+                handleDownload();
+            case R.id.action_upload:
+                m_File_Upload=input;
+                handleUpload();
+            default:
+                return;
+        }
+    }
+
+    protected void handleIP(){
+        //appManager.setIP(m_IP);
+        dataReceiver.changeURL(m_IP);
+    }
+
+    protected void handleSampling(){
+
+    }
+
+    protected void handleMaxPoints(){
+        appManager.setMaxDatapoints(m_Max_Points);
+    }
+
+    protected void handleBackground(){
+
+    }
+
+    protected void handleDownload(){
+        dataSaver.SaveToFile();
+    }
+
+    protected void handleUpload(){
+
     }
 
     protected void StartApp(){
@@ -169,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void CreateConnection(){
-        dataReceiver = new DataReceiver("http://128.195.207.30:8001/Service/xyzDisplay", appManager);
+        dataReceiver = new DataReceiver(m_IP, appManager);
     }
 
     protected void CreatePlotXY(){
@@ -201,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
             public void run(){
                 while(!stop && !isInterrupted()){
                     try {
-                        Thread.sleep(1000);  //75% of 1sec
+                        Thread.sleep(m_Sample_Rate);  //75% of 1sec
 
                         runOnUiThread(new Runnable() {
                             @Override
