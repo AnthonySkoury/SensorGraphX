@@ -33,6 +33,10 @@ public class DataReceiver{
         this.currentPosition  = new double[3];
     }
 
+    public void changeURL(String ip){
+        url = ip;
+    }
+
     public Document ParseURL() throws Exception{
         URL url = new URL(this.url);
         URLConnection connection = url.openConnection();

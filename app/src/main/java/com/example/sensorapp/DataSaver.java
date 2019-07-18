@@ -1,5 +1,10 @@
 package com.example.sensorapp;
 
+import com.opencsv.CSVWriter;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -118,7 +123,32 @@ public class DataSaver {
     }
 
     public int SaveToFile(){
+        String baseDir = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
+        String fileName = "PositionData.csv";
+        String filePath = baseDir + File.separator + fileName;
+        File f = new File(filePath);
+        CSVWriter writer;
+        FileWriter mFileWriter;
+        // File exist
+        try {
+            if (f.exists() && !f.isDirectory()) {
+                mFileWriter = new FileWriter(filePath, true);
+                writer = new CSVWriter(mFileWriter);
+            } else {
+                writer = new CSVWriter(new FileWriter(filePath));
+            }
 
+            for(double[] position: unordered_position){
+
+                String[] data = {Double.toString(position[0]), Double.toString(position[1]), Double.toString(position[2])};
+                writer.writeNext(data);
+            }
+
+            writer.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         return 0;
     }
 
