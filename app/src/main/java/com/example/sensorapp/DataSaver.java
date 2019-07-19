@@ -1,5 +1,8 @@
 package com.example.sensorapp;
 
+import android.os.Environment;
+import android.widget.Toast;
+
 import com.opencsv.CSVWriter;
 
 import java.io.File;
@@ -122,9 +125,10 @@ public class DataSaver {
 
     }
 
-    public int SaveToFile(){
-        String baseDir = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
-        String fileName = "PositionData.csv";
+    public String SaveToFile(String name){
+        //String baseDir = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
+        String baseDir = android.os.Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+        String fileName = name+".csv";
         String filePath = baseDir + File.separator + fileName;
         File f = new File(filePath);
         CSVWriter writer;
@@ -145,11 +149,12 @@ public class DataSaver {
             }
 
             writer.close();
+            //Toast.makeText(this, "Saved to "+filePath, Toast.LENGTH_LONG).show();
         }
         catch (Exception e){
             e.printStackTrace();
         }
-        return 0;
+        return filePath;
     }
 
 

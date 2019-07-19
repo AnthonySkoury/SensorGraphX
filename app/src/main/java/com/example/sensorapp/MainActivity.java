@@ -1,7 +1,16 @@
 package com.example.sensorapp;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +24,8 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import org.w3c.dom.Document;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -44,8 +55,12 @@ public class MainActivity extends AppCompatActivity {
     AltitudeBar altitudeBar;
     AppManager appManager;
     DataSaver dataSaver;
+    Bitmap background;
+
     boolean stop=true;
 
+
+    int GET_FROM_GALLERY = 1;
     private String m_Title = "";
     private int m_Type;
     private String m_Text = "";
@@ -67,6 +82,33 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        1);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            // Permission has already been granted
+        }
+
         StartApp();
     }
 
@@ -98,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 itemAction("Enter Max Points Displayed at a Time", R.id.action_set_maxpoints);
                 return true;
             case R.id.action_set_background:
-                itemAction("Enter File Path for Floor Plan", R.id.action_set_background);
+                handleBackground();
                 return true;
 
             case R.id.action_file:
@@ -158,21 +200,27 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_set_ip:
                 m_IP=input;
                 handleIP();
+                break;
             case R.id.action_set_sampling:
                 m_Sample_Rate=Long.parseLong(input);
                 handleSampling();
+                break;
             case R.id.action_set_maxpoints:
                 m_Max_Points=Integer.parseInt(input);
                 handleMaxPoints();
+                break;
             case R.id.action_set_background:
                 m_Background=input;
                 handleBackground();
+                break;
             case R.id.action_download:
                 m_File_Download=input;
                 handleDownload();
+                break;
             case R.id.action_upload:
                 m_File_Upload=input;
                 handleUpload();
+                break;
             default:
                 return;
         }
@@ -192,15 +240,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void handleBackground(){
+        startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
 
     }
 
     protected void handleDownload(){
-        dataSaver.SaveToFile();
+        String temp =  dataSaver.SaveToFile(m_File_Download);
+        Toast.makeText(this, temp, Toast.LENGTH_LONG).show();
     }
 
     protected void handleUpload(){
 
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        //Detects request codes
+        if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+            Uri selectedImage = data.getData();
+            background = null;
+            try {
+                background = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                appManager.setBackground(background);
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 
     protected void StartApp(){

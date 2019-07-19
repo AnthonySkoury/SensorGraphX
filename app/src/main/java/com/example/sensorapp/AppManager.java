@@ -1,5 +1,7 @@
 package com.example.sensorapp;
 
+import android.graphics.Bitmap;
+
 public class AppManager {
 
     private PositionDisplay positionDisplay;
@@ -56,6 +58,10 @@ public class AppManager {
 
     public void setMaxDatapoints(int max){
         positionDisplay.setMaxDataPoints(max);
+    }
+
+    public void setBackground(Bitmap bg){
+        positionDisplay.changeBackground(bg);
     }
 
 
