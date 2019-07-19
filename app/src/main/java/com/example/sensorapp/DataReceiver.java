@@ -106,13 +106,13 @@ public class DataReceiver{
             case "run time":
                 break;
             case "x":
-                currentPosition[0]=Double.parseDouble(value)+genRandomDouble();
+                currentPosition[0]=Double.parseDouble(value);
                 break;
             case "y":
-                currentPosition[1]=Double.parseDouble(value)+genRandomDouble();
+                currentPosition[1]=Double.parseDouble(value);
                 break;
             case "z":
-                currentPosition[2]=Double.parseDouble(value)+genRandomDouble();
+                currentPosition[2]=Double.parseDouble(value);
                 break;
             default:
                 break;
@@ -153,8 +153,8 @@ public class DataReceiver{
         }
         try
         {
-                // ParseXML(ParseURL());
-                TestData();
+                ParseXML(ParseURL());
+               // TestData();
 
         }
         catch (Exception e)
