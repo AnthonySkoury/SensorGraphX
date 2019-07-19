@@ -133,8 +133,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_set_sampling:
                 itemAction("Enter Sample Rate", R.id.action_set_sampling);
-//                Toast.makeText(this, m_Sample_Rate, Toast.LENGTH_SHORT).show();
-//                System.out.println("This is sample rate: "+m_Sample_Rate);
                 return true;
             case R.id.action_set_maxpoints:
                 itemAction("Enter Max Points Displayed at a Time", R.id.action_set_maxpoints);
