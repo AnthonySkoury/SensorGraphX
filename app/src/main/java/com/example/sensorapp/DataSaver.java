@@ -25,7 +25,7 @@ public class DataSaver {
 
     private Vector<double[]> unordered_position = new Vector<>();
     private Vector<double[]> position = new Vector<>();
-    int threshold=100;
+    private int threshold=100;
 
     public DataSaver(){
 
@@ -42,6 +42,10 @@ public class DataSaver {
         position = spliceData(calcThreshold());
         position = sortData(position);
 
+    }
+
+    public void setThreshold(int new_threshold){
+        threshold=new_threshold;
     }
 
     public double getXPos(int index){

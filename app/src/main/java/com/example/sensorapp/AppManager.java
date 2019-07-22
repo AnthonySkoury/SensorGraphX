@@ -57,6 +57,7 @@ public class AppManager {
     }
 
     public void setMaxDatapoints(int max){
+        dataSaver.setThreshold(max);
         positionDisplay.setMaxDataPoints(max);
     }
 
