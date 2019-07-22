@@ -3,10 +3,16 @@ package com.example.sensorapp;
 import android.os.Environment;
 import android.widget.Toast;
 
+import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
@@ -155,6 +161,32 @@ public class DataSaver {
             e.printStackTrace();
         }
         return filePath;
+    }
+
+    private static final String SAMPLE_CSV_FILE_PATH = "./users.csv";
+
+    public void readFile(String name) throws IOException {
+        resetData();
+        String baseDir = android.os.Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+        String fileName = name+".csv";
+        String filePath = baseDir + File.separator + fileName;
+        try (
+
+                CSVReader csvReader = new CSVReader(new FileReader(filePath))
+        ) {
+            // Reading Records One by One in a String array
+            String[] data;
+            while ((data = csvReader.readNext()) != null) {
+                double[] temp = {Double.parseDouble(data[0]), Double.parseDouble(data[1]), Double.parseDouble(data[2])};
+                updatePosition(temp);
+                /*
+                System.out.println("X : " + data[0]);
+                System.out.println("Y : " + data[1]);
+                System.out.println("Z : " + data[2]);
+                System.out.println("==========================");
+                */
+            }
+        }
     }
 
 
