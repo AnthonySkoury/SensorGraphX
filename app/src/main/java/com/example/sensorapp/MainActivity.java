@@ -144,10 +144,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_file:
                 return true;
             case R.id.action_download:
-                itemAction("Enter File Destination", R.id.action_download);
+                itemAction("Enter File Name For Download", R.id.action_download);
                 return true;
             case R.id.action_upload:
-                itemAction("Enter File Path for Data", R.id.action_upload);
+                itemAction("Enter File Name For Upload", R.id.action_upload);
                 return true;
 
             case R.id.action_help:
@@ -248,8 +248,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void handleUpload(){
-
-
+        stop = true;
+        readFile();
+        positionGraph.resetGraph();
+        appManager.tracePosition();
     }
 
     @Override
@@ -271,6 +273,15 @@ public class MainActivity extends AppCompatActivity {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void readFile(){
+        try {
+            dataSaver.readFile(m_File_Upload);
+        }
+        catch (IOException e){
+            e.printStackTrace();
         }
     }
 
@@ -409,28 +420,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-    /*
-    @Override
-    protected void onResume(){
-        super.onResume();
-        Runnable run = new Runnable() {
-            public void run() {
-                try {
-                    while(!stop) {
-                        Thread.sleep(1000);  //75% of 1sec
-                        appManager.updatePosition(dataReceiver.connectToDevice());
-                        appManager.tracePosition();
-                    }
-
-                } catch (Exception e) {
-                    System.out.println(" interrupted");
-                }
-            }
-        };
-        new Thread(run).start();
-    }
-    */
 
     private long startTime = 0;
     private long stopTime = 0;
