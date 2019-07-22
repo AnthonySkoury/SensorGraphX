@@ -243,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void handleDownload(){
+        stop = true;
         String temp =  dataSaver.SaveToFile(m_File_Download);
         Toast.makeText(this, temp, Toast.LENGTH_LONG).show();
     }
@@ -252,6 +253,10 @@ public class MainActivity extends AppCompatActivity {
         readFile();
         positionGraph.resetGraph();
         appManager.tracePosition();
+        X_Coord.setText("X Position: ");
+        Y_Coord.setText("Y Position: ");
+        Z_Coord.setText("Z Position: ");
+        Run_Time.setText("Time: ");
     }
 
     @Override
