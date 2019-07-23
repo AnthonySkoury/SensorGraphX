@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private String m_Title = "";
     private int m_Type;
     private String m_Text = "";
-    private String m_IP = "http://128.195.207.30:8001/Service/xyzDisplay";
+    private String m_IP = "http://192.168.48.2:8001/WebService/xyzDisplay";
     private long m_Sample_Rate=1000;
     private int m_Max_Points=100;
     private String m_Background = "";
