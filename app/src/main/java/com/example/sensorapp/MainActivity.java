@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private String m_Title = "";
     private int m_Type;
     private String m_Text = "";
-    private String m_IP = "http://192.168.48.2:8001/WebService/xyzDisplay";
+    private String m_IP = "http://127.0.0.1:8001/Service/RandomNumber";
     private long m_Sample_Rate=1000;
     private int m_Max_Points=100;
     private String m_Background = "";
@@ -160,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_about_us:
                 Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, About.class));
                 return true;
 
             default:
