@@ -48,6 +48,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import mehdi.sakout.aboutpage.AboutPage;
+
 
 public class MainActivity extends AppCompatActivity {
     DataReceiver dataReceiver;
@@ -110,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         StartApp();
+
     }
 
     @Override
@@ -245,7 +248,8 @@ public class MainActivity extends AppCompatActivity {
     protected void handleDownload(){
         stop = true;
         String temp =  dataSaver.SaveToFile(m_File_Download);
-        Toast.makeText(this, temp, Toast.LENGTH_LONG).show();
+        String text = "Saved file to: "+temp;
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 
     protected void handleUpload(){
