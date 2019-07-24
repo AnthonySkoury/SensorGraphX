@@ -26,6 +26,7 @@ public class DataSaver {
     private Vector<double[]> unordered_position = new Vector<>();
     private Vector<double[]> position = new Vector<>();
     private int threshold=100;
+    int runtime;
 
     public DataSaver(){
 
