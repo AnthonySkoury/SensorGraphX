@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_guide:
                 Toast.makeText(this, "Tutorial", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, Guide.class));
                 return true;
             case R.id.action_about_us:
                 Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
