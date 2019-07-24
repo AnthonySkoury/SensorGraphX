@@ -3,8 +3,10 @@ package com.example.sensorapp;
 import android.os.StrictMode;
 
 import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
@@ -26,6 +28,11 @@ public class DataReceiver{
     AppManager appManager;
     double currentPosition[];
     double tempXYZ;
+
+    String resetOnGlobal = "http://128.195.207.30:8001/Service/xyzDisplay?reset_data=1";
+    String resetOffGlobal = "http://128.195.207.30:8001/Service/xyzDisplay?reset_data=0";
+    String resetOn = "http://127.0.0.1:8001/Service/xyzDisplay?reset_data=1";
+    String resetOff = "http://127.0.0.1:8001/Service/xyzDisplay?reset_data=0";
 
     public DataReceiver(String url, AppManager appManager){
         this.url = url;
@@ -103,7 +110,14 @@ public class DataReceiver{
 
     public void ParseData(String name, String value){
         switch(name){
+            case "acc_test":
+                break;
+            case "ALT_test":
+                break;
+            case "gyro_test":
+                break;
             case "run time":
+                appManager.updateRunTime(Integer.parseInt(value));
                 break;
             case "x":
                 currentPosition[0]=Double.parseDouble(value);
@@ -113,6 +127,8 @@ public class DataReceiver{
                 break;
             case "z":
                 currentPosition[2]=Double.parseDouble(value);
+                break;
+            case "ZUPT_test":
                 break;
             default:
                 break;
@@ -167,6 +183,128 @@ public class DataReceiver{
             return currentPosition;
         }
 
+    }
+
+    public void toggleResetON(){
+        try {
+            URL url = new URL(resetOnGlobal);
+            URLConnection connection = url.openConnection();
+            // Set resonable timeouts
+            connection.setConnectTimeout(250);
+            connection.setReadTimeout(250);
+
+            connection.getInputStream(); //test case
+            // Create an XML document builder with the default settings
+
+            DocumentBuilder docbuilder = DocumentBuilderFactory.newInstance()
+                    .newDocumentBuilder();
+            // Parse XML from the web service into a DOM tree
+            //Document doc = docbuilder.parse(connection.getInputStream());
+            //ParseXML(doc);
+            docbuilder.parse(connection.getInputStream());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            /*
+            new java.util.Timer().schedule(
+                    new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            toggleResetOFF();
+                        }
+                    },2000
+            );
+            */
+        }
+    }
+
+    public void toggleResetOFF(){
+        try {
+            URL url = new URL(resetOffGlobal);
+            URLConnection connection = url.openConnection();
+            // Set resonable timeouts
+            connection.setConnectTimeout(250);
+            connection.setReadTimeout(250);
+
+            connection.getInputStream(); //test case
+            // Create an XML document builder with the default settings
+
+            DocumentBuilder docbuilder = DocumentBuilderFactory.newInstance()
+                    .newDocumentBuilder();
+            // Parse XML from the web service into a DOM tree
+            //Document doc = docbuilder.parse(connection.getInputStream());
+            //ParseXML(doc);
+            docbuilder.parse(connection.getInputStream());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+
+        }
+    }
+
+    public void toggleResetON2(){
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        try
+        {
+            URL url = new URL(resetOnGlobal);
+            URLConnection connection = url.openConnection();
+            // Set resonable timeouts
+            connection.setConnectTimeout(250);
+           // connection.setReadTimeout(1000);
+
+            connection.connect();
+
+
+        }
+        catch (MalformedURLException e) {
+            // new URL() failed
+            // ...
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            // openConnection() failed
+            // ...
+            e.printStackTrace();
+
+        }
+        finally {
+
+        }
+    }
+
+    public void toggleResetOFF2(){
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        try
+        {
+            URL url = new URL(resetOffGlobal);
+            URLConnection connection = url.openConnection();
+            // Set resonable timeouts
+            connection.setConnectTimeout(250);
+            connection.setReadTimeout(250);
+
+            connection.connect();
+        }
+        catch (Exception e)
+        {
+            System.out.println("Printing stack trace... ");
+            e.printStackTrace();
+
+        }
+        finally {
+
+        }
     }
 
 

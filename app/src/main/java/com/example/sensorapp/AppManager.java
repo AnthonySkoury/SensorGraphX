@@ -65,5 +65,9 @@ public class AppManager {
         positionDisplay.changeBackground(bg);
     }
 
+    public void updateRunTime(int time){
+        dataSaver.runtime=time;
+    }
+
 
 }

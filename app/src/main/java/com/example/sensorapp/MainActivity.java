@@ -41,6 +41,7 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private String m_Title = "";
     private int m_Type;
     private String m_Text = "";
-    private String m_IP = "http://127.0.0.1:8001/Service/RandomNumber";
+    private String m_IP = "http://128.195.207.30:8001/Service/xyzDisplay";
     private long m_Sample_Rate=1000;
     private int m_Max_Points=100;
     private String m_Background = "";
@@ -118,7 +119,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.settings_bar, menu);
-        return super.onCreateOptionsMenu(menu);
+        //return super.onCreateOptionsMenu(menu);
+       // MenuItem item = menu.findItem(R.id.myswitch);
+       // item.setActionView(R.layout.switch_layout);
+        return true;
     }
 
     @Override
@@ -382,7 +386,7 @@ public class MainActivity extends AppCompatActivity {
         String xPos = "X Position (in meters): "+String.valueOf(dataSaver.getCurrentX());
         String yPos = "Y Position (in meters): "+String.valueOf(dataSaver.getCurrentY());
         String zPos = "Z Position (in meters): "+String.valueOf(dataSaver.getCurrentZ());
-        String runtime = "Elapsed Time: "+String.valueOf(getElapsedTimeSecs())+" s";
+        String runtime = "Elapsed Time: "+String.valueOf(dataSaver.runtime)+" s";
         X_Coord.setText(xPos);
         Y_Coord.setText(yPos);
         Z_Coord.setText(zPos);
@@ -413,20 +417,47 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /*
         findViewById(R.id.btn_reset).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 try {
-                    stop = true;
-                    TimeUnit.SECONDS.sleep(1);
-                    stop = false;
-                    appManager.reset();
-                    ScreenThread();
+                    dataReceiver.toggleResetON();
+                    dataReceiver.toggleResetON();
+                    dataReceiver.toggleResetON();
+                    dataReceiver.toggleResetON();
+                    new java.util.Timer().schedule(
+                            new java.util.TimerTask() {
+                                @Override
+                                public void run() {
+                                    dataReceiver.toggleResetOFF();
+                                }
+                            },2000
+                    );
                 }
-                catch (InterruptedException e){
+                catch (Exception e){
                     e.printStackTrace();
                 }
 
+            }
+        });
+        */
+
+        findViewById(R.id.btn_reset).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    dataReceiver.toggleResetON();
+
+                    System.out.println("Button pressed Down");
+                    // Do what you want
+
+                }
+                else if (event.getAction() == MotionEvent.ACTION_UP){
+                    dataReceiver.toggleResetOFF();
+                }
+                System.out.println("NO BUTTON");
+                return MainActivity.super.onTouchEvent(event);
             }
         });
 
