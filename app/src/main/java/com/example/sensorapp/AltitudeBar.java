@@ -1,6 +1,7 @@
 package com.example.sensorapp;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 
@@ -58,6 +59,13 @@ public class AltitudeBar extends GraphView {
         });
     }
 
+    public void setRangeZ(int range){
+        rangeZ=range;
+        if(zSeries.isEmpty()){
+            initGraph();
+        }
+    }
+
     public void updateZPos(){
 
     }
@@ -82,15 +90,22 @@ public class AltitudeBar extends GraphView {
         removeSeries(zSeries);
         zSeries = new LineGraphSeries<>();
 
-        for (int i = 0; i < rangeZ-10; i++) {
+        int range = rangeZ-(int)(rangeZ/4);
+        if(rangeZ==1){
+            range=2;
+        }
+
+        for (int i = 0; i < range; i++) {
             try {
                 // double x = i;
                 // double y = z;
-                zSeries.appendData(new DataPoint(i, z), true, rangeZ-10);
+                zSeries.appendData(new DataPoint(i, z), true, range);
             } catch (IllegalArgumentException e) {
                 Log.e(TAG, "createScatterPlot: IllegalArgumentException: " + e.getMessage());
             }
         }
+        zSeries.setColor(Color.BLUE);
+        zSeries.setThickness(10);
         plotZSettings();
         addSeries(zSeries);
     }

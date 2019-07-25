@@ -14,6 +14,10 @@
     <string name="ip">Set IP Address</string>
 
     <string name="graph">Graph Settings</string>
+    <string name="range">Set Range Limit</string>
+    <string name="rangeX">Set X Position Range Limit</string>
+    <string name="rangeY">Set Y Position Range Limit</string>
+    <string name="rangeZ">Set Altitude Range Limit</string>
     <string name="sampling">Set Sampling Rate</string>
     <string name="maxpoints">Set Max Points Displayed</string>
     <string name="background">Upload Floor Plan Map</string>

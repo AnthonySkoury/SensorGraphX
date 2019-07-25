@@ -68,7 +68,11 @@ public class MainActivity extends AppCompatActivity {
     private String m_Title = "";
     private int m_Type;
     private String m_Text = "";
-    private String m_IP = "http://128.195.207.30:8001/Service/xyzDisplay";
+    private String m_IP = "http://192.168.48.2:8001/WebService/xyzDisplay";
+    //private String m_IP = "http://128.195.207.30:8001/Service/xyzDisplay";
+    private int m_Max_RangeX=60;
+    private int m_Max_RangeY=60;
+    private int m_Max_RangeZ=60;
     private long m_Sample_Rate=1000;
     private int m_Max_Points=100;
     private String m_Background = "";
@@ -148,6 +152,17 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_graph_settings:
                 return true;
+            case R.id.action_set_range:
+                return true;
+            case R.id.action_set_x_range:
+                itemAction("Enter Z Range Limit (in meters)", R.id.action_set_x_range);
+                return true;
+            case R.id.action_set_y_range:
+                itemAction("Enter Y Range Limit (in meters)", R.id.action_set_y_range);
+                return true;
+            case R.id.action_set_z_range:
+                itemAction("Enter Altitude Range Limit (in meters)", R.id.action_set_z_range);
+                return true;
             case R.id.action_set_sampling:
                 itemAction("Enter Sample Rate", R.id.action_set_sampling);
                 return true;
@@ -160,10 +175,18 @@ public class MainActivity extends AppCompatActivity {
             case R.id.ZUPT:
                 isCheckedZUPT = !item.isChecked();
                 item.setChecked(isCheckedZUPT);
+                if(dataReceiver.ZUPT_flag==0)
+                    dataReceiver.ZUPT_flag=1;
+                else
+                    dataReceiver.ZUPT_flag=0;
                 return true;
             case R.id.Altitude:
                 isCheckedAltitude = !item.isChecked();
                 item.setChecked(isCheckedAltitude);
+                if(dataReceiver.Altimeter_flag==0)
+                    dataReceiver.Altimeter_flag=1;
+                else
+                    dataReceiver.Altimeter_flag=0;
                 return true;
 
             case R.id.action_file:
@@ -226,6 +249,18 @@ public class MainActivity extends AppCompatActivity {
                 m_IP=input;
                 handleIP();
                 break;
+            case R.id.action_set_x_range:
+                m_Max_RangeX=Integer.parseInt(input);
+                handleRangeX();
+                break;
+            case R.id.action_set_y_range:
+                m_Max_RangeY=Integer.parseInt(input);
+                handleRangeY();
+                break;
+            case R.id.action_set_z_range:
+                m_Max_RangeZ=Integer.parseInt(input);
+                handleRangeZ();
+                break;
             case R.id.action_set_sampling:
                 m_Sample_Rate=Long.parseLong(input);
                 handleSampling();
@@ -254,6 +289,18 @@ public class MainActivity extends AppCompatActivity {
     protected void handleIP(){
         //appManager.setIP(m_IP);
         dataReceiver.changeURL(m_IP);
+    }
+
+    protected void handleRangeX(){
+        positionGraph.setRangeX(m_Max_RangeX);
+    }
+
+    protected void handleRangeY(){
+        positionGraph.setRangeY(m_Max_RangeY);
+    }
+
+    protected void handleRangeZ(){
+        altitudeBar.setRangeZ(m_Max_RangeZ);
     }
 
     protected void handleSampling(){
@@ -465,14 +512,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    dataReceiver.toggleResetON();
+                    dataReceiver.reset_flag=1;
+                    dataReceiver.UploadVariables();
 
                     System.out.println("Button pressed Down");
                     // Do what you want
 
                 }
                 else if (event.getAction() == MotionEvent.ACTION_UP){
-                    dataReceiver.toggleResetOFF();
+                    dataReceiver.reset_flag=0;
+                    dataReceiver.UploadVariables();
                 }
                 System.out.println("NO BUTTON");
                 return MainActivity.super.onTouchEvent(event);
