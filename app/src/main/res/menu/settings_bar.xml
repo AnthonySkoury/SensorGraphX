@@ -23,6 +23,26 @@
 
             <menu>
                 <item
+                    android:id="@+id/action_set_range"
+                    android:icon="@drawable/ic_adjust_black_24dp"
+                    android:title="@string/range"
+                    app:showAsAction="ifRoom">
+                    <menu>
+                        <item
+                            android:id="@+id/action_set_x_range"
+                            android:title="@string/rangeX"
+                            app:showAsAction="ifRoom"/>
+                        <item
+                            android:id="@+id/action_set_y_range"
+                            android:title="@string/rangeY"
+                            app:showAsAction="ifRoom"/>
+                        <item
+                            android:id="@+id/action_set_z_range"
+                            android:title="@string/rangeZ"
+                            app:showAsAction="ifRoom"/>
+                    </menu>
+                </item>
+                <item
                     android:id="@+id/action_set_sampling"
                     android:icon="@drawable/ic_access_time_black_24dp"
                     android:title="@string/sampling"

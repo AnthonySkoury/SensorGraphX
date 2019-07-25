@@ -29,6 +29,14 @@ public class DataReceiver{
     double currentPosition[];
     double tempXYZ;
 
+    int reset_flag=0;
+    int ZUPT_flag=0;
+    int Altimeter_flag=0;
+
+    String m_IP = "http://%s/WebService/xyzDisplay";
+    String ip = "192.168.48.2:8001";
+    String ip2 = "128.195.207.30:8001";
+    String URL_Upload = "http://%s/WebService/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
     String resetOnGlobal = "http://128.195.207.30:8001/Service/xyzDisplay?reset_data=1";
     String resetOffGlobal = "http://128.195.207.30:8001/Service/xyzDisplay?reset_data=0";
     String resetOn = "http://127.0.0.1:8001/Service/xyzDisplay?reset_data=1";
@@ -185,6 +193,43 @@ public class DataReceiver{
 
     }
 
+    public void UploadVariables(){
+        try {
+            String url_to_upload = String.format(URL_Upload, ip, ZUPT_flag, reset_flag, Altimeter_flag);
+            URL url = new URL(url_to_upload);
+            URLConnection connection = url.openConnection();
+            // Set resonable timeouts
+            connection.setConnectTimeout(250);
+            connection.setReadTimeout(250);
+
+            connection.getInputStream(); //test case
+            // Create an XML document builder with the default settings
+
+            DocumentBuilder docbuilder = DocumentBuilderFactory.newInstance()
+                    .newDocumentBuilder();
+            // Parse XML from the web service into a DOM tree
+            //Document doc = docbuilder.parse(connection.getInputStream());
+            //ParseXML(doc);
+            docbuilder.parse(connection.getInputStream());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            /*
+            new java.util.Timer().schedule(
+                    new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            toggleResetOFF();
+                        }
+                    },2000
+            );
+            */
+        }
+    }
+
+
     public void toggleResetON(){
         try {
             URL url = new URL(resetOnGlobal);
@@ -245,6 +290,8 @@ public class DataReceiver{
 
         }
     }
+
+
 
     public void toggleResetON2(){
         if (android.os.Build.VERSION.SDK_INT > 9) {

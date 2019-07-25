@@ -29,7 +29,8 @@ public class PositionDisplay extends GraphView {
     LineGraphSeries<DataPoint> x_coord = new LineGraphSeries<>();
     LineGraphSeries<DataPoint> y_coord = new LineGraphSeries<>();
 
-    PointsGraphSeries<DataPoint> xySeries;
+    //PointsGraphSeries<DataPoint> xySeries;
+    LineGraphSeries<DataPoint> xySeries;
     PointsGraphSeries<DataPoint> currentPoint;
    // LineGraphSeries<DataPoint> xySeries;
 
@@ -60,6 +61,17 @@ public class PositionDisplay extends GraphView {
 
     }
 
+    public void setRangeX(int range){
+        rangeX=range;
+        plotXYSettings();
+
+    }
+
+    public void setRangeY(int range){
+        rangeY=range;
+        plotXYSettings();
+    }
+
     public void updateXYPos(double x, double y){
         xy_coord.appendData(new DataPoint(x,y), true, maxDataPoints);
     }
@@ -88,13 +100,13 @@ public class PositionDisplay extends GraphView {
         removeAllSeries();
         removeSeries(xySeries);
         removeSeries(currentPoint);
-        xySeries = new PointsGraphSeries<>();
+        xySeries = new LineGraphSeries<>();
         currentPoint = new PointsGraphSeries<>();
         initGraph();
     }
 
     public void initGraph(){
-        xySeries = new PointsGraphSeries<>();
+        xySeries = new LineGraphSeries<>();
         currentPoint = new PointsGraphSeries<>();
         drawGraph();
     }
@@ -166,14 +178,18 @@ public class PositionDisplay extends GraphView {
             currentPoint.appendData(new DataPoint(currentPosition[0], currentPosition[1]), true, 1);
 
             //set some properties
-            xySeries.setShape(PointsGraphSeries.Shape.POINT);
+           // xySeries.setShape(PointsGraphSeries.Shape.POINT);
             xySeries.setColor(Color.BLUE);
-            xySeries.setSize(5f);
+           // xySeries.setAnimated(true);
+            xySeries.setThickness(7);
+            xySeries.setDrawDataPoints(true);
+            xySeries.setDataPointsRadius(8f);
+           // xySeries.setSize(7f);
 
             //set some properties
             currentPoint.setShape(PointsGraphSeries.Shape.RECTANGLE);
             currentPoint.setColor(Color.RED);
-            currentPoint.setSize(8f);
+            currentPoint.setSize(10f);
 
             plotXYSettings();
 
