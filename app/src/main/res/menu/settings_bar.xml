@@ -38,10 +38,16 @@
                     android:title="@string/background"
                     app:showAsAction="ifRoom"/>
                 <item
-                    android:id="@+id/myswitch"
-                    android:title="ZUPT"
-                    app:showAsAction="always"
-                    app:actionLayout="@layout/switch_layout"
+                    android:id="@+id/ZUPT"
+                    android:checkable="true"
+                    android:icon="@drawable/ic_directions_walk_black_24dp"
+                    android:title="@string/ZUPT"
+                    />
+                <item
+                    android:id="@+id/Altitude"
+                    android:checkable="true"
+                    android:icon="@drawable/ic_landscape_black_24dp"
+                    android:title="@string/Altitude"
                     />
             </menu>
 

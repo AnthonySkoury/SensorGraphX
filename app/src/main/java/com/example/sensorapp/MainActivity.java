@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
     Bitmap background;
 
     boolean stop=true;
-
+    private boolean isCheckedZUPT = false;
+    private boolean isCheckedAltitude = false;
 
     int GET_FROM_GALLERY = 1;
     private String m_Title = "";
@@ -126,6 +127,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem checkable = menu.findItem(R.id.ZUPT);
+        checkable.setChecked(isCheckedZUPT);
+        MenuItem checkable2 = menu.findItem(R.id.Altitude);
+        checkable2.setChecked(isCheckedAltitude);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_more:
@@ -146,6 +156,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_set_background:
                 handleBackground();
+                return true;
+            case R.id.ZUPT:
+                isCheckedZUPT = !item.isChecked();
+                item.setChecked(isCheckedZUPT);
+                return true;
+            case R.id.Altitude:
+                isCheckedAltitude = !item.isChecked();
+                item.setChecked(isCheckedAltitude);
                 return true;
 
             case R.id.action_file:
