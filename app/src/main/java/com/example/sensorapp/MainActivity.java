@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_set_range:
                 return true;
             case R.id.action_set_x_range:
-                itemAction("Enter Z Range Limit (in meters)", R.id.action_set_x_range);
+                itemAction("Enter X Range Limit (in meters)", R.id.action_set_x_range);
                 return true;
             case R.id.action_set_y_range:
                 itemAction("Enter Y Range Limit (in meters)", R.id.action_set_y_range);
