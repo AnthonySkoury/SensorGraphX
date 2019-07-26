@@ -53,18 +53,28 @@ import mehdi.sakout.aboutpage.AboutPage;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    /* Objects Used */
     DataReceiver dataReceiver;
     PositionDisplay positionGraph;
     AltitudeBar altitudeBar;
     AppManager appManager;
     DataSaver dataSaver;
     Bitmap background;
+    TextView X_Coord;
+    TextView Y_Coord;
+    TextView Z_Coord;
+    TextView Run_Time;
 
+    /* State Variables */
     boolean stop=true;
     private boolean isCheckedZUPT = false;
     private boolean isCheckedAltitude = false;
 
+    /* Permissions Variables */
     int GET_FROM_GALLERY = 1;
+
+    /* Options Variables */
     private String m_Title = "";
     private int m_Type;
     private String m_Text = "";
@@ -78,11 +88,6 @@ public class MainActivity extends AppCompatActivity {
     private String m_Background = "";
     private String m_File_Upload = "";
     private String m_File_Download = "";
-
-    TextView X_Coord;
-    TextView Y_Coord;
-    TextView Z_Coord;
-    TextView Run_Time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /* Check what button user pressed then call handler */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -215,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /* Used if text input for option is required */
     protected void itemAction(String title, int id){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
@@ -243,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
+    /* Converts input to appropriate type then directs to specific handler */
     protected void handleInput(String input, int id){
         switch (id){
             case R.id.action_set_ip:
@@ -286,6 +294,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /* Handler Functions */
     protected void handleIP(){
         //appManager.setIP(m_IP);
         dataReceiver.changeURL(m_IP);
@@ -334,12 +343,11 @@ public class MainActivity extends AppCompatActivity {
         Run_Time.setText("Time: ");
     }
 
+    /* Handles request codes */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
-        //Detects request codes
         if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
             Uri selectedImage = data.getData();
             background = null;
@@ -369,7 +377,6 @@ public class MainActivity extends AppCompatActivity {
 
         CreatePlots();
         CreateConnection();
-        //FlowThread();
         CreateText();
         setupButtons();
 
@@ -416,6 +423,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /* Main Control Flow Segment */
     protected void ScreenThread(){
         startTime();
 
@@ -458,6 +466,7 @@ public class MainActivity extends AppCompatActivity {
         Run_Time.setText(runtime);
     }
 
+    /* Initialize buttons and their functionalities */
     public void setupButtons(){
         findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -482,32 +491,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        findViewById(R.id.btn_reset).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                try {
-                    dataReceiver.toggleResetON();
-                    dataReceiver.toggleResetON();
-                    dataReceiver.toggleResetON();
-                    dataReceiver.toggleResetON();
-                    new java.util.Timer().schedule(
-                            new java.util.TimerTask() {
-                                @Override
-                                public void run() {
-                                    dataReceiver.toggleResetOFF();
-                                }
-                            },2000
-                    );
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-
-            }
-        });
-        */
-
         findViewById(R.id.btn_reset).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -530,6 +513,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /* App specific runtime functions and variables (Not currently in use) */
     private long startTime = 0;
     private long stopTime = 0;
     private boolean running = false;
@@ -547,7 +531,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //elaspsed time in milliseconds
+    /* In milliseconds */
     public long getElapsedTime() {
         long elapsed;
         if (running) {
@@ -559,7 +543,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //elaspsed time in seconds
+    /* In seconds */
     public long getElapsedTimeSecs() {
         long elapsed;
         if (running) {
