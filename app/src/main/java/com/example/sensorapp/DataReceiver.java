@@ -177,8 +177,8 @@ public class DataReceiver{
         }
         try
         {
-                ParseXML(ParseURL());
-               //TestData();
+               // ParseXML(ParseURL());
+               TestData();
 
         }
         catch (Exception e)
