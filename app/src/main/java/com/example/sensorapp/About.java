@@ -25,7 +25,7 @@ public class About extends AppCompatActivity {
                 .addGroup("Contacts")
                 .addEmail("askoury@uci.edu")
                 .addWebsite("http://engineering.uci.edu/dept/mae/research")
-                .addGitHub("AnthonySkoury")
+                .addGitHub("AnthonySkoury", "Check out my GitHub")
                 .addItem(Copyright())
                 .create()
                 ;
