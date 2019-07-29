@@ -23,8 +23,8 @@ import static android.content.ContentValues.TAG;
 public class PositionDisplay extends GraphView {
 
     int maxDataPoints = 1000;
-    int rangeX=60;
-    int rangeY=60;
+    int rangeX=20;
+    int rangeY=20;
     LineGraphSeries<DataPoint> xy_coord = new LineGraphSeries<>();
     LineGraphSeries<DataPoint> x_coord = new LineGraphSeries<>();
     LineGraphSeries<DataPoint> y_coord = new LineGraphSeries<>();
