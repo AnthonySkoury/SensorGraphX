@@ -198,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_file:
+                startActivity(new Intent(MainActivity.this, ExtraGraphs.class));
                 return true;
             case R.id.action_download:
                 itemAction("Enter File Name For Download", R.id.action_download);

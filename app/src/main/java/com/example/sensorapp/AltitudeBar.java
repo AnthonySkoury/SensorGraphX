@@ -17,7 +17,7 @@ import static android.content.ContentValues.TAG;
 public class AltitudeBar extends GraphView {
 
     LineGraphSeries<DataPoint> zSeries;
-    int rangeZ = 60;
+    int rangeZ = 20;
     int maxDataPoints = 1000;
 
     public AltitudeBar(Context context) {

@@ -148,8 +148,8 @@ public class DataReceiver{
     }
 
     public double genRandomDouble(){
-        double rangeMin = -50.0;
-        double rangeMax = 50.0;
+        double rangeMin = -20.0;
+        double rangeMax = 20.0;
 
         /*alternate way
         Random r = new Random();

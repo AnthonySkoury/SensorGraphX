@@ -103,6 +103,7 @@
 
     </LinearLayout>
 
+
     <LinearLayout
         android:id="@+id/infolayout"
         android:layout_width="match_parent"
@@ -192,6 +193,5 @@
 
 
     </LinearLayout>
-
 
 </android.support.constraint.ConstraintLayout>
