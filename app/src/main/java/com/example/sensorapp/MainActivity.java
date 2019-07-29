@@ -185,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                     dataReceiver.ZUPT_flag=1;
                 else
                     dataReceiver.ZUPT_flag=0;
+                handleToggleZUPT();
                 return true;
             case R.id.Altitude:
                 isCheckedAltitude = !item.isChecked();
@@ -193,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
                     dataReceiver.Altimeter_flag=1;
                 else
                     dataReceiver.Altimeter_flag=0;
+                handleToggleAltitude();
                 return true;
 
             case R.id.action_file:
@@ -341,6 +343,16 @@ public class MainActivity extends AppCompatActivity {
         Y_Coord.setText("Y Position: ");
         Z_Coord.setText("Z Position: ");
         Run_Time.setText("Time: ");
+    }
+
+    protected void handleToggleZUPT(){
+
+        dataReceiver.UploadVariables();
+    }
+
+    protected void handleToggleAltitude(){
+
+        dataReceiver.UploadVariables();
     }
 
     /* Handles request codes */
