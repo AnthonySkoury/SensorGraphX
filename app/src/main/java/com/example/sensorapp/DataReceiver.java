@@ -27,6 +27,9 @@ public class DataReceiver{
     protected String url;
     AppManager appManager;
     double currentPosition[];
+    double currentAcc[];
+    double currentAlt[];
+    double currentGyro[];
     double tempXYZ;
 
     int reset_flag=0;
@@ -41,11 +44,18 @@ public class DataReceiver{
     String resetOffGlobal = "http://128.195.207.30:8001/Service/xyzDisplay?reset_data=0";
     String resetOn = "http://127.0.0.1:8001/Service/xyzDisplay?reset_data=1";
     String resetOff = "http://127.0.0.1:8001/Service/xyzDisplay?reset_data=0";
+    String runtime="0";
+    Timer timer;
 
     public DataReceiver(String url, AppManager appManager){
         this.url = url;
         this.appManager = appManager;
         this.currentPosition  = new double[3];
+        this.currentAcc  = new double[2];
+        this.currentAlt  = new double[2];
+        this.currentGyro  = new double[2];
+        this.timer = new Timer();
+        timer.startTime();
     }
 
     public void changeURL(String ip){
@@ -93,6 +103,9 @@ public class DataReceiver{
     }
 
     public void TestData(){
+        ParseData("acc_test");
+        ParseData("ALT_test");
+        ParseData("gyro_test");
         ParseData("x");
         ParseData("y");
         ParseData("z");
@@ -100,7 +113,20 @@ public class DataReceiver{
 
     public void ParseData(String name){
         switch(name){
+            case "acc_test":
+                currentAcc[0]= (double)timer.getElapsedTimeSecs();
+                currentAcc[1]=genRandomPosDouble();
+                break;
+            case "ALT_test":
+                currentAlt[0]=(double)timer.getElapsedTimeSecs();
+                currentAlt[1]=genRandomPosDouble();
+                break;
+            case "gyro_test":
+                currentGyro[0]=(double)timer.getElapsedTimeSecs();
+                currentGyro[1]=genRandomPosDouble();
+                break;
             case "run time":
+                runtime= Long.toString(timer.getElapsedTimeSecs());
                 break;
             case "x":
                 currentPosition[0]=genRandomDouble();
@@ -119,12 +145,19 @@ public class DataReceiver{
     public void ParseData(String name, String value){
         switch(name){
             case "acc_test":
+                currentAcc[0]=Double.parseDouble(runtime);
+                currentAcc[1]=Double.parseDouble(value);
                 break;
             case "ALT_test":
+                currentAlt[0]=Double.parseDouble(runtime);
+                currentAlt[1]=Double.parseDouble(value);
                 break;
             case "gyro_test":
+                currentGyro[0]=Double.parseDouble(runtime);
+                currentGyro[1]=Double.parseDouble(value);
                 break;
             case "run time":
+                runtime=value;
                 appManager.updateRunTime(Integer.parseInt(value));
                 break;
             case "x":
@@ -148,8 +181,21 @@ public class DataReceiver{
     }
 
     public double genRandomDouble(){
-        double rangeMin = -20.0;
-        double rangeMax = 20.0;
+        double rangeMin = -15.0;
+        double rangeMax = 15.0;
+
+        /*alternate way
+        Random r = new Random();
+        double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+        */
+
+        double randomDouble = ThreadLocalRandom.current().nextDouble(rangeMin, rangeMax);
+        return randomDouble;
+    }
+
+    public double genRandomPosDouble(){
+        double rangeMin = 0;
+        double rangeMax = 15.0;
 
         /*alternate way
         Random r = new Random();
