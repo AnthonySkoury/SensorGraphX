@@ -29,80 +29,6 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
 
-    <LinearLayout
-        android:id="@+id/buttonlayout"
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/btn_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableStart="@drawable/ic_play_arrow_black_24dp"
-            android:backgroundTint="@color/start_green"
-            android:text="@string/start"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/btn_stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/stop_red"
-            android:drawableStart="@drawable/ic_stop_black_24dp"
-            android:text="@string/stop"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/btn_reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/reset_blue"
-            android:drawableStart="@drawable/ic_loop_black_24dp"
-            android:text="@string/restart"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/titlelayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="731dp"
-        android:orientation="horizontal"
-
-        app:layout_constrainedHeight="@id/PositionDisplay"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="8dp">
-
-        <!---
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar"
-            />
-        -->
-
-        <!--
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="22sp"
-            android:text="@string/app_name" />
-        -->
-
-    </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/infolayout"
@@ -192,6 +118,49 @@
         </LinearLayout>
 
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonlayout"
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_play_arrow_black_24dp"
+            android:backgroundTint="@color/start_green"
+            android:text="@string/start"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/stop_red"
+            android:drawableStart="@drawable/ic_stop_black_24dp"
+            android:text="@string/stop"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/reset_blue"
+            android:drawableStart="@drawable/ic_loop_black_24dp"
+            android:text="@string/restart"
+            android:textSize="18sp" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
