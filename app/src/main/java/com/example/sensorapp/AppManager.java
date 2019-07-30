@@ -26,6 +26,18 @@ public class AppManager {
         return 0;
     }
 
+    public void updateAcc(double currentAcc[]){
+        dataSaver.updateAccData(currentAcc);
+    }
+
+    public void updateAlt(double currentAlt[]){
+        dataSaver.updateAltData(currentAlt);
+    }
+
+    public void updateGyro(double currentGyro[]){
+        dataSaver.updateGyroData(currentGyro);
+    }
+
     public void tracePosition(){
         positionDisplay.updateXPos();
         positionDisplay.plotXYPos();
@@ -35,6 +47,9 @@ public class AppManager {
         // positionDisplay.plotXY(dataSaver.getCurrentPosition());
         positionDisplay.plotXY(dataSaver.getPosition(), dataSaver.getCurrentPosition());
         altitudeBar.plotZ(dataSaver.getCurrentZ());
+        accelerometerDisplay.plotXY(dataSaver.getAccelorometer(), dataSaver.getCurrentAcc());
+        altimeterDisplay.plotXY(dataSaver.getAltimeter(), dataSaver.getCurrentAlt());
+        gyroDisplay.plotXY(dataSaver.getGyro(), dataSaver.getCurrentGyro());
     }
 
 

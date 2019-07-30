@@ -25,9 +25,16 @@ public class DataSaver {
 
     private Vector<double[]> unordered_position = new Vector<>();
     private Vector<double[]> position = new Vector<>();
+
+    private Vector<double[]> unordered_accelorometer = new Vector<>();
     private Vector<double[]> accelorometer = new Vector<>();
+
+    private Vector<double[]> unordered_altimeter = new Vector<>();
     private Vector<double[]> altimeter = new Vector<>();
+
+    private Vector<double[]> unordered_gyro = new Vector<>();
     private Vector<double[]> gyro = new Vector<>();
+
     private int threshold=100;
     int runtime;
 
@@ -40,13 +47,35 @@ public class DataSaver {
         position = new Vector<>();
     }
 
-    public void updatePosition(double currentPos[]){
+    public void updatePosition(double[] currentPos){
 
         unordered_position.add(currentPos.clone());
         position = spliceData(calcThreshold());
         position = sortData(position);
 
     }
+
+    public void updateAccData(double[] currentAcc){
+        unordered_accelorometer.add(currentAcc.clone());
+        //accelorometer = spliceData(calcThreshold());
+        accelorometer.add(currentAcc.clone());
+        accelorometer = sortData(accelorometer);
+    }
+
+    public void updateAltData(double currentAlt[]){
+        unordered_altimeter.add(currentAlt.clone());
+        //altimeter = spliceData(calcThreshold());
+        altimeter.add(currentAlt.clone());
+        altimeter = sortData(altimeter);
+    }
+
+    public void updateGyroData(double currentGyro[]){
+        unordered_gyro.add(currentGyro.clone());
+        //altimeter = spliceData(calcThreshold());
+        gyro.add(currentGyro.clone());
+        gyro = sortData(gyro);
+    }
+
 
     public void setThreshold(int new_threshold){
         threshold=new_threshold;
@@ -90,8 +119,32 @@ public class DataSaver {
         return position;
     }
 
+    public Vector<double[]> getAccelorometer(){
+        return accelorometer;
+    }
+
+    public Vector<double[]> getAltimeter(){
+        return altimeter;
+    }
+
+    public Vector<double[]> getGyro(){
+        return gyro;
+    }
+
     public double[] getCurrentPosition(){
         return unordered_position.lastElement();
+    }
+
+    public double[] getCurrentAcc(){
+        return unordered_accelorometer.lastElement();
+    }
+
+    public double[] getCurrentAlt(){
+        return unordered_altimeter.lastElement();
+    }
+
+    public double[] getCurrentGyro(){
+        return unordered_gyro.lastElement();
     }
 
     public int calcThreshold(){
