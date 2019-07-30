@@ -23,22 +23,22 @@ public class AccelerometerDisplay extends Graphable {
 
     public AccelerometerDisplay(Context context) {
         super(context);
-        super.plotXYSettings(rangeY,0, rangeX, 0, "Accelerometer Display");
+        super.plotXYSettings(rangeY,0, rangeX, 0, "Accelerometer Display", false);
     }
 
     public AccelerometerDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
-        super.plotXYSettings(rangeY,0, rangeX, 0, "Accelerometer Display");
+        super.plotXYSettings(rangeY,0, rangeX, 0, "Accelerometer Display", false);
     }
 
     public AccelerometerDisplay(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        super.plotXYSettings(rangeY,0, rangeX, 0, "Accelerometer Display");
+        super.plotXYSettings(rangeY,0, rangeX, 0, "Accelerometer Display", false);
     }
 
     @Override
     public void SettingsHandler(){
-        super.plotXYSettings(rangeY, 0, rangeX, 0, "Accelerometer Display");
+        super.plotXYSettings(rangeY, 0, rangeX, 0, "Accelerometer Display", false);
     }
 
 

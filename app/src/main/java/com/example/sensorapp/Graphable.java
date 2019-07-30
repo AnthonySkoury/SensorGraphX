@@ -192,25 +192,29 @@ public class Graphable extends GraphView {
 
         GridLabelRenderer gridLabel = getGridLabelRenderer();
         gridLabel.setPadding(32);
-        gridLabel.setHorizontalAxisTitle("Altimeter");
+        gridLabel.setHorizontalAxisTitle("Graphable");
     }
 
-    public void plotXYSettings(int MaxY, int MinY, int MaxX, int MinX, String Title){
+
+    public void plotXYSettings(int MaxY, int MinY, int MaxX, int MinX, String Title, boolean manual){
         //set Scrollable and Scaleable
         getViewport().setScalable(true);
         getViewport().setScalableY(true);
         getViewport().setScrollable(true);
         getViewport().setScrollableY(true);
 
-        //set manual x bounds
-        getViewport().setYAxisBoundsManual(true);
-        getViewport().setMaxY(MaxY);
-        getViewport().setMinY(MinY);
+        if(manual) {
+            //set manual x bounds
+            getViewport().setYAxisBoundsManual(true);
+            getViewport().setMaxY(MaxY);
+            getViewport().setMinY(MinY);
 
-        //set manual y bounds
-        getViewport().setXAxisBoundsManual(true);
-        getViewport().setMaxX(MaxX);
-        getViewport().setMinX(MinX);
+            //set manual y bounds
+            getViewport().setXAxisBoundsManual(true);
+            getViewport().setMaxX(MaxX);
+            getViewport().setMinX(MinX);
+        }
+
 
         GridLabelRenderer gridLabel = getGridLabelRenderer();
         gridLabel.setPadding(32);

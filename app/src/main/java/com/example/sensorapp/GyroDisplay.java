@@ -23,22 +23,22 @@ public class GyroDisplay extends Graphable {
 
     public GyroDisplay(Context context) {
         super(context);
-        super.plotXYSettings(rangeY,0, rangeX, 0, "Gyro Display");
+        super.plotXYSettings(rangeY,0, rangeX, 0, "Gyro Display", false);
     }
 
     public GyroDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
-        super.plotXYSettings(rangeY,0, rangeX, 0, "Gyro Display");
+        super.plotXYSettings(rangeY,0, rangeX, 0, "Gyro Display", false);
     }
 
     public GyroDisplay(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        super.plotXYSettings(rangeY,0, rangeX, 0, "Gyro Display");
+        super.plotXYSettings(rangeY,0, rangeX, 0, "Gyro Display", false);
     }
 
     @Override
     public void SettingsHandler(){
-        super.plotXYSettings(rangeY, 0, rangeX, 0, "Gyro Display");
+        super.plotXYSettings(rangeY, 0, rangeX, 0, "Gyro Display", false);
     }
 
 
