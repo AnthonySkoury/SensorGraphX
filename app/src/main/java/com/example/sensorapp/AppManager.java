@@ -6,12 +6,18 @@ public class AppManager {
 
     private PositionDisplay positionDisplay;
     private AltitudeBar altitudeBar;
-    private DataSaver dataSaver;
+    private AccelerometerDisplay accelerometerDisplay;
+    private AltimeterDisplay altimeterDisplay;
+    private GyroDisplay gyroDisplay;
+    protected DataSaver dataSaver;
 
-    public AppManager(PositionDisplay positionDisplay, AltitudeBar altitudeBar, DataSaver dataSaver){
+    public AppManager(PositionDisplay positionDisplay, AltitudeBar altitudeBar, AccelerometerDisplay accelerometerDisplay, AltimeterDisplay altimeterDisplay, GyroDisplay gyroDisplay){
         this.positionDisplay = positionDisplay;
         this.altitudeBar = altitudeBar;
-        this.dataSaver = dataSaver;
+        this.accelerometerDisplay = accelerometerDisplay;
+        this.altimeterDisplay = altimeterDisplay;
+        this.gyroDisplay = gyroDisplay;
+        this.dataSaver = new DataSaver();
     }
 
 
@@ -44,6 +50,10 @@ public class AppManager {
     public void initGraphs(){
         positionDisplay.initGraph();
         altitudeBar.initGraph();
+        accelerometerDisplay.initGraph();
+        altimeterDisplay.initGraph();
+        gyroDisplay.initGraph();
+
     }
 
     public void reset(){
