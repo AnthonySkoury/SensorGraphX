@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
     TextView Y_Coord;
     TextView Z_Coord;
     TextView Run_Time;
+    TextView Accelerometer;
+    TextView Altimeter;
+    TextView Gyro;
 
     /* State Variables */
     boolean stop=true;
@@ -402,6 +405,10 @@ public class MainActivity extends AppCompatActivity {
         Y_Coord = (TextView)findViewById(R.id.y_coordinate);
         Z_Coord = (TextView)findViewById(R.id.z_coordinate);
         Run_Time = (TextView)findViewById(R.id.time);
+        Accelerometer = (TextView)findViewById(R.id.accelerometer);
+        Altimeter = (TextView)findViewById(R.id.altimeter);
+        Gyro = (TextView)findViewById(R.id.gyro);
+
     }
 
     protected void CreatePlots(){

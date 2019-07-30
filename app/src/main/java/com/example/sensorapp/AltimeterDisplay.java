@@ -23,22 +23,22 @@ public class AltimeterDisplay extends Graphable {
 
     public AltimeterDisplay(Context context) {
         super(context);
-        super.plotXYSettings(rangeY,0, rangeX, 0, "Altimeter Display");
+        super.plotXYSettings(rangeY,0, rangeX, 0, "Altimeter Display", false);
     }
 
     public AltimeterDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
-        super.plotXYSettings(rangeY,0, rangeX, 0, "Altimeter Display");
+        super.plotXYSettings(rangeY,0, rangeX, 0, "Altimeter Display", false);
     }
 
     public AltimeterDisplay(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        super.plotXYSettings(rangeY,0, rangeX, 0, "Altimeter Display");
+        super.plotXYSettings(rangeY,0, rangeX, 0, "Altimeter Display", false);
     }
 
     @Override
     public void SettingsHandler(){
-        super.plotXYSettings(rangeY, 0, rangeX, 0, "Altimeter Display");
+        super.plotXYSettings(rangeY, 0, rangeX, 0, "Altimeter Display", false);
     }
 
 }

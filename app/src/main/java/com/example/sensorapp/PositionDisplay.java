@@ -24,22 +24,23 @@ public class PositionDisplay extends Graphable {
 
     public PositionDisplay(Context context) {
         super(context);
-        super.plotXYSettings(rangeY,-rangeY, rangeX, -rangeX, "Position (X,Y)");
+        super.plotXYSettings(rangeY,-rangeY, rangeX, -rangeX, "Position (X,Y)", true);
     }
 
     public PositionDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
-        super.plotXYSettings(rangeY,-rangeY, rangeX, -rangeX, "Position (X,Y)");
+        super.plotXYSettings(rangeY,-rangeY, rangeX, -rangeX, "Position (X,Y)", true);
     }
 
     public PositionDisplay(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        super.plotXYSettings(rangeY,-rangeY, rangeX, -rangeX, "Position (X,Y)");
+        super.plotXYSettings(rangeY,-rangeY, rangeX, -rangeX, "Position (X,Y)", true);
     }
-
     @Override
     public void SettingsHandler(){
-        super.plotXYSettings(rangeY,-rangeY, rangeX, -rangeX, "Position (X,Y)");
+        super.plotXYSettings(rangeY, -rangeY, rangeX, -rangeX, "Position (X,Y)", true);
     }
+
+
 
 }
