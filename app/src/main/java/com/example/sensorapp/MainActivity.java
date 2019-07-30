@@ -58,8 +58,10 @@ public class MainActivity extends AppCompatActivity {
     DataReceiver dataReceiver;
     PositionDisplay positionGraph;
     AltitudeBar altitudeBar;
+    AccelerometerDisplay accelerometerDisplay;
+    AltimeterDisplay altimeterDisplay;
+    GyroDisplay gyroDisplay;
     AppManager appManager;
-    DataSaver dataSaver;
     Bitmap background;
     TextView X_Coord;
     TextView Y_Coord;
@@ -330,7 +332,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void handleDownload(){
         stop = true;
-        String temp =  dataSaver.SaveToFile(m_File_Download);
+        String temp =  appManager.dataSaver.SaveToFile(m_File_Download);
         String text = "Saved file to: "+temp;
         Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
@@ -367,11 +369,11 @@ public class MainActivity extends AppCompatActivity {
             try {
                 background = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
                 appManager.setBackground(background);
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
+            }
+            catch (FileNotFoundException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -379,7 +381,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void readFile(){
         try {
-            dataSaver.readFile(m_File_Upload);
+            appManager.dataSaver.readFile(m_File_Upload);
         }
         catch (IOException e){
             e.printStackTrace();
@@ -405,9 +407,11 @@ public class MainActivity extends AppCompatActivity {
     protected void CreatePlots(){
         CreatePlotXY();
         CreatePlotZ();
+        CreatePlotAcc();
+        CreatePlotAlt();
+        CreatePlotGyro();
 
-        dataSaver = new DataSaver();
-        appManager = new AppManager(positionGraph, altitudeBar, dataSaver);
+        appManager = new AppManager(positionGraph, altitudeBar, accelerometerDisplay, altimeterDisplay, gyroDisplay);
         appManager.initGraphs();
     }
 
@@ -426,6 +430,25 @@ public class MainActivity extends AppCompatActivity {
         altitudeBar = (AltitudeBar) findViewById(R.id.AltitudeBar);
 
     }
+
+    protected void CreatePlotAcc(){
+
+        accelerometerDisplay = (AccelerometerDisplay) findViewById(R.id.AccelerometerDisplay);
+
+    }
+
+    protected void CreatePlotAlt(){
+
+        altimeterDisplay = (AltimeterDisplay) findViewById(R.id.AltimeterDisplay);
+
+    }
+
+    protected void CreatePlotGyro(){
+
+        gyroDisplay = (GyroDisplay) findViewById(R.id.GyroDisplay);
+
+    }
+
 
     public void mainLooper(){
 
@@ -469,10 +492,10 @@ public class MainActivity extends AppCompatActivity {
     public void Tasks(){
         appManager.updatePosition(dataReceiver.connectToDevice());
         appManager.tracePosition();
-        String xPos = "X Position (in meters): "+String.valueOf(dataSaver.getCurrentX());
-        String yPos = "Y Position (in meters): "+String.valueOf(dataSaver.getCurrentY());
-        String zPos = "Z Position (in meters): "+String.valueOf(dataSaver.getCurrentZ());
-        String runtime = "Elapsed Time: "+String.valueOf(dataSaver.runtime)+" s";
+        String xPos = "X Position (in meters): "+String.valueOf(appManager.dataSaver.getCurrentX());
+        String yPos = "Y Position (in meters): "+String.valueOf(appManager.dataSaver.getCurrentY());
+        String zPos = "Z Position (in meters): "+String.valueOf(appManager.dataSaver.getCurrentZ());
+        String runtime = "Elapsed Time: "+String.valueOf(appManager.dataSaver.runtime)+" s";
         X_Coord.setText(xPos);
         Y_Coord.setText(yPos);
         Z_Coord.setText(zPos);

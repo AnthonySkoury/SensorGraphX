@@ -25,6 +25,9 @@ public class DataSaver {
 
     private Vector<double[]> unordered_position = new Vector<>();
     private Vector<double[]> position = new Vector<>();
+    private Vector<double[]> accelorometer = new Vector<>();
+    private Vector<double[]> altimeter = new Vector<>();
+    private Vector<double[]> gyro = new Vector<>();
     private int threshold=100;
     int runtime;
 
@@ -110,18 +113,7 @@ public class DataSaver {
     }
 
     public Vector<double[]> sortData(Vector<double[]> sortedposition){
-        /*
-        Vector<double[]> position = new Vector<>();
-        double []arr1 = {2.0,3.0};
-        double []arr2 = {-4.0,8.0};
-        double []arr3 = {5.0,-19.0};
-        double []arr4 = {1.0,1.0};
-        position.add(arr1);
-        position.add(arr2);
-        position.add(arr3);
-        position.add(arr4);
-        System.out.println(position);
-        */
+
         Collections.sort(sortedposition,new Comparator<double[]>() {
             public int compare(double[] strings, double[] otherStrings) {
                 if(strings[0]<otherStrings[0])

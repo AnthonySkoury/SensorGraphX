@@ -11,6 +11,10 @@
     <string name="y_coord">Y Position:</string>
     <string name="z_coord">Z Position:</string>
 
+    <string name="acc_txt">Accelerometer:</string>
+    <string name="alt_txt">Altimeter:</string>
+    <string name="gyro_txt">Gyroscope:</string>
+
     <string name="ip">Set IP Address</string>
 
     <string name="graph">Graph Settings</string>
