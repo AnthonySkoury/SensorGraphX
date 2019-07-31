@@ -217,7 +217,7 @@ public class DataReceiver{
         return tempXYZ;
     }
 
-    public double[] connectToDevice(){
+    public int connectToDevice(){
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy =
                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -227,16 +227,15 @@ public class DataReceiver{
         {
                ParseXML(ParseURL());
                //TestData();
+            return 0;
 
         }
         catch (Exception e)
         {
             System.out.println("Printing stack trace... ");
             e.printStackTrace();
+            return -1;
 
-        }
-        finally {
-            return currentPosition;
         }
 
     }
@@ -247,8 +246,8 @@ public class DataReceiver{
             URL url = new URL(url_to_upload);
             URLConnection connection = url.openConnection();
             // Set resonable timeouts
-            connection.setConnectTimeout(250);
-            connection.setReadTimeout(250);
+            connection.setConnectTimeout(500);
+            connection.setReadTimeout(500);
 
             connection.getInputStream(); //test case
             // Create an XML document builder with the default settings

@@ -203,6 +203,9 @@ public class Graphable extends GraphView {
         getViewport().setScrollable(true);
         getViewport().setScrollableY(true);
 
+        getViewport().setBorderColor(Color.BLACK);
+        getViewport().setDrawBorder(true);
+
         if(manual) {
             //set manual x bounds
             getViewport().setYAxisBoundsManual(true);
