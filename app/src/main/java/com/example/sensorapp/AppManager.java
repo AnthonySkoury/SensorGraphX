@@ -77,6 +77,12 @@ public class AppManager {
         altitudeBar.resetGraph();
     }
 
+    public void resetExtras(){
+        accelerometerDisplay.resetGraph();
+        altimeterDisplay.resetGraph();
+        gyroDisplay.resetGraph();
+    }
+
     public void setIP(String ip){
 
     }

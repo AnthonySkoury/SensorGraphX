@@ -564,7 +564,8 @@ public class MainActivity extends AppCompatActivity {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
                     dataReceiver.reset_flag=1;
                     dataReceiver.UploadVariables();
-
+                    dataReceiver.UploadVariables();
+                    dataReceiver.UploadVariables();
                     System.out.println("Button pressed Down");
                     // Do what you want
 
@@ -572,6 +573,8 @@ public class MainActivity extends AppCompatActivity {
                 else if (event.getAction() == MotionEvent.ACTION_UP){
                     dataReceiver.reset_flag=0;
                     dataReceiver.UploadVariables();
+                    appManager.dataSaver.resetExtras();
+                    appManager.resetExtras();
                 }
                 System.out.println("NO BUTTON");
                 return MainActivity.super.onTouchEvent(event);
