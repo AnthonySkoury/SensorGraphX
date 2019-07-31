@@ -111,6 +111,25 @@ public class DataSaver {
         return last;
     }
 
+    synchronized public double getCurrentAccValue(){
+        double last = unordered_accelorometer.lastElement()[1];
+        //return unordered_position.lastElement()[2];
+        return last;
+    }
+
+    synchronized public double getCurrentAltValue(){
+        double last = unordered_altimeter.lastElement()[1];
+        //return unordered_position.lastElement()[2];
+        return last;
+    }
+
+    synchronized public double getCurrentGyroValue(){
+        double last = unordered_gyro.lastElement()[1];
+        //return unordered_position.lastElement()[2];
+        return last;
+    }
+
+
     public int getDataLength(){
         return position.size();
     }
