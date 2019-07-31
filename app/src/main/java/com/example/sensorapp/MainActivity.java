@@ -468,7 +468,7 @@ public class MainActivity extends AppCompatActivity {
     public void mainLooper(){
 
         while(!stop){
-            appManager.updatePosition(dataReceiver.connectToDevice());
+            //appManager.updatePosition(dataReceiver.connectToDevice());
             appManager.tracePosition();
         }
 
@@ -504,27 +504,33 @@ public class MainActivity extends AppCompatActivity {
 
     public void Tasks(){
 
-        appManager.updatePosition(dataReceiver.connectToDevice());
-        appManager.updateAcc(dataReceiver.currentAcc);
-        appManager.updateAlt(dataReceiver.currentAlt);
-        appManager.updateGyro(dataReceiver.currentGyro);
-        appManager.tracePosition();
+        if(dataReceiver.connectToDevice()!=-1) {
+            appManager.updatePosition(dataReceiver.currentPosition);
+            appManager.updateAcc(dataReceiver.currentAcc);
+            appManager.updateAlt(dataReceiver.currentAlt);
+            appManager.updateGyro(dataReceiver.currentGyro);
+            appManager.tracePosition();
 
-        xPos = "X Position (in meters): "+String.valueOf(appManager.dataSaver.getCurrentX());
-        yPos = "Y Position (in meters): "+String.valueOf(appManager.dataSaver.getCurrentY());
-        zPos = "Z Position (in meters): "+String.valueOf(appManager.dataSaver.getCurrentZ());
-        runtime = "Elapsed Time: "+String.valueOf(appManager.dataSaver.runtime)+" s";
-        acctxt = "Accelerometer: "+String.valueOf(appManager.dataSaver.getCurrentAccValue());
-        alttxt = "Altimeter: "+String.valueOf(appManager.dataSaver.getCurrentAltValue());
-        gyrotxt = "Gyroscope: "+String.valueOf(appManager.dataSaver.getCurrentGyroValue());
+            xPos = "X Position (in meters): " + String.valueOf(appManager.dataSaver.getCurrentX());
+            yPos = "Y Position (in meters): " + String.valueOf(appManager.dataSaver.getCurrentY());
+            zPos = "Z Position (in meters): " + String.valueOf(appManager.dataSaver.getCurrentZ());
+            runtime = "Elapsed Time: " + String.valueOf(appManager.dataSaver.runtime) + " s";
+            acctxt = "Accelerometer: " + String.valueOf(appManager.dataSaver.getCurrentAccValue());
+            alttxt = "Altimeter: " + String.valueOf(appManager.dataSaver.getCurrentAltValue());
+            gyrotxt = "Gyroscope: " + String.valueOf(appManager.dataSaver.getCurrentGyroValue());
 
-        X_Coord.setText(xPos);
-        Y_Coord.setText(yPos);
-        Z_Coord.setText(zPos);
-        Run_Time.setText(runtime);
-        Accelerometer.setText(acctxt);
-        Altimeter.setText(alttxt);
-        Gyro.setText(gyrotxt);
+            X_Coord.setText(xPos);
+            Y_Coord.setText(yPos);
+            Z_Coord.setText(zPos);
+            Run_Time.setText(runtime);
+            Accelerometer.setText(acctxt);
+            Altimeter.setText(alttxt);
+            Gyro.setText(gyrotxt);
+        }
+        else{
+            Toast.makeText(this, "Error Connecting to Device, please check IP or Wi-Fi connection then press START when ready.", Toast.LENGTH_LONG).show();
+            stop = true;
+        }
     }
 
     /* Initialize buttons and their functionalities */
