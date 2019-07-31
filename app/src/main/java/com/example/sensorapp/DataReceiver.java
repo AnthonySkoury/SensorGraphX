@@ -36,14 +36,15 @@ public class DataReceiver{
     int ZUPT_flag=0;
     int Altimeter_flag=0;
 
-    String m_IP = "http://%s/WebService/xyzDisplay";
-    String ip = "192.168.48.2:8001";
-    String ip2 = "128.195.207.30:8001";
-    String URL_Upload = "http://%s/WebService/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
-    String resetOnGlobal = "http://128.195.207.30:8001/Service/xyzDisplay?reset_data=1";
-    String resetOffGlobal = "http://128.195.207.30:8001/Service/xyzDisplay?reset_data=0";
-    String resetOn = "http://127.0.0.1:8001/Service/xyzDisplay?reset_data=1";
-    String resetOff = "http://127.0.0.1:8001/Service/xyzDisplay?reset_data=0";
+    /* For simulator on computer */
+    String m_IP = "http://%s/Service/xyzDisplay";
+    String ip = "128.195.207.30:8001";
+    String URL_Upload = "http://%s/Service/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
+
+    /* For prototype physical device (different links) */
+    //String m_IP = "http://%s/WebService/xyzDisplay";
+    //String ip = "192.168.48.2:8001";
+    //String URL_Upload = "http://%s/WebService/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
     String runtime="0";
     Timer timer;
 
@@ -59,11 +60,12 @@ public class DataReceiver{
     }
 
     public void changeURL(String ip){
-        url = ip;
+        this.ip = ip;
     }
 
     public Document ParseURL() throws Exception{
-        URL url = new URL(this.url);
+        String url_txt = String.format(m_IP, ip);
+        URL url = new URL(url_txt);
         URLConnection connection = url.openConnection();
         // Set resonable timeouts
         connection.setConnectTimeout(5000);
@@ -223,8 +225,8 @@ public class DataReceiver{
         }
         try
         {
-               // ParseXML(ParseURL());
-               TestData();
+               ParseXML(ParseURL());
+               //TestData();
 
         }
         catch (Exception e)

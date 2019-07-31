@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
     private String m_Title = "";
     private int m_Type;
     private String m_Text = "";
-    private String m_IP = "http://192.168.48.2:8001/WebService/xyzDisplay";
-    //private String m_IP = "http://128.195.207.30:8001/Service/xyzDisplay";
+    //private String m_IP = "http://192.168.48.2:8001/WebService/xyzDisplay";
+    private String m_IP = "http://128.195.207.30:8001/Service/xyzDisplay";
     private int m_Max_RangeX=60;
     private int m_Max_RangeY=60;
     private int m_Max_RangeZ=60;
@@ -93,6 +93,14 @@ public class MainActivity extends AppCompatActivity {
     private String m_Background = "";
     private String m_File_Upload = "";
     private String m_File_Download = "";
+
+    String xPos="";
+    String yPos ="";
+    String zPos = "";
+    String runtime = "";
+    String gyrotxt = "";
+    String acctxt = "";
+    String alttxt = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -495,19 +503,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Tasks(){
+
         appManager.updatePosition(dataReceiver.connectToDevice());
         appManager.updateAcc(dataReceiver.currentAcc);
         appManager.updateAlt(dataReceiver.currentAlt);
         appManager.updateGyro(dataReceiver.currentGyro);
         appManager.tracePosition();
-        String xPos = "X Position (in meters): "+String.valueOf(appManager.dataSaver.getCurrentX());
-        String yPos = "Y Position (in meters): "+String.valueOf(appManager.dataSaver.getCurrentY());
-        String zPos = "Z Position (in meters): "+String.valueOf(appManager.dataSaver.getCurrentZ());
-        String runtime = "Elapsed Time: "+String.valueOf(appManager.dataSaver.runtime)+" s";
+
+        xPos = "X Position (in meters): "+String.valueOf(appManager.dataSaver.getCurrentX());
+        yPos = "Y Position (in meters): "+String.valueOf(appManager.dataSaver.getCurrentY());
+        zPos = "Z Position (in meters): "+String.valueOf(appManager.dataSaver.getCurrentZ());
+        runtime = "Elapsed Time: "+String.valueOf(appManager.dataSaver.runtime)+" s";
+        acctxt = "Accelerometer: "+String.valueOf(appManager.dataSaver.getCurrentAccValue());
+        alttxt = "Altimeter: "+String.valueOf(appManager.dataSaver.getCurrentAltValue());
+        gyrotxt = "Gyroscope: "+String.valueOf(appManager.dataSaver.getCurrentGyroValue());
+
         X_Coord.setText(xPos);
         Y_Coord.setText(yPos);
         Z_Coord.setText(zPos);
         Run_Time.setText(runtime);
+        Accelerometer.setText(acctxt);
+        Altimeter.setText(alttxt);
+        Gyro.setText(gyrotxt);
     }
 
     /* Initialize buttons and their functionalities */
