@@ -47,6 +47,18 @@ public class DataSaver {
         position = new Vector<>();
     }
 
+    public void resetExtras(){
+        unordered_accelorometer = new Vector<>();
+        accelorometer = new Vector<>();
+
+        unordered_altimeter = new Vector<>();
+        altimeter = new Vector<>();
+
+        unordered_gyro = new Vector<>();
+        gyro = new Vector<>();
+    }
+
+
     public void updatePosition(double[] currentPos){
 
         unordered_position.add(currentPos.clone());
