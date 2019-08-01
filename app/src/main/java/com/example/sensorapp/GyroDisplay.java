@@ -21,6 +21,9 @@ import static android.content.ContentValues.TAG;
 
 public class GyroDisplay extends Graphable {
 
+
+
+
     public GyroDisplay(Context context) {
         super(context);
         super.plotXYSettings(rangeY,0, rangeX, 0, "Gyro Display", false);
