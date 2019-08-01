@@ -177,6 +177,15 @@
                     android:lines="2"
                     android:text="@string/gyro_txt"
                     android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/zupt_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:lines="2"
+                    android:text="@string/zupt_txt"
+                    android:textSize="16dp" />
             </LinearLayout>
 
         </LinearLayout>

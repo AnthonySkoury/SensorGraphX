@@ -35,6 +35,8 @@ public class DataSaver {
     private Vector<double[]> unordered_gyro = new Vector<>();
     private Vector<double[]> gyro = new Vector<>();
 
+    String ZUPT_Status="Off";
+
     private int threshold=100;
     int runtime;
 
@@ -88,6 +90,12 @@ public class DataSaver {
         gyro = sortData(gyro);
     }
 
+    public void updateZUPTData(int status){
+        if(status==1)
+            ZUPT_Status="On";
+        else
+            ZUPT_Status="Off";
+    }
 
     public void setThreshold(int new_threshold){
         threshold=new_threshold;

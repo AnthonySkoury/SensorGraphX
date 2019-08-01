@@ -38,6 +38,10 @@ public class AppManager {
         dataSaver.updateGyroData(currentGyro);
     }
 
+    public void updateZUPTStatus(int Zupt){
+        dataSaver.updateZUPTData(Zupt);
+    }
+
     public void tracePosition(){
         positionDisplay.updateXPos();
         positionDisplay.plotXYPos();

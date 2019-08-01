@@ -31,6 +31,7 @@ public class DataReceiver{
     double currentAlt[];
     double currentGyro[];
     double tempXYZ;
+    int ZUPT_status;
 
     int reset_flag=0;
     int ZUPT_flag=0;
@@ -172,6 +173,7 @@ public class DataReceiver{
                 currentPosition[2]=Double.parseDouble(value);
                 break;
             case "ZUPT_test":
+                ZUPT_status=Integer.parseInt(value);
                 break;
             default:
                 break;
