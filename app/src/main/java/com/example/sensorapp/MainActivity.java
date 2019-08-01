@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     TextView Accelerometer;
     TextView Altimeter;
     TextView Gyro;
+    TextView ZUPT_Status;
 
     /* State Variables */
     boolean stop=true;
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
     String gyrotxt = "";
     String acctxt = "";
     String alttxt = "";
+    String zupttxt = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -416,6 +418,7 @@ public class MainActivity extends AppCompatActivity {
         Accelerometer = (TextView)findViewById(R.id.accelerometer);
         Altimeter = (TextView)findViewById(R.id.altimeter);
         Gyro = (TextView)findViewById(R.id.gyro);
+        ZUPT_Status = (TextView)findViewById(R.id.zupt_status);
 
     }
 
@@ -509,6 +512,7 @@ public class MainActivity extends AppCompatActivity {
             appManager.updateAcc(dataReceiver.currentAcc);
             appManager.updateAlt(dataReceiver.currentAlt);
             appManager.updateGyro(dataReceiver.currentGyro);
+            appManager.updateZUPTStatus(dataReceiver.ZUPT_status);
             appManager.tracePosition();
 
             xPos = "X Position (in meters): " + String.valueOf(appManager.dataSaver.getCurrentX());
@@ -518,6 +522,7 @@ public class MainActivity extends AppCompatActivity {
             acctxt = "Accelerometer: " + String.valueOf(appManager.dataSaver.getCurrentAccValue());
             alttxt = "Altimeter: " + String.valueOf(appManager.dataSaver.getCurrentAltValue());
             gyrotxt = "Gyroscope: " + String.valueOf(appManager.dataSaver.getCurrentGyroValue());
+            zupttxt = "ZUPT Status: "+appManager.dataSaver.ZUPT_Status;
 
             X_Coord.setText(xPos);
             Y_Coord.setText(yPos);
@@ -526,6 +531,7 @@ public class MainActivity extends AppCompatActivity {
             Accelerometer.setText(acctxt);
             Altimeter.setText(alttxt);
             Gyro.setText(gyrotxt);
+            ZUPT_Status.setText(zupttxt);
         }
         else{
             Toast.makeText(this, "Error Connecting to Device, please check IP or Wi-Fi connection then press START when ready.", Toast.LENGTH_LONG).show();
