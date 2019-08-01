@@ -73,21 +73,21 @@ public class DataSaver {
         unordered_accelorometer.add(currentAcc.clone());
         //accelorometer = spliceData(calcThreshold());
         accelorometer.add(currentAcc.clone());
-        accelorometer = sortData(accelorometer);
+        //accelorometer = sortData(accelorometer);
     }
 
     public void updateAltData(double currentAlt[]){
         unordered_altimeter.add(currentAlt.clone());
         //altimeter = spliceData(calcThreshold());
         altimeter.add(currentAlt.clone());
-        altimeter = sortData(altimeter);
+        //altimeter = sortData(altimeter);
     }
 
     public void updateGyroData(double currentGyro[]){
         unordered_gyro.add(currentGyro.clone());
         //altimeter = spliceData(calcThreshold());
         gyro.add(currentGyro.clone());
-        gyro = sortData(gyro);
+        //gyro = sortData(gyro);
     }
 
     public void updateZUPTData(int status){

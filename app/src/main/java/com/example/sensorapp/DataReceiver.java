@@ -38,14 +38,15 @@ public class DataReceiver{
     int Altimeter_flag=0;
 
     /* For simulator on computer */
-    //String m_IP = "http://%s/Service/xyzDisplay";
-    //String ip = "128.195.207.30:8001";
-    //String URL_Upload = "http://%s/Service/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
+    String m_IP = "http://%s/Service/xyzDisplay";
+    String ip = "128.195.207.30:8001";
+    String URL_Upload = "http://%s/Service/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
 
     /* For prototype physical device (different links) */
-    String m_IP = "http://%s/WebService/xyzDisplay";
-    String ip = "192.168.48.2:8001";
-    String URL_Upload = "http://%s/WebService/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
+    //String m_IP = "http://%s/WebService/xyzDisplay";
+    //String ip = "192.168.48.2:8001";
+    //String URL_Upload = "http://%s/WebService/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
+
     String runtime="0";
     Timer timer;
 
@@ -86,9 +87,9 @@ public class DataReceiver{
     public void ParseXML(Document doc){
         // Now, pull out the value attribute of the first channel element
         doc.getDocumentElement().normalize();
-        System.out.println("Root element : " + doc.getDocumentElement().getNodeName());
+        //System.out.println("Root element : " + doc.getDocumentElement().getNodeName());
         NodeList nList = doc.getElementsByTagName("Terminal");
-        System.out.println("----------------------------");
+        //System.out.println("----------------------------");
 
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
@@ -98,8 +99,8 @@ public class DataReceiver{
                 Element eElement = (Element) nNode;
                 String name = eElement.getElementsByTagName("Name").item(0).getTextContent();
                 String value = eElement.getElementsByTagName("Value").item(0).getTextContent();
-                System.out.println("Name : " + name);
-                System.out.println("Value : " + value);
+                //System.out.println("Name : " + name);
+                //System.out.println("Value : " + value);
                 ParseData(name, value);
             }
         }
@@ -234,7 +235,7 @@ public class DataReceiver{
         }
         catch (Exception e)
         {
-            System.out.println("Printing stack trace... ");
+            //System.out.println("Printing stack trace... ");
             e.printStackTrace();
             return -1;
 

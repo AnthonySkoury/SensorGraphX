@@ -572,7 +572,7 @@ public class MainActivity extends AppCompatActivity {
                     dataReceiver.UploadVariables();
                     dataReceiver.UploadVariables();
                     dataReceiver.UploadVariables();
-                    System.out.println("Button pressed Down");
+                    //System.out.println("Button pressed Down");
                     // Do what you want
 
                 }
@@ -582,7 +582,7 @@ public class MainActivity extends AppCompatActivity {
                     appManager.dataSaver.resetExtras();
                     appManager.resetExtras();
                 }
-                System.out.println("NO BUTTON");
+                //System.out.println("NO BUTTON");
                 return MainActivity.super.onTouchEvent(event);
             }
         });

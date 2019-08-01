@@ -22,8 +22,8 @@ import static android.content.ContentValues.TAG;
 public class Graphable extends GraphView {
 
     int maxDataPoints = 1000;
-    int rangeX=20;
-    int rangeY=20;
+    int rangeX=10;
+    int rangeY=10;
     LineGraphSeries<DataPoint> xy_coord = new LineGraphSeries<>();
     LineGraphSeries<DataPoint> x_coord = new LineGraphSeries<>();
     LineGraphSeries<DataPoint> y_coord = new LineGraphSeries<>();
@@ -36,17 +36,17 @@ public class Graphable extends GraphView {
 
     public Graphable(Context context) {
         super(context);
-        plotXYSettings();
+        SettingsHandler();
     }
 
     public Graphable(Context context, AttributeSet attrs) {
         super(context, attrs);
-        plotXYSettings();
+        SettingsHandler();
     }
 
     public Graphable(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        plotXYSettings();
+        SettingsHandler();
     }
 
     public void setMaxDataPoints(int max){
@@ -62,13 +62,13 @@ public class Graphable extends GraphView {
 
     public void setRangeX(int range){
         rangeX=range;
-        plotXYSettings();
+        SettingsHandler();
 
     }
 
     public void setRangeY(int range){
         rangeY=range;
-        plotXYSettings();
+        SettingsHandler();
     }
 
     public void updateXYPos(double x, double y){
@@ -147,15 +147,16 @@ public class Graphable extends GraphView {
             // xySeries.setShape(PointsGraphSeries.Shape.POINT);
             xySeries.setColor(Color.BLUE);
             // xySeries.setAnimated(true);
-            xySeries.setThickness(7);
+            xySeries.setThickness(5);
             xySeries.setDrawDataPoints(true);
-            xySeries.setDataPointsRadius(8f);
+            xySeries.setDataPointsRadius(6f);
+
             // xySeries.setSize(7f);
 
             //set some properties
             currentPoint.setShape(PointsGraphSeries.Shape.RECTANGLE);
             currentPoint.setColor(Color.RED);
-            currentPoint.setSize(10f);
+            currentPoint.setSize(7f);
 
             SettingsHandler();
 
