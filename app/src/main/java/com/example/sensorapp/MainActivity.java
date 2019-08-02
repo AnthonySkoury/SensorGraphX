@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -51,7 +52,9 @@ import android.widget.Toast;
 
 import mehdi.sakout.aboutpage.AboutPage;
 
-
+/**
+ * Instantiates all objects and has main control flow as well as buttons and menu/options functionality
+ */
 public class MainActivity extends AppCompatActivity {
 
     /* Objects Used */
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     TextView Altimeter;
     TextView Gyro;
     TextView ZUPT_Status;
+    DecimalFormat decimalFormat = new DecimalFormat("#.#");
 
     /* State Variables */
     boolean stop=true;
@@ -104,6 +108,10 @@ public class MainActivity extends AppCompatActivity {
     String alttxt = "";
     String zupttxt = "";
 
+    /**
+     * Creates this activity and asks user for storage permissions then calls method StartApp.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,27 +119,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
-        // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Permission is not granted
-            // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
+
             } else {
-                // No explanation needed; request the permission
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         1);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
             }
         } else {
             // Permission has already been granted
@@ -141,6 +140,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Creates options menu
+     * @param menu
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.settings_bar, menu);
@@ -150,6 +154,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Creates checkables for ZUPT controls.
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem checkable = menu.findItem(R.id.ZUPT);
@@ -159,7 +168,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    /* Check what button user pressed then call handler */
+    /**
+     * Checks what option user selected and calls what is needed depending if it requires an input.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -239,7 +252,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /* Used if text input for option is required */
+    /**
+     * Action dialogue popup prompting user for a text input after option is pressed.
+     * @param title
+     * @param id
+     */
     protected void itemAction(String title, int id){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
@@ -268,7 +285,11 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    /* Converts input to appropriate type then directs to specific handler */
+    /**
+     * Converts input to appropriate type then directs to specific handler.
+     * @param input
+     * @param id
+     */
     protected void handleInput(String input, int id){
         switch (id){
             case R.id.action_set_ip:
@@ -313,36 +334,63 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /* Handler Functions */
+
+    /**
+     * Calls DataReceiver method to change IP address in the URL.
+     */
     protected void handleIP(){
         //appManager.setIP(m_IP);
         dataReceiver.changeURL(m_IP);
     }
 
+    /**
+     * Calls PositionGraph method to change the X range.
+     */
     protected void handleRangeX(){
         positionGraph.setRangeX(m_Max_RangeX);
     }
 
+    /**
+     * Calls PositionGraph method to change the Y range.
+     */
     protected void handleRangeY(){
         positionGraph.setRangeY(m_Max_RangeY);
     }
 
+    /**
+     * Calls AltitudeBar method to change the Z range.
+     */
     protected void handleRangeZ(){
         altitudeBar.setRangeZ(m_Max_RangeZ);
     }
 
+    /**
+     * Notifies user of new sampling rate after being entered.
+     */
     protected void handleSampling(){
-
+        String txt = "This is the new sampling rate: "+m_Sample_Rate;
+        Toast.makeText(this, txt, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Calls AppManager method to set maximum data points displayed at a time for position graph.
+     */
     protected void handleMaxPoints(){
         appManager.setMaxDatapoints(m_Max_Points);
     }
 
+    /**
+     * Prompts user to pick an image from their gallery to set as the graph's background.
+     */
     protected void handleBackground(){
         startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
 
     }
 
+    /**
+     * Stops the graphing and connection then calls DataSaver SaveToFile method.
+     * Notifies user file has been saved with the filepath after process is completed.
+     */
     protected void handleDownload(){
         stop = true;
         String temp =  appManager.dataSaver.SaveToFile(m_File_Download);
@@ -350,6 +398,9 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Calls readFile method to load  a csv file to display position data.
+     */
     protected void handleUpload(){
         stop = true;
         readFile();
@@ -361,17 +412,29 @@ public class MainActivity extends AppCompatActivity {
         Run_Time.setText("Time: ");
     }
 
+    /**
+     * Calls DataReceiver method UploadVariables to toggle ZUPT.
+     */
     protected void handleToggleZUPT(){
 
         dataReceiver.UploadVariables();
     }
 
+    /**
+     * Calls DataReceiver method UploadVariables to toggle Altitude.
+     */
     protected void handleToggleAltitude(){
 
         dataReceiver.UploadVariables();
     }
 
-    /* Handles request codes */
+
+    /**
+     * Handles request codes.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -392,6 +455,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Calls DataSaver method readFile.
+     */
     public void readFile(){
         try {
             appManager.dataSaver.readFile(m_File_Upload);
@@ -401,6 +467,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Starts the App by calling methods to create the plots, establish connection, text visuals, and buttons.
+     */
     protected void StartApp(){
 
         CreatePlots();
@@ -410,6 +479,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Creates all the TextViews.
+     */
     protected void CreateText(){
         X_Coord = (TextView)findViewById(R.id.x_coordinate);
         Y_Coord = (TextView)findViewById(R.id.y_coordinate);
@@ -422,6 +494,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Creates all the graphs and initializes AppManager with these plots.
+     */
     protected void CreatePlots(){
         CreatePlotXY();
         CreatePlotZ();
@@ -433,34 +508,52 @@ public class MainActivity extends AppCompatActivity {
         appManager.initGraphs();
     }
 
+    /**
+     * Creates DataReceiver object.
+     */
     protected void CreateConnection(){
         dataReceiver = new DataReceiver(m_IP, appManager);
     }
 
+    /**
+     * Creates Position graph.
+     */
     protected void CreatePlotXY(){
 
         positionGraph = (PositionDisplay) findViewById(R.id.PositionDisplay);
 
     }
 
+    /**
+     * Creates Altitude bar.
+     */
     protected void CreatePlotZ(){
 
         altitudeBar = (AltitudeBar) findViewById(R.id.AltitudeBar);
 
     }
 
+    /**
+     * Creates Accelerometer plot.
+     */
     protected void CreatePlotAcc(){
 
         accelerometerDisplay = (AccelerometerDisplay) findViewById(R.id.AccelerometerDisplay);
 
     }
 
+    /**
+     * Creates Altimeter plot.
+     */
     protected void CreatePlotAlt(){
 
         altimeterDisplay = (AltimeterDisplay) findViewById(R.id.AltimeterDisplay);
 
     }
 
+    /**
+     * Creates Gyro plot.
+     */
     protected void CreatePlotGyro(){
 
         gyroDisplay = (GyroDisplay) findViewById(R.id.GyroDisplay);
@@ -468,16 +561,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void mainLooper(){
-
-        while(!stop){
-            //appManager.updatePosition(dataReceiver.connectToDevice());
-            appManager.tracePosition();
-        }
-
-    }
-
     /* Main Control Flow Segment */
+
+    /**
+     * Main control flow segment.
+     * Creates a thread that runs based on sample rate.
+     * The thread calls Tasks method that runs every task in sequence.
+     */
     protected void ScreenThread(){
         //startTime();
 
@@ -505,6 +595,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Tasks method that checks if connection to device works.
+     * If the connection works, update each data structure then graph each.
+     * Set the text displays to the current value for each.
+     * Display error message for connection if user is not connected to device.
+     */
     public void Tasks(){
 
         if(dataReceiver.connectToDevice()!=-1) {
@@ -515,13 +611,13 @@ public class MainActivity extends AppCompatActivity {
             appManager.updateZUPTStatus(dataReceiver.ZUPT_status);
             appManager.tracePosition();
 
-            xPos = "X Position (in meters): " + String.valueOf(appManager.dataSaver.getCurrentX());
-            yPos = "Y Position (in meters): " + String.valueOf(appManager.dataSaver.getCurrentY());
-            zPos = "Z Position (in meters): " + String.valueOf(appManager.dataSaver.getCurrentZ());
+            xPos = "X Position (in meters): " + String.valueOf(decimalFormat.format(appManager.dataSaver.getCurrentX()));
+            yPos = "Y Position (in meters): " + String.valueOf(decimalFormat.format(appManager.dataSaver.getCurrentY()));
+            zPos = "Z Position (in meters): " + String.valueOf(decimalFormat.format(appManager.dataSaver.getCurrentZ()));
             runtime = "Elapsed Time: " + String.valueOf(appManager.dataSaver.runtime) + " s";
-            acctxt = "Accelerometer: " + String.valueOf(appManager.dataSaver.getCurrentAccValue());
-            alttxt = "Altimeter: " + String.valueOf(appManager.dataSaver.getCurrentAltValue());
-            gyrotxt = "Gyroscope: " + String.valueOf(appManager.dataSaver.getCurrentGyroValue());
+            acctxt = "Accelerometer: " + String.valueOf(decimalFormat.format(appManager.dataSaver.getCurrentAccValue()));
+            alttxt = "Altimeter: " + String.valueOf(decimalFormat.format(appManager.dataSaver.getCurrentAltValue()));
+            gyrotxt = "Gyroscope: " + String.valueOf(decimalFormat.format(appManager.dataSaver.getCurrentGyroValue()));
             zupttxt = "ZUPT Status: "+appManager.dataSaver.ZUPT_Status;
 
             X_Coord.setText(xPos);
@@ -539,8 +635,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /* Initialize buttons and their functionalities */
+
+    /**
+     * Initialize buttons and their functionality.
+     */
     public void setupButtons(){
+        startButton();
+        stopButton();
+        resetButton();
+    }
+
+    /**
+     * Start button enables the thread to work.
+     */
+    public void startButton(){
         findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -556,14 +664,26 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    /**
+     * Stop button stops the thread by setting stop boolean true.
+     */
+    public void stopButton(){
         findViewById(R.id.btn_stop).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 stop = true;
             }
         });
+    }
 
+    /**
+     * Reset button sets reset flag to true then uploads it to device.
+     * User has to hold button because it can have some delay for the LabView program on the device to reset.
+     * After the user lets go of the button, data structures and graph are reset.
+     */
+    public void resetButton(){
         findViewById(R.id.btn_reset).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -579,6 +699,7 @@ public class MainActivity extends AppCompatActivity {
                 else if (event.getAction() == MotionEvent.ACTION_UP){
                     dataReceiver.reset_flag=0;
                     dataReceiver.UploadVariables();
+                    appManager.reset();
                     appManager.dataSaver.resetExtras();
                     appManager.resetExtras();
                 }
@@ -586,7 +707,6 @@ public class MainActivity extends AppCompatActivity {
                 return MainActivity.super.onTouchEvent(event);
             }
         });
-
     }
 
 }

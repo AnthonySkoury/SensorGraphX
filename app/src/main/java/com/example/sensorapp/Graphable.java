@@ -36,22 +36,22 @@ public class Graphable extends GraphView {
 
     public Graphable(Context context) {
         super(context);
-        SettingsHandler();
+        plotXYSettings();
     }
 
     public Graphable(Context context, AttributeSet attrs) {
         super(context, attrs);
-        SettingsHandler();
+        plotXYSettings();
     }
 
     public Graphable(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        SettingsHandler();
+        plotXYSettings();
     }
 
     public void setMaxDataPoints(int max){
         maxDataPoints=max;
-        resetGraph();
+        plotXYSettings();
     }
 
     public void changeBackground(Bitmap bg){
@@ -62,38 +62,19 @@ public class Graphable extends GraphView {
 
     public void setRangeX(int range){
         rangeX=range;
-        SettingsHandler();
+        plotXYSettings();
 
     }
 
     public void setRangeY(int range){
         rangeY=range;
-        SettingsHandler();
+        plotXYSettings();
     }
 
     public void updateXYPos(double x, double y){
         xy_coord.appendData(new DataPoint(x,y), true, maxDataPoints);
     }
 
-    public void updateXPos(){
-
-    }
-
-    public void updateYPos(){
-
-    }
-
-    public void plotXYPos(){
-
-    }
-
-    public void plotXPos(){
-
-    }
-
-    public void plotYPos(){
-
-    }
 
     public void resetGraph(){
         removeAllSeries();
@@ -147,16 +128,16 @@ public class Graphable extends GraphView {
             // xySeries.setShape(PointsGraphSeries.Shape.POINT);
             xySeries.setColor(Color.BLUE);
             // xySeries.setAnimated(true);
-            xySeries.setThickness(5);
-            xySeries.setDrawDataPoints(true);
-            xySeries.setDataPointsRadius(6f);
+            xySeries.setThickness(4);
+            //xySeries.setDrawDataPoints(true);
+            //xySeries.setDataPointsRadius(6f);
 
             // xySeries.setSize(7f);
 
             //set some properties
             currentPoint.setShape(PointsGraphSeries.Shape.RECTANGLE);
             currentPoint.setColor(Color.RED);
-            currentPoint.setSize(7f);
+            currentPoint.setSize(6f);
 
             SettingsHandler();
 
