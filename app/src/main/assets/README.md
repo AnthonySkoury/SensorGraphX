@@ -23,6 +23,8 @@ Welcome to the Sensor Display App, it can be used along our prototype device to 
 * Start connects to the device to display and graph data
 * Stop will halt the program and disconnect from the device
 * Reset will connect to the device to restart its runtime
+* Go to the graph settings to enable/disable ZUPT and Altitude setting in device (Green check mark means on)
+* Scroll down to see three more graphs (Accelerometer, Altimeter, Gyroscope) and their data as well as ZUPT status
 
 
 ## Functionalities
@@ -30,11 +32,15 @@ Welcome to the Sensor Display App, it can be used along our prototype device to 
 * Can Plot Position and Altitude
 * Adjustable Settings
 * Set IP Address
-* Range Limit (X,Y,Z)
+* Range Limit (X, Y, Z)
 * Sampling Rate
 * Max Points Displayed At a Time
 * Image background
 * Checkboxes for enabling ZUPT and Altitude
 * Export your data to your device in csv (Excel-like) format
 * Upload your data from csv format to display
+* Can scroll down on main page to see more graphs
+* Displays Accelerometer data vs runtime
+* Displays Altimeter data vs runtime
+* Displays Gyroscope data vs runtime
 
