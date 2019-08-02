@@ -43,9 +43,6 @@ public class AppManager {
     }
 
     public void tracePosition(){
-        positionDisplay.updateXPos();
-        positionDisplay.plotXYPos();
-
         altitudeBar.updateZPos();
 
         // positionDisplay.plotXY(dataSaver.getCurrentPosition());
@@ -87,9 +84,6 @@ public class AppManager {
         gyroDisplay.resetGraph();
     }
 
-    public void setIP(String ip){
-
-    }
 
     public void setMaxDatapoints(int max){
         dataSaver.setThreshold(max);
