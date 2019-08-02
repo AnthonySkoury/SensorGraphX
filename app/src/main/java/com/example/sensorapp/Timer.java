@@ -1,5 +1,8 @@
 package com.example.sensorapp;
 
+/**
+ * Helper class for application runtime if needed
+ */
 public class Timer {
 
     /* App specific runtime functions and variables (Not currently in use) */
@@ -8,19 +11,28 @@ public class Timer {
     private boolean running = false;
 
 
+    /**
+     * Starts timer
+     */
     public void startTime() {
         this.startTime = System.nanoTime();
         this.running = true;
     }
 
 
+    /**
+     * Stops timer
+     */
     public void stopTime() {
         this.stopTime = System.nanoTime();
         this.running = false;
     }
 
 
-    /* In milliseconds */
+    /**
+     * Gives elapsed time in milliseconds
+     * @return elapsed time (ms)
+     */
     public long getElapsedTime() {
         long elapsed;
         if (running) {
@@ -32,7 +44,10 @@ public class Timer {
     }
 
 
-    /* In seconds */
+    /**
+     * Gives elapsed time in seconds
+     * @return elapsed time (s)
+     */
     public long getElapsedTimeSecs() {
         long elapsed;
         if (running) {

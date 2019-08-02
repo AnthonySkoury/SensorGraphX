@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 
-
+/**
+ * Extra page for graphs (currently not used)
+ */
 public class ExtraGraphs extends AppCompatActivity {
 
     @Override

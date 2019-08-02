@@ -11,8 +11,15 @@ import us.feras.mdv.MarkdownView;
 import android.view.Window;
 
 
+/**
+ * Displays markdown file README
+ */
 public class Guide extends AppCompatActivity {
 
+    /**
+     * Creates object and opens file to display
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +35,7 @@ public class Guide extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Open contacts", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
