@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_file:
-                startActivity(new Intent(MainActivity.this, ExtraGraphs.class));
+
                 return true;
             case R.id.action_download:
                 itemAction("Enter File Name For Download", R.id.action_download);
@@ -254,8 +254,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Action dialogue popup prompting user for a text input after option is pressed.
-     * @param title
-     * @param id
+     * @param title Description for action dialogue
+     * @param id Identifier for which menu option was selected
      */
     protected void itemAction(String title, int id){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -287,8 +287,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Converts input to appropriate type then directs to specific handler.
-     * @param input
-     * @param id
+     * @param input Variable to store user input
+     * @param id Identifier for which menu option was selected
      */
     protected void handleInput(String input, int id){
         switch (id){

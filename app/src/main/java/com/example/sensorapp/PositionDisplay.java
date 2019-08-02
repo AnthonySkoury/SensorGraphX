@@ -19,23 +19,44 @@ import java.util.Vector;
 
 import static android.content.ContentValues.TAG;
 
-/* Simple trajectory plot for x and y position */
+/**
+ * Simple trajectory plot for x and y position
+ */
 public class PositionDisplay extends Graphable {
 
+    /**
+     * Constructor
+     * @param context
+     */
     public PositionDisplay(Context context) {
         super(context);
         super.plotXYSettings(rangeY,-rangeY, rangeX, -rangeX, "Position (X,Y)", true);
     }
 
+    /**
+     * Constructor
+     * @param context
+     * @param attrs
+     */
     public PositionDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
         super.plotXYSettings(rangeY,-rangeY, rangeX, -rangeX, "Position (X,Y)", true);
     }
 
+    /**
+     * Constructor
+     * @param context
+     * @param attrs
+     * @param defStyle
+     */
     public PositionDisplay(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         super.plotXYSettings(rangeY,-rangeY, rangeX, -rangeX, "Position (X,Y)", true);
     }
+
+    /**
+     * Calls settings with defined values
+     */
     @Override
     public void SettingsHandler(){
         super.plotXYSettings(rangeY, -rangeY, rangeX, -rangeX, "Position (X,Y)", true);

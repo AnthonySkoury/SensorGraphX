@@ -11,8 +11,15 @@ import java.util.Calendar;
 import mehdi.sakout.aboutpage.AboutPage;
 import mehdi.sakout.aboutpage.Element;
 
+/**
+ * Displays info and hyperlinks
+ */
 public class About extends AppCompatActivity {
 
+    /**
+     * Creates object and initializes the view
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +41,10 @@ public class About extends AppCompatActivity {
         setContentView(aboutpage);
     }
 
+    /**
+     * Creates copyright info
+     * @return copyright text and date
+     */
     private Element Copyright(){
         final Element copyright = new Element();
         final String text = String.format("Copyright %d by MAE Group at UCI", Calendar.getInstance().get(Calendar.YEAR));
