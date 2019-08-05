@@ -22,8 +22,8 @@ import static android.content.ContentValues.TAG;
 public class Graphable extends GraphView {
 
     int maxDataPoints = 1000;
-    int rangeX=10;
-    int rangeY=10;
+    int rangeX;
+    int rangeY;
     LineGraphSeries<DataPoint> xy_coord = new LineGraphSeries<>();
     LineGraphSeries<DataPoint> x_coord = new LineGraphSeries<>();
     LineGraphSeries<DataPoint> y_coord = new LineGraphSeries<>();
@@ -36,16 +36,19 @@ public class Graphable extends GraphView {
 
     public Graphable(Context context) {
         super(context);
+        setRange();
         plotXYSettings();
     }
 
     public Graphable(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setRange();
         plotXYSettings();
     }
 
     public Graphable(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        setRange();
         plotXYSettings();
     }
 
@@ -58,6 +61,11 @@ public class Graphable extends GraphView {
         Drawable newbackground = new BitmapDrawable(getResources(), bg);
         this.setBackground(newbackground);
 
+    }
+
+    public void setRange(){
+        rangeX=10;
+        rangeY=10;
     }
 
     public void setRangeX(int range){
@@ -128,7 +136,7 @@ public class Graphable extends GraphView {
             // xySeries.setShape(PointsGraphSeries.Shape.POINT);
             xySeries.setColor(Color.BLUE);
             // xySeries.setAnimated(true);
-            xySeries.setThickness(4);
+            xySeries.setThickness(5);
             //xySeries.setDrawDataPoints(true);
             //xySeries.setDataPointsRadius(6f);
 
@@ -137,7 +145,7 @@ public class Graphable extends GraphView {
             //set some properties
             currentPoint.setShape(PointsGraphSeries.Shape.RECTANGLE);
             currentPoint.setColor(Color.RED);
-            currentPoint.setSize(6f);
+            currentPoint.setSize(7f);
 
             SettingsHandler();
 

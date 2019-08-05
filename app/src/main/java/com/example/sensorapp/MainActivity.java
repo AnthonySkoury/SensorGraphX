@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     TextView Altimeter;
     TextView Gyro;
     TextView ZUPT_Status;
-    DecimalFormat decimalFormat = new DecimalFormat("#.#");
+    DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
     /* State Variables */
     boolean stop=true;
