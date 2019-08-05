@@ -21,9 +21,6 @@ import static android.content.ContentValues.TAG;
 
 public class AccelerometerDisplay extends Graphable {
 
-    int rangeX = 5;
-    int rangeY = 5;
-
     /**
      * Constructor
      * @param context
@@ -52,6 +49,12 @@ public class AccelerometerDisplay extends Graphable {
     public AccelerometerDisplay(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         super.plotXYSettings(rangeY,0, rangeX, 0, "Accelerometer Display", false);
+    }
+
+    @Override
+    public void setRange(){
+        rangeX=20;
+        rangeY=20;
     }
 
     /**

@@ -21,8 +21,6 @@ import static android.content.ContentValues.TAG;
 
 public class AltimeterDisplay extends Graphable {
 
-    int rangeX = 5;
-    int rangeY = 5;
 
     /**
      * Constructor
@@ -52,6 +50,12 @@ public class AltimeterDisplay extends Graphable {
     public AltimeterDisplay(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         super.plotXYSettings(rangeY,0, rangeX, 0, "Altimeter Display", false);
+    }
+
+    @Override
+    public void setRange(){
+        rangeX=10;
+        rangeY=10;
     }
 
     /**

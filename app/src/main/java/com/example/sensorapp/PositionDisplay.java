@@ -54,6 +54,12 @@ public class PositionDisplay extends Graphable {
         super.plotXYSettings(rangeY,-rangeY, rangeX, -rangeX, "Position (X,Y)", true);
     }
 
+    @Override
+    public void setRange(){
+        rangeX=15;
+        rangeY=15;
+    }
+
     /**
      * Calls settings with defined values
      */
