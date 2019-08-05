@@ -54,7 +54,7 @@ public class AltimeterDisplay extends Graphable {
 
     @Override
     public void setRange(){
-        rangeX=10;
+        rangeX=20;
         rangeY=10;
     }
 

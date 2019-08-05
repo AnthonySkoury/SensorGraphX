@@ -4,8 +4,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="UCI_blue">#5b92aa</color>
-    <color name="UCI_yellow">#bb0a21</color>
+    <color name="UCI_blue">#8AAAE5</color>
+    <color name="UCI_yellow">#FFFFFF</color>
 
     <color name="UCI_light_blue">#bb0a21</color>
     <color name="UCI_dark_blue">#5b92aa</color>
