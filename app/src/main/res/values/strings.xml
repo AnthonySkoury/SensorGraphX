@@ -19,15 +19,28 @@
     <string name="ip">Set IP Address</string>
 
     <string name="graph">Graph Settings</string>
-    <string name="range">Set Range Limit</string>
-    <string name="rangeX">Set X Position Range Limit</string>
-    <string name="rangeY">Set Y Position Range Limit</string>
-    <string name="rangeZ">Set Altitude Range Limit</string>
     <string name="sampling">Set Sampling Rate</string>
     <string name="maxpoints">Set Max Points Displayed</string>
     <string name="background">Upload Floor Plan Map</string>
     <string name="ZUPT">Toggle ZUPT</string>
     <string name="Altitude">Toggle Altitude</string>
+
+    <string name="range">Set Pos. &amp; Alt. Range Limit</string>
+    <string name="rangeX">Set X Position Range Limit</string>
+    <string name="rangeY">Set Y Position Range Limit</string>
+    <string name="rangeZ">Set Altitude Range Limit</string>
+
+    <string name="range_acc">Set Accel. Range Limit</string>
+    <string name="rangeX2">Set Time Range Limit</string>
+    <string name="rangeY2">Set Y Range Limit</string>
+
+    <string name="range_alt">Set Alti. Range Limit</string>
+    <string name="rangeX3">Set Time Range Limit</string>
+    <string name="rangeY3">Set Y Range Limit</string>
+
+    <string name="range_gyro">Set Gyro. Range Limit</string>
+    <string name="rangeX4">Set Time Range Limit</string>
+    <string name="rangeY4">Set Y Range Limit</string>
 
     <string name="file">Export/Upload Data</string>
     <string name="download">Export Data to File</string>

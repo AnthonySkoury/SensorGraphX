@@ -95,9 +95,15 @@ public class MainActivity extends AppCompatActivity {
     private int m_Max_RangeZ=60;
     private long m_Sample_Rate=1000;
     private int m_Max_Points=100;
-    private String m_Background = "";
     private String m_File_Upload = "";
     private String m_File_Download = "";
+
+    private int m_Max_RangeX2=20;
+    private int m_Max_RangeY2=20;
+    private int m_Max_RangeX3=20;
+    private int m_Max_RangeY3=20;
+    private int m_Max_RangeX4=20;
+    private int m_Max_RangeY4=20;
 
     String xPos="";
     String yPos ="";
@@ -186,17 +192,6 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_graph_settings:
                 return true;
-            case R.id.action_set_range:
-                return true;
-            case R.id.action_set_x_range:
-                itemAction("Enter X Range Limit (in meters)", R.id.action_set_x_range);
-                return true;
-            case R.id.action_set_y_range:
-                itemAction("Enter Y Range Limit (in meters)", R.id.action_set_y_range);
-                return true;
-            case R.id.action_set_z_range:
-                itemAction("Enter Altitude Range Limit (in meters)", R.id.action_set_z_range);
-                return true;
             case R.id.action_set_sampling:
                 itemAction("Enter Sample Rate", R.id.action_set_sampling);
                 return true;
@@ -223,6 +218,45 @@ public class MainActivity extends AppCompatActivity {
                 else
                     dataReceiver.Altimeter_flag=0;
                 handleToggleAltitude();
+                return true;
+
+            case R.id.action_set_range:
+                return true;
+            case R.id.action_set_x_range:
+                itemAction("Enter X Range Limit (in meters)", R.id.action_set_x_range);
+                return true;
+            case R.id.action_set_y_range:
+                itemAction("Enter Y Range Limit (in meters)", R.id.action_set_y_range);
+                return true;
+            case R.id.action_set_z_range:
+                itemAction("Enter Altitude Range Limit (in meters)", R.id.action_set_z_range);
+                return true;
+
+            case R.id.action_set_acc_range:
+                return true;
+            case R.id.action_set_x2_range:
+                itemAction("Enter Time Range Limit (in seconds)", R.id.action_set_x2_range);
+                return true;
+            case R.id.action_set_y2_range:
+                itemAction("Enter Y Range Limit ", R.id.action_set_y2_range);
+                return true;
+
+            case R.id.action_set_alt_range:
+                return true;
+            case R.id.action_set_x3_range:
+                itemAction("Enter Time Range Limit (in seconds)", R.id.action_set_x3_range);
+                return true;
+            case R.id.action_set_y3_range:
+                itemAction("Enter Y Range Limit ", R.id.action_set_y3_range);
+                return true;
+
+            case R.id.action_set_gyro_range:
+                return true;
+            case R.id.action_set_x4_range:
+                itemAction("Enter Time Range Limit (in seconds)", R.id.action_set_x4_range);
+                return true;
+            case R.id.action_set_y4_range:
+                itemAction("Enter Y Range Limit ", R.id.action_set_y4_range);
                 return true;
 
             case R.id.action_file:
@@ -296,6 +330,7 @@ public class MainActivity extends AppCompatActivity {
                 m_IP=input;
                 handleIP();
                 break;
+
             case R.id.action_set_x_range:
                 m_Max_RangeX=Integer.parseInt(input);
                 handleRangeX();
@@ -308,6 +343,34 @@ public class MainActivity extends AppCompatActivity {
                 m_Max_RangeZ=Integer.parseInt(input);
                 handleRangeZ();
                 break;
+
+            case R.id.action_set_x2_range:
+                m_Max_RangeX2=Integer.parseInt(input);
+                handleRangeAccX();
+                break;
+            case R.id.action_set_y2_range:
+                m_Max_RangeY2=Integer.parseInt(input);
+                handleRangeAccY();
+                break;
+
+            case R.id.action_set_x3_range:
+                m_Max_RangeX3=Integer.parseInt(input);
+                handleRangeAltX();
+                break;
+            case R.id.action_set_y3_range:
+                m_Max_RangeY3=Integer.parseInt(input);
+                handleRangeAltY();
+                break;
+
+            case R.id.action_set_x4_range:
+                m_Max_RangeX4=Integer.parseInt(input);
+                handleRangeGyroX();
+                break;
+            case R.id.action_set_y4_range:
+                m_Max_RangeY4=Integer.parseInt(input);
+                handleRangeGyroY();
+                break;
+
             case R.id.action_set_sampling:
                 m_Sample_Rate=Long.parseLong(input);
                 handleSampling();
@@ -317,7 +380,6 @@ public class MainActivity extends AppCompatActivity {
                 handleMaxPoints();
                 break;
             case R.id.action_set_background:
-                m_Background=input;
                 handleBackground();
                 break;
             case R.id.action_download:
@@ -362,6 +424,30 @@ public class MainActivity extends AppCompatActivity {
      */
     protected void handleRangeZ(){
         altitudeBar.setRangeZ(m_Max_RangeZ);
+    }
+
+    protected void handleRangeAccX(){
+        accelerometerDisplay.setRangeX(m_Max_RangeX2);
+    }
+
+    protected void handleRangeAccY(){
+        accelerometerDisplay.setRangeY(m_Max_RangeY2);
+    }
+
+    protected void handleRangeAltX(){
+        altimeterDisplay.setRangeX(m_Max_RangeX3);
+    }
+
+    protected void handleRangeAltY(){
+        altimeterDisplay.setRangeY(m_Max_RangeY3);
+    }
+
+    protected void handleRangeGyroX(){
+        gyroDisplay.setRangeX(m_Max_RangeX4);
+    }
+
+    protected void handleRangeGyroY(){
+        gyroDisplay.setRangeY(m_Max_RangeY4);
     }
 
     /**
