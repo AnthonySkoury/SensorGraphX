@@ -23,26 +23,6 @@
 
             <menu>
                 <item
-                    android:id="@+id/action_set_range"
-                    android:icon="@drawable/ic_adjust_black_24dp"
-                    android:title="@string/range"
-                    app:showAsAction="ifRoom">
-                    <menu>
-                        <item
-                            android:id="@+id/action_set_x_range"
-                            android:title="@string/rangeX"
-                            app:showAsAction="ifRoom"/>
-                        <item
-                            android:id="@+id/action_set_y_range"
-                            android:title="@string/rangeY"
-                            app:showAsAction="ifRoom"/>
-                        <item
-                            android:id="@+id/action_set_z_range"
-                            android:title="@string/rangeZ"
-                            app:showAsAction="ifRoom"/>
-                    </menu>
-                </item>
-                <item
                     android:id="@+id/action_set_sampling"
                     android:icon="@drawable/ic_access_time_black_24dp"
                     android:title="@string/sampling"
@@ -72,6 +52,79 @@
             </menu>
 
         </item>
+
+        <item
+            android:id="@+id/action_set_range"
+            android:icon="@drawable/ic_adjust_black_24dp"
+            android:title="@string/range"
+            app:showAsAction="ifRoom">
+            <menu>
+                <item
+                    android:id="@+id/action_set_x_range"
+                    android:title="@string/rangeX"
+                    app:showAsAction="ifRoom"/>
+                <item
+                    android:id="@+id/action_set_y_range"
+                    android:title="@string/rangeY"
+                    app:showAsAction="ifRoom"/>
+                <item
+                    android:id="@+id/action_set_z_range"
+                    android:title="@string/rangeZ"
+                    app:showAsAction="ifRoom"/>
+            </menu>
+        </item>
+
+        <item
+            android:id="@+id/action_set_acc_range"
+            android:icon="@drawable/ic_adjust_red_24dp"
+            android:title="@string/range_acc"
+            app:showAsAction="ifRoom">
+            <menu>
+                <item
+                    android:id="@+id/action_set_x2_range"
+                    android:title="@string/rangeX2"
+                    app:showAsAction="ifRoom"/>
+                <item
+                    android:id="@+id/action_set_y2_range"
+                    android:title="@string/rangeY2"
+                    app:showAsAction="ifRoom"/>
+            </menu>
+        </item>
+
+        <item
+            android:id="@+id/action_set_alt_range"
+            android:icon="@drawable/ic_adjust_green_24dp"
+            android:title="@string/range_alt"
+            app:showAsAction="ifRoom">
+            <menu>
+                <item
+                    android:id="@+id/action_set_x3_range"
+                    android:title="@string/rangeX3"
+                    app:showAsAction="ifRoom"/>
+                <item
+                    android:id="@+id/action_set_y3_range"
+                    android:title="@string/rangeY3"
+                    app:showAsAction="ifRoom"/>
+            </menu>
+        </item>
+
+        <item
+            android:id="@+id/action_set_gyro_range"
+            android:icon="@drawable/ic_adjust_blue_24dp"
+            android:title="@string/range_gyro"
+            app:showAsAction="ifRoom">
+            <menu>
+                <item
+                    android:id="@+id/action_set_x4_range"
+                    android:title="@string/rangeX4"
+                    app:showAsAction="ifRoom"/>
+                <item
+                    android:id="@+id/action_set_y4_range"
+                    android:title="@string/rangeY4"
+                    app:showAsAction="ifRoom"/>
+            </menu>
+        </item>
+
 
         <item
             android:id="@+id/action_file"
