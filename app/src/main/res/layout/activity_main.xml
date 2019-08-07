@@ -151,6 +151,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:padding="5dp">
+
                 <TextView
                     android:id="@+id/accelerometer"
                     android:layout_width="match_parent"
@@ -186,6 +187,7 @@
                     android:lines="2"
                     android:text="@string/zupt_txt"
                     android:textSize="16dp" />
+
             </LinearLayout>
 
         </LinearLayout>

@@ -19,7 +19,7 @@ import java.util.Vector;
 
 import static android.content.ContentValues.TAG;
 
-public class AccelerometerDisplay extends Graphable {
+public class AccelerometerDisplay extends LineGraphable {
 
     /**
      * Constructor

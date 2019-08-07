@@ -19,7 +19,7 @@ import java.util.Vector;
 
 import static android.content.ContentValues.TAG;
 
-public class AltimeterDisplay extends Graphable {
+public class AltimeterDisplay extends LineGraphable {
 
 
     /**

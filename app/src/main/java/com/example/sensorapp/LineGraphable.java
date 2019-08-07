@@ -1,5 +1,6 @@
 package com.example.sensorapp;
 
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -19,7 +20,7 @@ import java.util.Vector;
 
 import static android.content.ContentValues.TAG;
 
-public class Graphable extends GraphView {
+public class LineGraphable extends GraphView {
 
     int maxDataPoints = 1000;
     int rangeX;
@@ -28,25 +29,25 @@ public class Graphable extends GraphView {
     LineGraphSeries<DataPoint> x_coord = new LineGraphSeries<>();
     LineGraphSeries<DataPoint> y_coord = new LineGraphSeries<>();
 
-     PointsGraphSeries<DataPoint> xySeries;
-    //LineGraphSeries<DataPoint> xySeries;
+    //PointsGraphSeries<DataPoint> xySeries;
+    LineGraphSeries<DataPoint> xySeries;
     PointsGraphSeries<DataPoint> currentPoint;
     // LineGraphSeries<DataPoint> xySeries;
 
 
-    public Graphable(Context context) {
+    public LineGraphable(Context context) {
         super(context);
         setRange();
         plotXYSettings();
     }
 
-    public Graphable(Context context, AttributeSet attrs) {
+    public LineGraphable(Context context, AttributeSet attrs) {
         super(context, attrs);
         setRange();
         plotXYSettings();
     }
 
-    public Graphable(Context context, AttributeSet attrs, int defStyle) {
+    public LineGraphable(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setRange();
         plotXYSettings();
@@ -88,13 +89,13 @@ public class Graphable extends GraphView {
         removeAllSeries();
         removeSeries(xySeries);
         removeSeries(currentPoint);
-        xySeries = new PointsGraphSeries<>();
+        xySeries = new LineGraphSeries<>();
         currentPoint = new PointsGraphSeries<>();
         initGraph();
     }
 
     public void initGraph(){
-        xySeries = new PointsGraphSeries<>();
+        xySeries = new LineGraphSeries<>();
         currentPoint = new PointsGraphSeries<>();
         drawGraph();
     }
@@ -136,7 +137,7 @@ public class Graphable extends GraphView {
             // xySeries.setShape(PointsGraphSeries.Shape.POINT);
             xySeries.setColor(Color.BLUE);
             // xySeries.setAnimated(true);
-            xySeries.setSize(7f);
+            xySeries.setThickness(7);
             //xySeries.setDrawDataPoints(true);
             //xySeries.setDataPointsRadius(6f);
 
