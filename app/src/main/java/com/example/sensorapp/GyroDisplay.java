@@ -19,7 +19,7 @@ import java.util.Vector;
 
 import static android.content.ContentValues.TAG;
 
-public class GyroDisplay extends Graphable {
+public class GyroDisplay extends LineGraphable {
 
     /**
      * Constructor

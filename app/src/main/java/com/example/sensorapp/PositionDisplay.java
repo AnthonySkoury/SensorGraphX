@@ -56,8 +56,8 @@ public class PositionDisplay extends Graphable {
 
     @Override
     public void setRange(){
-        rangeX=15;
-        rangeY=15;
+        rangeX=30;
+        rangeY=30;
     }
 
     /**

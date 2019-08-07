@@ -37,15 +37,18 @@ public class DataReceiver{
     int ZUPT_flag=0;
     int Altimeter_flag=0;
 
+    DocumentBuilder docbuilder;
+    Document doc;
+
     /* For simulator on computer */
-    String m_IP = "http://%s/Service/xyzDisplay";
-    String ip = "128.195.207.30:8001";
-    String URL_Upload = "http://%s/Service/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
+    //String m_IP = "http://%s/Service/xyzDisplay";
+    //String ip = "128.195.207.30:8001";
+    //String URL_Upload = "http://%s/Service/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
 
     /* For prototype physical device (different links) */
-    //String m_IP = "http://%s/WebService/xyzDisplay";
-    //String ip = "192.168.48.2:8001";
-    //String URL_Upload = "http://%s/WebService/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
+    String m_IP = "http://%s/WebService/xyzDisplay";
+    String ip = "192.168.48.2:8001";
+    String URL_Upload = "http://%s/WebService/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
 
     String runtime="0";
     Timer timer;
@@ -65,23 +68,25 @@ public class DataReceiver{
         this.ip = ip;
     }
 
-    public Document ParseURL() throws Exception{
-        String url_to_upload = String.format(URL_Upload, ip, ZUPT_flag, reset_flag, Altimeter_flag);
-        URL url = new URL(url_to_upload);
-        URLConnection connection = url.openConnection();
-        // Set resonable timeouts
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(5000);
+    public void ParseURL() throws  Exception{
 
-        connection.getInputStream(); //test case
-        // Create an XML document builder with the default settings
+            String url_to_upload = String.format(URL_Upload, ip, ZUPT_flag, reset_flag, Altimeter_flag);
+            URL url = new URL(url_to_upload);
+            URLConnection connection = url.openConnection();
+            // Set resonable timeouts
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
 
-        DocumentBuilder docbuilder = DocumentBuilderFactory.newInstance()
-                .newDocumentBuilder();
-        // Parse XML from the web service into a DOM tree
-        //Document doc = docbuilder.parse(connection.getInputStream());
-        //ParseXML(doc);
-        return docbuilder.parse(connection.getInputStream());
+            connection.getInputStream(); //test case
+            // Create an XML document builder with the default settings
+
+            docbuilder = DocumentBuilderFactory.newInstance()
+                    .newDocumentBuilder();
+            // Parse XML from the web service into a DOM tree
+            //Document doc = docbuilder.parse(connection.getInputStream());
+            //ParseXML(doc);
+            doc = docbuilder.parse(connection.getInputStream());
+
     }
 
     public void ParseXML(Document doc){
@@ -154,7 +159,7 @@ public class DataReceiver{
                 break;
             case "ALT_test":
                 currentAlt[0]=Double.parseDouble(runtime);
-                currentAlt[1]=Double.parseDouble(value);
+                currentAlt[1]=-Double.parseDouble(value);
                 break;
             case "gyro_test":
                 currentGyro[0]=Double.parseDouble(runtime);
@@ -171,7 +176,7 @@ public class DataReceiver{
                 currentPosition[1]=Double.parseDouble(value);
                 break;
             case "z":
-                currentPosition[2]=Double.parseDouble(value);
+                currentPosition[2]=-Double.parseDouble(value);
                 break;
             case "ZUPT_test":
                 ZUPT_status=Integer.parseInt(value);
@@ -228,8 +233,9 @@ public class DataReceiver{
         }
         try
         {
-               //ParseXML(ParseURL());
-               TestData();
+            ParseURL();
+            ParseXML(doc);
+               //TestData();
             return 0;
 
         }
