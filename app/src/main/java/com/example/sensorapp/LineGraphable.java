@@ -172,7 +172,12 @@ public class LineGraphable extends GraphView {
         //set manual x bounds
         getViewport().setYAxisBoundsManual(true);
         getViewport().setMaxY(rangeY);
-        getViewport().setMinY(0);
+        if(this instanceof AltimeterDisplay || this instanceof AccelerometerDisplay){
+            getViewport().setMinY(-rangeY);
+        }
+        else{
+            getViewport().setMinY(0);
+        }
 
         //set manual y bounds
         getViewport().setXAxisBoundsManual(true);

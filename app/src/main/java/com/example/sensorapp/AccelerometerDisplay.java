@@ -62,7 +62,7 @@ public class AccelerometerDisplay extends LineGraphable {
      */
     @Override
     public void SettingsHandler(){
-        super.plotXYSettings(rangeY, 0, rangeX, 0, "Accelerometer Display", false);
+        super.plotXYSettings(rangeY, -rangeY, rangeX, -rangeX, "Accelerometer Display", false);
     }
 
 

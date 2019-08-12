@@ -20,7 +20,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
+/**
+ * Has methods to connect to device and pull data
+ */
 public class DataReceiver{
 
     public volatile Boolean mStop = false;
@@ -53,6 +55,11 @@ public class DataReceiver{
     String runtime="0";
     Timer timer;
 
+    /**
+     * Constructor taking in a default URL and AppManager object
+     * @param url default url
+     * @param appManager reference to AppManager to call update methods
+     */
     public DataReceiver(String url, AppManager appManager){
         this.url = url;
         this.appManager = appManager;
@@ -64,10 +71,18 @@ public class DataReceiver{
         timer.startTime();
     }
 
+    /**
+     * Changes ip address
+     * @param ip new ip address
+     */
     public void changeURL(String ip){
         this.ip = ip;
     }
 
+    /**
+     * Connects to URL to create an XML document from web page
+     * @throws Exception
+     */
     public void ParseURL() throws  Exception{
 
             String url_to_upload = String.format(URL_Upload, ip, ZUPT_flag, reset_flag, Altimeter_flag);
@@ -89,6 +104,10 @@ public class DataReceiver{
 
     }
 
+    /**
+     * Parses XML document retrieved from URL
+     * @param doc XML Document
+     */
     public void ParseXML(Document doc){
         // Now, pull out the value attribute of the first channel element
         doc.getDocumentElement().normalize();
@@ -111,6 +130,9 @@ public class DataReceiver{
         }
     }
 
+    /**
+     * Test method used when not connected to Wi-Fi
+     */
     public void TestData(){
         ParseData("acc_test");
         ParseData("ALT_test");
@@ -120,6 +142,11 @@ public class DataReceiver{
         ParseData("z");
     }
 
+    /**
+     * Method used when running simulation without Wi-Fi program.
+     * Creates artificial values.
+     * @param name Name for data type
+     */
     public void ParseData(String name){
         switch(name){
             case "acc_test":
@@ -151,6 +178,11 @@ public class DataReceiver{
         }
     }
 
+    /**
+     * Parses data read from a line in the XML file
+     * @param name Name for data type
+     * @param value Value for data
+     */
     public void ParseData(String name, String value){
         switch(name){
             case "acc_test":
@@ -184,10 +216,6 @@ public class DataReceiver{
             default:
                 break;
         }
-    }
-
-    public void updateCurrentPosition(){
-        appManager.updatePosition(currentPosition);
     }
 
     public double genRandomDouble(){
