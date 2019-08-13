@@ -49,6 +49,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     /* Objects Used */
     DataReceiver dataReceiver;
+    RelativeLayout positionLayout;
     PositionDisplay positionGraph;
     ImageView backgroundView;
     AltitudeBar altitudeBar;
@@ -540,7 +542,14 @@ public class MainActivity extends AppCompatActivity {
                 int h = backgroundView.getMeasuredHeight();
                 int w = backgroundView.getMeasuredWidth();
                 Toast.makeText(this, "This is new height: "+backgroundView.getMeasuredHeight()+" And this is new width: "+backgroundView.getMeasuredWidth(), Toast.LENGTH_LONG).show();
-                positionGraph.setLayoutParams(new RelativeLayout.LayoutParams(w, h));
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) positionLayout.getLayoutParams();
+                params.height = h;
+                params.width=w;
+                positionLayout.setLayoutParams(params);
+                int h2= positionLayout.getMeasuredHeight();
+                int w2= positionLayout.getMeasuredWidth();
+                Toast.makeText(this, "This is new height: "+h2+" And this is new width: "+w2, Toast.LENGTH_LONG).show();
+                //positionGraph.setLayoutParams(new RelativeLayout.LayoutParams(w, h));
             }
             catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -568,6 +577,7 @@ public class MainActivity extends AppCompatActivity {
      */
     protected void StartApp(){
 
+        positionLayout = (RelativeLayout)findViewById(R.id.PositionLayout);
         backgroundView = (ImageView)findViewById(R.id.BackgroundImage);
         backgroundView.setImageResource(R.drawable.ic_adjust_green_24dp);
         CreatePlots();
