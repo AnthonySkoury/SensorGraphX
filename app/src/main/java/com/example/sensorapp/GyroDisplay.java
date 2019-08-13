@@ -19,6 +19,9 @@ import java.util.Vector;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * Display for Gyroscope sensor
+ */
 public class GyroDisplay extends LineGraphable {
 
     /**

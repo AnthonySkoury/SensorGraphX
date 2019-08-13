@@ -19,6 +19,9 @@ import java.util.Vector;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * Points based graph
+ */
 public class Graphable extends GraphView {
 
     int maxDataPoints = 1000;
@@ -34,46 +37,80 @@ public class Graphable extends GraphView {
     // LineGraphSeries<DataPoint> xySeries;
 
 
+    /**
+     * Constructor
+     * @param context
+     */
     public Graphable(Context context) {
         super(context);
         setRange();
         plotXYSettings();
     }
 
+    /**
+     * Constructor
+     * @param context
+     * @param attrs
+     */
     public Graphable(Context context, AttributeSet attrs) {
         super(context, attrs);
         setRange();
         plotXYSettings();
     }
 
+    /**
+     * Constructor
+     * @param context
+     * @param attrs
+     * @param defStyle
+     */
     public Graphable(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setRange();
         plotXYSettings();
     }
 
+    /**
+     * Sets max data points displayed to value
+     * @param max max data points
+     */
     public void setMaxDataPoints(int max){
         maxDataPoints=max;
         plotXYSettings();
     }
 
+    /**
+     * Changes background to image
+     * @param bg image resource
+     */
     public void changeBackground(Bitmap bg){
         Drawable newbackground = new BitmapDrawable(getResources(), bg);
         this.setBackground(newbackground);
 
     }
 
+    /**
+     * Default range
+     */
     public void setRange(){
         rangeX=10;
         rangeY=10;
     }
 
+    /**
+     * Set X range
+     * @param range X range
+     */
     public void setRangeX(int range){
         rangeX=range;
         plotXYSettings();
 
     }
 
+    /**
+     * Set Y range
+     * @param range Y range
+     */
     public void setRangeY(int range){
         rangeY=range;
         plotXYSettings();
@@ -83,7 +120,9 @@ public class Graphable extends GraphView {
         xy_coord.appendData(new DataPoint(x,y), true, maxDataPoints);
     }
 
-
+    /**
+     * Resets graph and reinitializes it
+     */
     public void resetGraph(){
         removeAllSeries();
         removeSeries(xySeries);
@@ -93,12 +132,18 @@ public class Graphable extends GraphView {
         initGraph();
     }
 
+    /**
+     * Initializes graph
+     */
     public void initGraph(){
         xySeries = new PointsGraphSeries<>();
         currentPoint = new PointsGraphSeries<>();
         drawGraph();
     }
 
+    /**
+     * Creates thread to draw graph
+     */
     public void drawGraph(){
         this.post(new Runnable(){
             @Override
@@ -111,6 +156,11 @@ public class Graphable extends GraphView {
         });
     }
 
+    /**
+     * Updates graph data structure with new point and settings
+     * @param position
+     * @param currentPosition
+     */
     synchronized public void plotXY(Vector<double[]> position, double[] currentPosition){
         try {
             //xySeries = new PointsGraphSeries<>();
@@ -156,10 +206,16 @@ public class Graphable extends GraphView {
         }
     }
 
+    /**
+     * Calls settings method
+     */
     public void SettingsHandler(){
         plotXYSettings();
     }
 
+    /**
+     * Settings method
+     */
     public void plotXYSettings(){
 
         //set Scrollable and Scaleable
@@ -185,7 +241,15 @@ public class Graphable extends GraphView {
         gridLabel.setHorizontalAxisTitle("Graphable");
     }
 
-
+    /**
+     * Settings method with manual parameters
+     * @param MaxY
+     * @param MinY
+     * @param MaxX
+     * @param MinX
+     * @param Title
+     * @param manual
+     */
     public void plotXYSettings(int MaxY, int MinY, int MaxX, int MinX, String Title, boolean manual){
         //set Scrollable and Scaleable
         getViewport().setScalable(true);

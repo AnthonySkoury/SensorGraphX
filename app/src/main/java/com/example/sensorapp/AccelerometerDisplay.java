@@ -19,6 +19,9 @@ import java.util.Vector;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * Display for Accelerometer sensor
+ */
 public class AccelerometerDisplay extends LineGraphable {
 
     /**

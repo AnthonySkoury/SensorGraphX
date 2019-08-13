@@ -21,6 +21,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Vector;
 
+/**
+ * Contains data structures and methods for data for graphs
+ */
 public class DataSaver {
 
     private Vector<double[]> unordered_position = new Vector<>();
@@ -44,11 +47,17 @@ public class DataSaver {
 
     }
 
+    /**
+     * Resets data
+     */
     public void resetData(){
         unordered_position = new Vector<>();
         position = new Vector<>();
     }
 
+    /**
+     * Resets extra sensor graphs
+     */
     public void resetExtras(){
         unordered_accelorometer = new Vector<>();
         accelorometer = new Vector<>();
@@ -60,7 +69,10 @@ public class DataSaver {
         gyro = new Vector<>();
     }
 
-
+    /**
+     * Updates position data structures
+     * @param currentPos current position in XYZ format
+     */
     public void updatePosition(double[] currentPos){
 
         unordered_position.add(currentPos.clone());
@@ -69,6 +81,10 @@ public class DataSaver {
 
     }
 
+    /**
+     * Updates accelerometer data structure
+     * @param currentAcc current XY with runtime and value
+     */
     public void updateAccData(double[] currentAcc){
         unordered_accelorometer.add(currentAcc.clone());
         //accelorometer = spliceData(calcThreshold());
@@ -76,6 +92,10 @@ public class DataSaver {
         //accelorometer = sortData(accelorometer);
     }
 
+    /**
+     * Updates altimeter data structure
+     * @param currentAlt current XY with runtime and value
+     */
     public void updateAltData(double currentAlt[]){
         unordered_altimeter.add(currentAlt.clone());
         //altimeter = spliceData(calcThreshold());
@@ -83,6 +103,10 @@ public class DataSaver {
         //altimeter = sortData(altimeter);
     }
 
+    /**
+     * Updates Gyro data structure
+     * @param currentGyro current XY with runtime and value
+     */
     public void updateGyroData(double currentGyro[]){
         unordered_gyro.add(currentGyro.clone());
         //altimeter = spliceData(calcThreshold());
@@ -90,6 +114,10 @@ public class DataSaver {
         //gyro = sortData(gyro);
     }
 
+    /**
+     * Sets ZUPT string on or off depending status
+     * @param status boolean, 1 representing on and 0 off
+     */
     public void updateZUPTData(int status){
         if(status==1)
             ZUPT_Status="On";
@@ -97,75 +125,137 @@ public class DataSaver {
             ZUPT_Status="Off";
     }
 
+    /**
+     * Sets threshold for max data points at a time
+     * @param new_threshold new threshold size
+     */
     public void setThreshold(int new_threshold){
         threshold=new_threshold;
     }
 
+    /**
+     * Gets a specific X position
+     * @param index desired index
+     * @return X position at index
+     */
     public double getXPos(int index){
         return position.get(index)[0];
     }
 
+    /**
+     * Gets a specific Y position
+     * @param index desired index
+     * @return Y position at index
+     */
     public double getYPos(int index){
         return position.get(index)[1];
     }
 
+    /**
+     * Gets a specific Z position
+     * @param index desired index
+     * @return Z position at index
+     */
     public double getZPos(int index){
         return position.get(index)[2];
     }
 
+    /**
+     * Gets latest X
+     * @return current X value
+     */
     synchronized public double getCurrentX(){
         double last = unordered_position.lastElement()[0];
         //return unordered_position.lastElement()[2];
         return last;
     }
 
+    /**
+     * Gets latest Y
+     * @return current Y value
+     */
     synchronized public double getCurrentY(){
         double last = unordered_position.lastElement()[1];
         //return unordered_position.lastElement()[2];
         return last;
     }
 
+    /**
+     * Gets latest Z
+     * @return current Z value
+     */
     synchronized public double getCurrentZ(){
         double last = unordered_position.lastElement()[2];
         //return unordered_position.lastElement()[2];
         return last;
     }
 
+    /**
+     * Gets latest Accelerometer value
+     * @return current Acc value
+     */
     synchronized public double getCurrentAccValue(){
         double last = unordered_accelorometer.lastElement()[1];
         //return unordered_position.lastElement()[2];
         return last;
     }
 
+    /**
+     * Gets latest Altimeter value
+     * @return current Alt value
+     */
     synchronized public double getCurrentAltValue(){
         double last = unordered_altimeter.lastElement()[1];
         //return unordered_position.lastElement()[2];
         return last;
     }
 
+    /**
+     * Gets latest Gyroscope value
+     * @return current Gyro value
+     */
     synchronized public double getCurrentGyroValue(){
         double last = unordered_gyro.lastElement()[1];
         //return unordered_position.lastElement()[2];
         return last;
     }
 
-
+    /**
+     * Gives length of position data structure
+     * @return length
+     */
     public int getDataLength(){
         return position.size();
     }
 
+    /**
+     * Gives position data structure
+     * @return position data structure
+     */
     public Vector<double[]> getPosition(){
         return position;
     }
 
+    /**
+     * Gives Accelerometer data structure
+     * @return Accelerometer data structure
+     */
     public Vector<double[]> getAccelorometer(){
         return accelorometer;
     }
 
+    /**
+     * Gives Altimeter data structure
+     * @return Altimeter data structure
+     */
     public Vector<double[]> getAltimeter(){
         return altimeter;
     }
 
+    /**
+     * Gives Gyro data structure
+     * @return Gyro data structure
+     */
     public Vector<double[]> getGyro(){
         return gyro;
     }
@@ -186,6 +276,10 @@ public class DataSaver {
         return unordered_gyro.lastElement();
     }
 
+    /**
+     * Calculates threshold
+     * @return threshold
+     */
     public int calcThreshold(){
         if(unordered_position.size()>threshold){
             return (unordered_position.size()-threshold);
@@ -195,6 +289,11 @@ public class DataSaver {
         }
     }
 
+    /**
+     * Gives a portion of data structure
+     * @param startindex index to start splice at
+     * @return portion of data structure
+     */
     public Vector<double[]> spliceData(int startindex){
         Vector<double[]> splicedData = new Vector<double[]>();
 
@@ -204,6 +303,11 @@ public class DataSaver {
         return splicedData;
     }
 
+    /**
+     * Sorts data structure (needed because graph needs to be plotted in order of X for real time)
+     * @param sortedposition data structure to be sorted
+     * @return sorted position
+     */
     public Vector<double[]> sortData(Vector<double[]> sortedposition){
 
         Collections.sort(sortedposition,new Comparator<double[]>() {
@@ -220,6 +324,11 @@ public class DataSaver {
 
     }
 
+    /**
+     * Saves positon values to a csv file
+     * @param name name of file
+     * @return filepath to be displayed
+     */
     public String SaveToFile(String name){
         //String baseDir = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
         String baseDir = android.os.Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
@@ -254,6 +363,11 @@ public class DataSaver {
 
     private static final String SAMPLE_CSV_FILE_PATH = "./users.csv";
 
+    /**
+     * Reads uploaded csv file and stores into data structure
+     * @param name name of file
+     * @throws IOException
+     */
     public void readFile(String name) throws IOException {
         resetData();
         String baseDir = android.os.Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();

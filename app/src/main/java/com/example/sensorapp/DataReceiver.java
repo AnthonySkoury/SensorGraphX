@@ -218,6 +218,10 @@ public class DataReceiver{
         }
     }
 
+    /**
+     * Generates random double between specified range for testing purposes
+     * @return random double
+     */
     public double genRandomDouble(){
         double rangeMin = -15.0;
         double rangeMax = 15.0;
@@ -231,6 +235,10 @@ public class DataReceiver{
         return randomDouble;
     }
 
+    /**
+     * Generates random positive double between specified range for testing purposes
+     * @return random positive double
+     */
     public double genRandomPosDouble(){
         double rangeMin = 0;
         double rangeMax = 15.0;
@@ -244,15 +252,10 @@ public class DataReceiver{
         return randomDouble;
     }
 
-    public double genNextDouble(){
-        if(tempXYZ>58){
-            mStop=true;
-            return tempXYZ;
-        }
-        tempXYZ+=1.5;
-        return tempXYZ;
-    }
-
+    /**
+     * Connects to device then calls methods ParseURL and ParseXML
+     * @return return code for error
+     */
     public int connectToDevice(){
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy =
@@ -277,6 +280,9 @@ public class DataReceiver{
 
     }
 
+    /**
+     * Uploads variables to program after update
+     */
     public void UploadVariables(){
         try {
             String url_to_upload = String.format(URL_Upload, ip, ZUPT_flag, reset_flag, Altimeter_flag);
