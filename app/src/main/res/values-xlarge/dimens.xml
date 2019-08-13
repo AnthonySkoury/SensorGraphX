@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="pos_height">520dp</dimen>
+    <dimen name="z_height">350dp</dimen>
+    <dimen name="acc_height">350dp</dimen>
+    <dimen name="alt_height">350dp</dimen>
+    <dimen name="gyro_height">350dp</dimen>
+    <dimen name="data_height">350dp</dimen>
+</resources>

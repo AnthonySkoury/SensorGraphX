@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="UCI_blue">#8AAAE5</color>
+    <color name="UCI_yellow">#FFFFFF</color>
+
+    <color name="UCI_light_blue">#bb0a21</color>
+    <color name="UCI_dark_blue">#5b92aa</color>
+    <color name="UCI_light_yellow">#d3d4d9</color>
+    <color name="black">#252627</color>
+
+    <color name="start_green">#4DBD33</color>
+    <color name="stop_red">#cc0202</color>
+    <color name="reset_blue">#ADD8E6</color>
+
+
+    <color name="red">#FF0000</color>
+    <color name="green">#39FF14</color>
+    <color name="yellow">#FAED27</color>
+</resources>
