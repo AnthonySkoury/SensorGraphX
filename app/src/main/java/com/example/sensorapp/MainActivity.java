@@ -45,8 +45,11 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     /* Objects Used */
     DataReceiver dataReceiver;
     PositionDisplay positionGraph;
+    ImageView backgroundView;
     AltitudeBar altitudeBar;
     AccelerometerDisplay accelerometerDisplay;
     AltimeterDisplay altimeterDisplay;
@@ -221,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_set_range:
+                positionGraph.resizeView(500,1000);
                 return true;
             case R.id.action_set_x_range:
                 itemAction("Enter X Range Limit (in meters)", R.id.action_set_x_range);
@@ -530,7 +535,12 @@ public class MainActivity extends AppCompatActivity {
             background = null;
             try {
                 background = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                appManager.setBackground(background);
+                //appManager.setBackground(background);
+                backgroundView.setImageBitmap(background);
+                int h = backgroundView.getMeasuredHeight();
+                int w = backgroundView.getMeasuredWidth();
+                Toast.makeText(this, "This is new height: "+backgroundView.getMeasuredHeight()+" And this is new width: "+backgroundView.getMeasuredWidth(), Toast.LENGTH_LONG).show();
+                positionGraph.setLayoutParams(new RelativeLayout.LayoutParams(w, h));
             }
             catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -558,11 +568,13 @@ public class MainActivity extends AppCompatActivity {
      */
     protected void StartApp(){
 
+        backgroundView = (ImageView)findViewById(R.id.BackgroundImage);
+        backgroundView.setImageResource(R.drawable.ic_adjust_green_24dp);
         CreatePlots();
         CreateConnection();
         CreateText();
         setupButtons();
-
+        Toast.makeText(this, "This is old height: "+backgroundView.getMeasuredHeight()+" And this is old width: "+backgroundView.getMeasuredWidth(), Toast.LENGTH_LONG).show();
     }
 
     /**

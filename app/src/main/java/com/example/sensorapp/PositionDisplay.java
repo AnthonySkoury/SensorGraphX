@@ -7,6 +7,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
@@ -14,6 +16,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 
+import java.lang.reflect.Constructor;
 import java.util.ConcurrentModificationException;
 import java.util.Vector;
 
@@ -58,6 +61,26 @@ public class PositionDisplay extends Graphable {
     public void setRange(){
         rangeX=30;
         rangeY=30;
+    }
+
+    public void scale(){
+        this.setScaleX(0.5f);
+        this.setScaleY(2.0f);
+    }
+
+    public void resizeView(int newWidth, int newHeight) {
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) this.getLayoutParams();
+        params.height = 130;
+        this.setLayoutParams(params);
+        /*
+        try {
+            Constructor<? extends ViewGroup.LayoutParams> ctor = this.getLayoutParams().getClass().getDeclaredConstructor(int.class, int.class);
+            this.setLayoutParams(ctor.newInstance(newWidth, newHeight));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        */
     }
 
     /**

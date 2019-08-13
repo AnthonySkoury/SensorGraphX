@@ -43,14 +43,14 @@ public class DataReceiver{
     Document doc;
 
     /* For simulator on computer */
-    //String m_IP = "http://%s/Service/xyzDisplay";
-    //String ip = "128.195.207.30:8001";
-    //String URL_Upload = "http://%s/Service/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
+    String m_IP = "http://%s/Service/xyzDisplay";
+    String ip = "128.195.207.30:8001";
+    String URL_Upload = "http://%s/Service/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
 
     /* For prototype physical device (different links) */
-    String m_IP = "http://%s/WebService/xyzDisplay";
-    String ip = "192.168.48.2:8001";
-    String URL_Upload = "http://%s/WebService/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
+    //String m_IP = "http://%s/WebService/xyzDisplay";
+    //String ip = "192.168.48.2:8001";
+    //String URL_Upload = "http://%s/WebService/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
 
     String runtime="0";
     Timer timer;
