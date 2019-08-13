@@ -260,18 +260,34 @@ public class DataSaver {
         return gyro;
     }
 
+    /**
+     * Gives current position
+     * @return current position
+     */
     public double[] getCurrentPosition(){
         return unordered_position.lastElement();
     }
 
+    /**
+     * Gives current acc
+     * @return current acc
+     */
     public double[] getCurrentAcc(){
         return unordered_accelorometer.lastElement();
     }
 
+    /**
+     * Gives current alt
+     * @return current alt
+     */
     public double[] getCurrentAlt(){
         return unordered_altimeter.lastElement();
     }
 
+    /**
+     * Gives current gyro
+     * @return current gyro
+     */
     public double[] getCurrentGyro(){
         return unordered_gyro.lastElement();
     }
