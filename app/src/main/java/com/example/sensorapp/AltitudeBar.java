@@ -13,27 +13,45 @@ import com.jjoe64.graphview.series.PointsGraphSeries;
 
 import static android.content.ContentValues.TAG;
 
-/* Simple altitude bar graph display */
+/**
+ * Simple altitude bar graph display with methods
+ */
 public class AltitudeBar extends GraphView {
 
     LineGraphSeries<DataPoint> zSeries;
     int rangeZ = 20;
     int maxDataPoints = 1000;
 
+    /**
+     * Constructor
+     * @param context
+     */
     public AltitudeBar(Context context) {
         super(context);
         plotZSettings();
     }
 
+    /**
+     * Constructor
+     * @param context
+     * @param attrs
+     */
     public AltitudeBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         plotZSettings();
     }
 
+    /**
+     * Constructor
+     * @param context
+     * @param attrs
+     * @param defStyle
+     */
     public AltitudeBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         plotZSettings();
     }
+
 
     public void resetGraph(){
         removeAllSeries();

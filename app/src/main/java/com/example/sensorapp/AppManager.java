@@ -2,6 +2,9 @@ package com.example.sensorapp;
 
 import android.graphics.Bitmap;
 
+/**
+ * Object that holds references to graphs and task methods for control flow
+ */
 public class AppManager {
 
     private PositionDisplay positionDisplay;
@@ -11,6 +14,14 @@ public class AppManager {
     private GyroDisplay gyroDisplay;
     protected DataSaver dataSaver;
 
+    /**
+     * Constructor
+     * @param positionDisplay reference to PositionDisplay
+     * @param altitudeBar reference to AltitudeBar
+     * @param accelerometerDisplay reference to Accelerometer
+     * @param altimeterDisplay reference to Altimeter
+     * @param gyroDisplay reference to Gyroscope
+     */
     public AppManager(PositionDisplay positionDisplay, AltitudeBar altitudeBar, AccelerometerDisplay accelerometerDisplay, AltimeterDisplay altimeterDisplay, GyroDisplay gyroDisplay){
         this.positionDisplay = positionDisplay;
         this.altitudeBar = altitudeBar;
@@ -42,6 +53,9 @@ public class AppManager {
         dataSaver.updateZUPTData(Zupt);
     }
 
+    /**
+     * Calls plot methods for graphs
+     */
     public void tracePosition(){
         altitudeBar.updateZPos();
 
@@ -63,6 +77,9 @@ public class AppManager {
         }
     }
 
+    /**
+     * Initializes graphs
+     */
     public void initGraphs(){
         positionDisplay.initGraph();
         altitudeBar.initGraph();
@@ -72,12 +89,18 @@ public class AppManager {
 
     }
 
+    /**
+     * Resets position and altitude graphs
+     */
     public void reset(){
         dataSaver.resetData();
         positionDisplay.resetGraph();
         altitudeBar.resetGraph();
     }
 
+    /**
+     * Resets sensor graphs
+     */
     public void resetExtras(){
         accelerometerDisplay.resetGraph();
         altimeterDisplay.resetGraph();
