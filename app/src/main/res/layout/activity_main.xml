@@ -1,89 +1,239 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    >
 
-    <com.example.sensorapp.MyCanvas
-        android:id="@+id/MyCanvas"
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="44dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        android:background="@color/UCI_blue"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.example.sensorapp.PositionDisplay
+                android:id="@+id/PositionDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/pos_height"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:padding="5dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/infolayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/z_height"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                >
+
+                <LinearLayout
+                    android:id="@+id/datalayout"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/x_coordinate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:lines="2"
+                        android:text="@string/x_coord"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/y_coordinate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:lines="2"
+                        android:text="@string/y_coord"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/z_coordinate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:lines="2"
+                        android:text="@string/z_coord"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:text="@string/time"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/altitudelayout"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <com.example.sensorapp.AltitudeBar
+                        android:id="@+id/AltitudeBar"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <com.example.sensorapp.AccelerometerDisplay
+                android:id="@+id/AccelerometerDisplay"
+                android:layout_height="@dimen/acc_height"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:padding="5dp"
+                />
+            <com.example.sensorapp.AltimeterDisplay
+                android:id="@+id/AltimeterDisplay"
+                android:layout_height="@dimen/alt_height"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:padding="5dp"/>
+
+            <com.example.sensorapp.GyroDisplay
+                android:id="@+id/GyroDisplay"
+                android:layout_height="@dimen/gyro_height"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:padding="5dp"/>
+
+            <LinearLayout
+                android:layout_height="@dimen/data_height"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/accelerometer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:lines="2"
+                    android:text="@string/acc_txt"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/altimeter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:lines="2"
+                    android:text="@string/alt_txt"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/gyro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:lines="2"
+                    android:text="@string/gyro_txt"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/zupt_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:lines="2"
+                    android:text="@string/zupt_txt"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+    <LinearLayout
+    android:id="@+id/buttonlayout"
+    style="?android:attr/buttonBarStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="horizontal">
 
     <Button
         android:id="@+id/btn_start"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/MyCanvas"
-        android:layout_marginTop="916dp"
-        android:layout_marginEnd="444dp"
-        android:backgroundTint="@color/blue"
-        android:state_pressed="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableStart="@drawable/ic_play_arrow_black_24dp"
+        android:backgroundTint="@color/start_green"
         android:text="@string/start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_stop"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/MyCanvas"
-        android:layout_marginTop="916dp"
-        android:layout_marginEnd="280dp"
-        android:backgroundTint="@color/blue"
-        android:state_pressed="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="@color/stop_red"
+        android:drawableStart="@drawable/ic_stop_black_24dp"
         android:text="@string/stop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_reset"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/MyCanvas"
-        android:layout_marginTop="916dp"
-        android:layout_marginEnd="112dp"
-        android:backgroundTint="@color/blue"
-        android:state_pressed="true"
-        android:text="@string/restart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/time"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.032" />
+        android:layout_weight="1"
+            android:backgroundTint="@color/reset_blue"
+            android:drawableStart="@drawable/ic_loop_black_24dp"
+            android:text="@string/restart"
+            android:textSize="18sp" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintHorizontal_bias="0.376"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

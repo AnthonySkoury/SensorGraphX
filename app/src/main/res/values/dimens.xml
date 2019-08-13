@@ -1,0 +1,18 @@
+<resources>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <!--
+    size differences
+    small:340
+    normal:370 (+30)
+    large:440 (+70)
+    xlarge:520 (+80)
+    -->
+    <dimen name="pos_height">370dp</dimen>
+    <dimen name="z_height">200dp</dimen>
+    <dimen name="acc_height">200dp</dimen>
+    <dimen name="alt_height">200dp</dimen>
+    <dimen name="gyro_height">200dp</dimen>
+    <dimen name="data_height">200dp</dimen>
+</resources>
