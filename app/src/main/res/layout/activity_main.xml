@@ -30,21 +30,25 @@
         <LinearLayout
             android:id="@+id/ScrollLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/PositionLayout"
+                android:id="@+id/PositionLayoutParent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/pos_height">
 
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/BackgroundImage"
-                android:background="@color/start_green"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/pos_height"
-                android:adjustViewBounds="true"
-                />
+                <RelativeLayout
+                    android:id="@+id/PositionLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/BackgroundImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    />
 
                 <com.example.sensorapp.PositionDisplay
                     android:id="@+id/PositionDisplay"
@@ -55,6 +59,7 @@
                     android:padding="5dp"
                     />
 
+                </RelativeLayout>
 
             </RelativeLayout>
 

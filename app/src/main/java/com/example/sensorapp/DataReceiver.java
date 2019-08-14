@@ -264,9 +264,9 @@ public class DataReceiver{
         }
         try
         {
-            ParseURL();
-            ParseXML(doc);
-               //TestData();
+            //ParseURL();
+            //ParseXML(doc);
+            TestData();
             return 0;
 
         }

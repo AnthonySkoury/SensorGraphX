@@ -46,6 +46,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -60,7 +61,8 @@ import mehdi.sakout.aboutpage.AboutPage;
  * Instantiates all objects and has main control flow as well as buttons and menu/options functionality
  */
 public class MainActivity extends AppCompatActivity {
-
+    int finalHeight;
+    int finalWidth;
     /* Objects Used */
     DataReceiver dataReceiver;
     RelativeLayout positionLayout;
@@ -538,17 +540,46 @@ public class MainActivity extends AppCompatActivity {
             try {
                 background = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
                 //appManager.setBackground(background);
-                backgroundView.setImageBitmap(background);
-                int h = backgroundView.getMeasuredHeight();
-                int w = backgroundView.getMeasuredWidth();
+                //backgroundView.setImageBitmap(background);
+
+                /*
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) positionLayout.getLayoutParams();
+                params.height = 4000;
+                params.width = 1000;
+                positionLayout.setLayoutParams(params);
+*/
+                /*
+                RelativeLayout.LayoutParams rel_btn = new RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, 4000);
+                rel_btn.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                positionLayout.setLayoutParams(rel_btn);
+*/
+
+                positionLayout.getLayoutParams().height = 4000;
+                positionLayout.getLayoutParams().width = 400;
+                positionLayout.invalidate();
+                positionLayout.requestLayout();
+
+                //layoutScale();
+                //adjustScale();
+                /*
+                int h = backgroundView.getHeight();
+                int w = backgroundView.getWidth();
                 Toast.makeText(this, "This is new height: "+backgroundView.getMeasuredHeight()+" And this is new width: "+backgroundView.getMeasuredWidth(), Toast.LENGTH_LONG).show();
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) positionLayout.getLayoutParams();
                 params.height = h;
                 params.width=w;
                 positionLayout.setLayoutParams(params);
-                int h2= positionLayout.getMeasuredHeight();
-                int w2= positionLayout.getMeasuredWidth();
+                int h2= positionLayout.getHeight();
+                int w2= positionLayout.getWidth();
                 Toast.makeText(this, "This is new height: "+h2+" And this is new width: "+w2, Toast.LENGTH_LONG).show();
+                positionGraph.setLayoutParams(new RelativeLayout.LayoutParams(w2, h2));
+                int h3 = positionGraph.getHeight();
+                int w3 = positionGraph.getWidth();
+                Toast.makeText(this, "This is new height: "+h3+" And this is new width: "+w3, Toast.LENGTH_LONG).show();
+                */
+
+
                 //positionGraph.setLayoutParams(new RelativeLayout.LayoutParams(w, h));
             }
             catch (FileNotFoundException e) {
@@ -558,6 +589,33 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void layoutScale(){
+        RelativeLayout.LayoutParams rel_btn = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, 300);
+        rel_btn.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        positionLayout.setLayoutParams(rel_btn);
+    }
+
+    public void adjustScale(){
+        final ImageView iv = (ImageView)findViewById(R.id.BackgroundImage);
+        ViewTreeObserver vto = iv.getViewTreeObserver();
+        vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            public boolean onPreDraw() {
+                iv.getViewTreeObserver().removeOnPreDrawListener(this);
+                finalHeight = iv.getMeasuredHeight();
+                finalWidth = iv.getMeasuredWidth();
+                System.out.println("this is finalheight "+finalHeight);
+                System.out.println("this is finalwidth "+finalWidth);
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) positionLayout.getLayoutParams();
+                params.height = finalHeight;
+                params.width=finalWidth;
+                positionLayout.setLayoutParams(params);
+                positionGraph.setLayoutParams(new RelativeLayout.LayoutParams(finalWidth, finalHeight));
+                return true;
+            }
+        });
     }
 
     /**
