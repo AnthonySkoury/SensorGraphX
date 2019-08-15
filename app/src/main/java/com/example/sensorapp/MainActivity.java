@@ -612,9 +612,12 @@ public class MainActivity extends AppCompatActivity {
 
         params.height = originalPosHeight;
         params.width = originalPosWidth;
+        params.gravity=Gravity.CENTER;
 
-        positionLayout.setGravity(Gravity.CENTER_VERTICAL);
         positionLayout.setLayoutParams(params);
+
+        //positionLayout.setGravity(Gravity.CENTER_VERTICAL);
+
         //positionLayout.invalidate();
         //positionLayout.requestLayout();
         //positionLayout.setGravity(Gravity.CENTER_VERTICAL);
@@ -630,7 +633,11 @@ public class MainActivity extends AppCompatActivity {
         //backgroundView.invalidate();
         //backgroundView.requestLayout();
 
-        resize=true;
+        positionLayout.invalidate();
+        positionLayout.requestLayout();
+        //positionLayout.setGravity(Gravity.CENTER_VERTICAL);
+
+        //resize=true;
 
     }
 
