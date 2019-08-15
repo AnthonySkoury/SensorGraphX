@@ -69,8 +69,10 @@ public class MainActivity extends AppCompatActivity {
     int finalWidth;
     /* Objects Used */
     LayoutWrapContentUpdater resizer;
+    LinearLayout.LayoutParams params;
     ScrollView scrollView;
     LinearLayout scrollLayout;
+
     DataReceiver dataReceiver;
     RelativeLayout positionLayout;
     PositionDisplay positionGraph;
@@ -96,6 +98,10 @@ public class MainActivity extends AppCompatActivity {
     private boolean isCheckedZUPT = false;
     private boolean isCheckedAltitude = false;
     boolean resize;
+    boolean firstResize = true;
+
+    int originalPosHeight;
+    int originalPosWidth;
 
     /* Permissions Variables */
     int GET_FROM_GALLERY = 1;
@@ -547,10 +553,20 @@ public class MainActivity extends AppCompatActivity {
             background = null;
             try {
 
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) positionLayout.getLayoutParams();
 
-                params.height = LinearLayout.LayoutParams.MATCH_PARENT;
-                params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+                if(firstResize){
+                    originalPosHeight = positionLayout.getMeasuredHeight();
+                    originalPosWidth = positionLayout.getMeasuredWidth();
+
+                }
+
+                params = (LinearLayout.LayoutParams) positionLayout.getLayoutParams();
+
+                //params.height = LinearLayout.LayoutParams.MATCH_PARENT;
+                //params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+                params.height = originalPosHeight;
+                params.width = originalPosWidth;
+
                 positionLayout.setGravity(Gravity.CENTER_VERTICAL);
                 positionLayout.setLayoutParams(params);
                 positionLayout.invalidate();
@@ -588,14 +604,22 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
                 params.height = bh;
                 params.width = bw;
+
+                if(!firstResize){
+                    params.height = 4000;
+                    params.width = 800;
+
+                }
+
                 positionLayout.setGravity(Gravity.CENTER_VERTICAL);
                 positionLayout.setLayoutParams(params);
                 positionLayout.invalidate();
                 positionLayout.requestLayout();
                 positionLayout.setGravity(Gravity.CENTER_VERTICAL);
-
+                firstResize=false;
 
 
                 /*
@@ -657,6 +681,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void setOriginalSize(){
+        params.height = originalPosHeight;
+        params.width = originalPosWidth;
+
+        positionLayout.setGravity(Gravity.CENTER_VERTICAL);
+        positionLayout.setLayoutParams(params);
+        positionLayout.invalidate();
+        positionLayout.requestLayout();
+        positionLayout.setGravity(Gravity.CENTER_VERTICAL);
+    }
+
     public void layoutScale(){
         RelativeLayout.LayoutParams rel_btn = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, 300);
@@ -706,7 +741,7 @@ public class MainActivity extends AppCompatActivity {
         scrollLayout = (LinearLayout)findViewById(R.id.ScrollLayout);
         positionLayout = (RelativeLayout)findViewById(R.id.PositionLayoutParent);
         backgroundView = (ImageView)findViewById(R.id.BackgroundImage);
-        backgroundView.setImageResource(R.drawable.ic_adjust_green_24dp);
+      //  backgroundView.setImageResource(R.drawable.ic_adjust_green_24dp);
         CreatePlots();
         CreateConnection();
         CreateText();
