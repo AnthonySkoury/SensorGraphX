@@ -52,6 +52,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     int finalWidth;
     /* Objects Used */
     LayoutWrapContentUpdater resizer;
-
+    ScrollView scrollView;
     LinearLayout scrollLayout;
     DataReceiver dataReceiver;
     RelativeLayout positionLayout;
@@ -564,12 +565,16 @@ public class MainActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams lp = positionGraph.getLayoutParams();
                 lp.width=200;
                 lp.height=6000;
+
+                scrollView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 10000));
+                scrollView.invalidate();
+                scrollView.requestLayout();
+
                 positionGraph.setLayoutParams(lp);
                 scrollLayout.invalidate();
                 scrollLayout.requestLayout();
                 resize = true;
-                lp.width=600;
-                lp.height=1000;
+
                 //scrollLayout.invalidate();
                 //scrollLayout.requestLayout();
 
@@ -649,6 +654,7 @@ public class MainActivity extends AppCompatActivity {
     protected void StartApp(){
 
         resizer = new LayoutWrapContentUpdater();
+        scrollView = (ScrollView)findViewById(R.id.scroll);
         scrollLayout = (LinearLayout)findViewById(R.id.ScrollLayout);
         positionLayout = (RelativeLayout)findViewById(R.id.PositionLayout);
         backgroundView = (ImageView)findViewById(R.id.BackgroundImage);
