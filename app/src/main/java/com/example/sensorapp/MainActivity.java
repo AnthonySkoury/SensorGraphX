@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
@@ -544,9 +546,28 @@ public class MainActivity extends AppCompatActivity {
             Uri selectedImage = data.getData();
             background = null;
             try {
+
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) positionLayout.getLayoutParams();
+
+                params.height = LinearLayout.LayoutParams.MATCH_PARENT;
+                params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+                positionLayout.setGravity(Gravity.CENTER_VERTICAL);
+                positionLayout.setLayoutParams(params);
+                positionLayout.invalidate();
+                positionLayout.requestLayout();
+                positionLayout.setGravity(Gravity.CENTER_VERTICAL);
+
+
                 background = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
                 //appManager.setBackground(background);
                 backgroundView.setImageBitmap(background);
+
+                RectF bounds = getImageBounds(backgroundView);
+                int bw = (int)bounds.width();
+                int bh = (int)bounds.height();
+
+                System.out.println("This is the rect width: "+ bounds.width());
+                System.out.println("This is the rect height: "+ bounds.height());
 
                 int ih=backgroundView.getMeasuredHeight();//height of imageView
                 int iw=backgroundView.getMeasuredWidth();//width of imageView
@@ -566,15 +587,15 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("This is the width of image inside: "+iW+" And this is height of image inside: "+iH);
 
 
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) positionLayout.getLayoutParams();
 
-                params.height = ih;
-                params.width = iw;
+                params.height = bh;
+                params.width = bw;
                 positionLayout.setGravity(Gravity.CENTER_VERTICAL);
                 positionLayout.setLayoutParams(params);
                 positionLayout.invalidate();
                 positionLayout.requestLayout();
                 positionLayout.setGravity(Gravity.CENTER_VERTICAL);
+
 
 
                 /*
@@ -683,7 +704,7 @@ public class MainActivity extends AppCompatActivity {
         resizer = new LayoutWrapContentUpdater();
         scrollView = (ScrollView)findViewById(R.id.scroll);
         scrollLayout = (LinearLayout)findViewById(R.id.ScrollLayout);
-        positionLayout = (RelativeLayout)findViewById(R.id.PositionLayout);
+        positionLayout = (RelativeLayout)findViewById(R.id.PositionLayoutParent);
         backgroundView = (ImageView)findViewById(R.id.BackgroundImage);
         backgroundView.setImageResource(R.drawable.ic_adjust_green_24dp);
         CreatePlots();
@@ -924,6 +945,15 @@ public class MainActivity extends AppCompatActivity {
                 return MainActivity.super.onTouchEvent(event);
             }
         });
+    }
+
+    public static RectF getImageBounds(ImageView imageView) {
+        RectF bounds = new RectF();
+        Drawable drawable = imageView.getDrawable();
+        if (drawable != null) {
+            imageView.getImageMatrix().mapRect(bounds, new RectF(drawable.getBounds()));
+        }
+        return bounds;
     }
 
 }
