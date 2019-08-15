@@ -22,6 +22,7 @@
     <string name="sampling">Set Sampling Rate</string>
     <string name="maxpoints">Set Max Points Displayed</string>
     <string name="background">Upload Floor Plan Map</string>
+    <string name="reset_background">Reset Background</string>
     <string name="ZUPT">Toggle ZUPT</string>
     <string name="Altitude">Toggle Altitude</string>
 

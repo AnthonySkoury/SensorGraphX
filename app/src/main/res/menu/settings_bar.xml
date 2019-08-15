@@ -38,6 +38,11 @@
                     android:title="@string/background"
                     app:showAsAction="ifRoom"/>
                 <item
+                    android:id="@+id/action_reset_background"
+                    android:icon="@drawable/ic_cached_black_24dp"
+                    android:title="@string/reset_background"
+                    app:showAsAction="ifRoom"/>
+                <item
                     android:id="@+id/ZUPT"
                     android:checkable="true"
                     android:icon="@drawable/ic_directions_walk_black_24dp"

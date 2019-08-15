@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -222,6 +223,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_set_background:
                 handleBackground();
+                return true;
+            case R.id.action_reset_background:
+                handleResetBackground();
                 return true;
             case R.id.ZUPT:
                 isCheckedZUPT = !item.isChecked();
@@ -496,6 +500,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    protected void handleResetBackground(){
+        setOriginalSize();
+    }
+
     /**
      * Stops the graphing and connection then calls DataSaver SaveToFile method.
      * Notifies user file has been saved with the filepath after process is completed.
@@ -558,119 +566,33 @@ public class MainActivity extends AppCompatActivity {
                     originalPosHeight = positionLayout.getMeasuredHeight();
                     originalPosWidth = positionLayout.getMeasuredWidth();
 
+
                 }
 
                 params = (LinearLayout.LayoutParams) positionLayout.getLayoutParams();
 
-                //params.height = LinearLayout.LayoutParams.MATCH_PARENT;
-                //params.width = LinearLayout.LayoutParams.MATCH_PARENT;
-                params.height = originalPosHeight;
-                params.width = originalPosWidth;
+                //resize=true;
+                setOriginalSize();
 
-                positionLayout.setGravity(Gravity.CENTER_VERTICAL);
-                positionLayout.setLayoutParams(params);
-                positionLayout.invalidate();
-                positionLayout.requestLayout();
-                positionLayout.setGravity(Gravity.CENTER_VERTICAL);
+                System.out.println("This is imageview w: "+backgroundView.getMeasuredWidth());
+                System.out.println("This is imageview h: "+backgroundView.getMeasuredHeight());
 
+                //TimeUnit.MILLISECONDS.sleep(2000);
 
                 background = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
                 //appManager.setBackground(background);
+
                 backgroundView.setImageBitmap(background);
 
-                RectF bounds = getImageBounds(backgroundView);
-                int bw = (int)bounds.width();
-                int bh = (int)bounds.height();
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setNewSize();
+                    }
+                }, 100);
 
-                System.out.println("This is the rect width: "+ bounds.width());
-                System.out.println("This is the rect height: "+ bounds.height());
-
-                int ih=backgroundView.getMeasuredHeight();//height of imageView
-                int iw=backgroundView.getMeasuredWidth();//width of imageView
-
-                System.out.println("This is the width of imageview: "+iw+" And this is height of imageview: "+ih);
-
-                int iH=backgroundView.getDrawable().getIntrinsicHeight();//original height of underlying image
-                int iW=backgroundView.getDrawable().getIntrinsicWidth();//original width of underlying image
-
-                if (ih/iH<=iw/iW) iw=iW*ih/iH;//rescaled width of image within ImageView
-                else ih= iH*iw/iW;//rescaled height of image within ImageView
-
-                System.out.println("This is the width of image scaled: "+iw+" And this is height of image scaled: "+ih);
-
-
-
-                System.out.println("This is the width of image inside: "+iW+" And this is height of image inside: "+iH);
-
-
-
-
-                params.height = bh;
-                params.width = bw;
-
-                if(!firstResize){
-                    params.height = 4000;
-                    params.width = 800;
-
-                }
-
-                positionLayout.setGravity(Gravity.CENTER_VERTICAL);
-                positionLayout.setLayoutParams(params);
-                positionLayout.invalidate();
-                positionLayout.requestLayout();
-                positionLayout.setGravity(Gravity.CENTER_VERTICAL);
                 firstResize=false;
-
-
-                /*
-                RelativeLayout.LayoutParams rel_btn = new RelativeLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, 4000);
-                rel_btn.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                positionLayout.setLayoutParams(rel_btn);
-*/
-
-                //positionLayout.getLayoutParams().height = 4000;
-                //positionLayout.getLayoutParams().width = 600;
-
-                /*
-                ViewGroup.LayoutParams lp = positionGraph.getLayoutParams();
-                lp.width=200;
-                lp.height=6000;
-
-                scrollView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 10000));
-                scrollView.invalidate();
-                scrollView.requestLayout();
-
-                positionGraph.setLayoutParams(lp);
-                scrollLayout.invalidate();
-                scrollLayout.requestLayout();
-                resize = true;
-               */
-
-                //scrollLayout.invalidate();
-                //scrollLayout.requestLayout();
-
-                //layoutScale();
-                //adjustScale();
-                /*
-                int h = backgroundView.getHeight();
-                int w = backgroundView.getWidth();
-                Toast.makeText(this, "This is new height: "+backgroundView.getMeasuredHeight()+" And this is new width: "+backgroundView.getMeasuredWidth(), Toast.LENGTH_LONG).show();
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) positionLayout.getLayoutParams();
-                params.height = h;
-                params.width=w;
-                positionLayout.setLayoutParams(params);
-                int h2= positionLayout.getHeight();
-                int w2= positionLayout.getWidth();
-                Toast.makeText(this, "This is new height: "+h2+" And this is new width: "+w2, Toast.LENGTH_LONG).show();
-                positionGraph.setLayoutParams(new RelativeLayout.LayoutParams(w2, h2));
-                int h3 = positionGraph.getHeight();
-                int w3 = positionGraph.getWidth();
-                Toast.makeText(this, "This is new height: "+h3+" And this is new width: "+w3, Toast.LENGTH_LONG).show();
-                */
-
-
-                //positionGraph.setLayoutParams(new RelativeLayout.LayoutParams(w, h));
             }
             catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -678,12 +600,80 @@ public class MainActivity extends AppCompatActivity {
             catch (IOException e) {
                 e.printStackTrace();
             }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
     public void setOriginalSize(){
+
+        backgroundView.setImageDrawable(null);
+
         params.height = originalPosHeight;
         params.width = originalPosWidth;
+
+        positionLayout.setGravity(Gravity.CENTER_VERTICAL);
+        positionLayout.setLayoutParams(params);
+        //positionLayout.invalidate();
+        //positionLayout.requestLayout();
+        //positionLayout.setGravity(Gravity.CENTER_VERTICAL);
+
+
+        positionGraph.getLayoutParams().height = originalPosHeight;
+        positionGraph.getLayoutParams().width = originalPosWidth;
+        //positionGraph.invalidate();
+        //positionGraph.requestLayout();
+
+        backgroundView.getLayoutParams().height = originalPosHeight;
+        backgroundView.getLayoutParams().width = originalPosWidth;
+        //backgroundView.invalidate();
+        //backgroundView.requestLayout();
+
+        resize=true;
+
+    }
+
+    public void setNewSize(){
+
+        positionLayout.invalidate();
+        positionLayout.requestLayout();
+
+        RectF bounds = getImageBounds(backgroundView);
+        int bw = (int) bounds.width();
+        int bh = (int) bounds.height();
+
+        System.out.println("This is the rect width: " + bounds.width());
+        System.out.println("This is the rect height: " + bounds.height());
+
+        int ih = backgroundView.getMeasuredHeight();//height of imageView
+        int iw = backgroundView.getMeasuredWidth();//width of imageView
+
+        System.out.println("This is the width of imageview: " + iw + " And this is height of imageview: " + ih);
+
+        int iH = backgroundView.getDrawable().getIntrinsicHeight();//original height of underlying image
+        int iW = backgroundView.getDrawable().getIntrinsicWidth();//original width of underlying image
+
+        if (ih / iH <= iw / iW)
+            iw = iW * ih / iH;//rescaled width of image within ImageView
+        else ih = iH * iw / iW;//rescaled height of image within ImageView
+
+        System.out.println("This is the width of image scaled: " + iw + " And this is height of image scaled: " + ih);
+
+
+        System.out.println("This is the width of image inside: " + iW + " And this is height of image inside: " + iH);
+
+
+        params.height = bh;
+        params.width = bw;
+
+                /*
+                if(!firstResize){
+                    params.height = 4000;
+                    params.width = 800;
+
+                }
+                */
 
         positionLayout.setGravity(Gravity.CENTER_VERTICAL);
         positionLayout.setLayoutParams(params);
@@ -746,7 +736,7 @@ public class MainActivity extends AppCompatActivity {
         CreateConnection();
         CreateText();
         setupButtons();
-        Toast.makeText(this, "This is old height: "+backgroundView.getMeasuredHeight()+" And this is old width: "+backgroundView.getMeasuredWidth(), Toast.LENGTH_LONG).show();
+      //  Toast.makeText(this, "This is old height: "+backgroundView.getMeasuredHeight()+" And this is old width: "+backgroundView.getMeasuredWidth(), Toast.LENGTH_LONG).show();
     }
 
     /**
