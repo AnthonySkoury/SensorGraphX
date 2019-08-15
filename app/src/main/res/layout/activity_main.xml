@@ -38,18 +38,22 @@
             <RelativeLayout
                 android:id="@+id/PositionLayoutParent"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/pos_height">
+                android:layout_height="@dimen/pos_height"
+                android:gravity="center_vertical"
+                >
 
                 <RelativeLayout
                     android:id="@+id/PositionLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/BackgroundImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
+                    android:gravity="center_vertical"
                     />
 
                 <com.example.sensorapp.PositionDisplay
@@ -59,6 +63,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:padding="5dp"
+                    android:gravity="center_vertical"
                     />
 
                 </RelativeLayout>

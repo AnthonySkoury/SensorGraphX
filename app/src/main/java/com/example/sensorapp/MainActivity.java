@@ -39,6 +39,7 @@ import org.w3c.dom.Document;
 
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -545,14 +546,37 @@ public class MainActivity extends AppCompatActivity {
             try {
                 background = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
                 //appManager.setBackground(background);
-                //backgroundView.setImageBitmap(background);
+                backgroundView.setImageBitmap(background);
 
-                /*
+                int ih=backgroundView.getMeasuredHeight();//height of imageView
+                int iw=backgroundView.getMeasuredWidth();//width of imageView
+
+                System.out.println("This is the width of imageview: "+iw+" And this is height of imageview: "+ih);
+
+                int iH=backgroundView.getDrawable().getIntrinsicHeight();//original height of underlying image
+                int iW=backgroundView.getDrawable().getIntrinsicWidth();//original width of underlying image
+
+                if (ih/iH<=iw/iW) iw=iW*ih/iH;//rescaled width of image within ImageView
+                else ih= iH*iw/iW;//rescaled height of image within ImageView
+
+                System.out.println("This is the width of image scaled: "+iw+" And this is height of image scaled: "+ih);
+
+
+
+                System.out.println("This is the width of image inside: "+iW+" And this is height of image inside: "+iH);
+
+
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) positionLayout.getLayoutParams();
-                params.height = 4000;
-                params.width = 1000;
+
+                params.height = ih;
+                params.width = iw;
+                positionLayout.setGravity(Gravity.CENTER_VERTICAL);
                 positionLayout.setLayoutParams(params);
-*/
+                positionLayout.invalidate();
+                positionLayout.requestLayout();
+                positionLayout.setGravity(Gravity.CENTER_VERTICAL);
+
+
                 /*
                 RelativeLayout.LayoutParams rel_btn = new RelativeLayout.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT, 4000);
@@ -562,6 +586,8 @@ public class MainActivity extends AppCompatActivity {
 
                 //positionLayout.getLayoutParams().height = 4000;
                 //positionLayout.getLayoutParams().width = 600;
+
+                /*
                 ViewGroup.LayoutParams lp = positionGraph.getLayoutParams();
                 lp.width=200;
                 lp.height=6000;
@@ -574,6 +600,7 @@ public class MainActivity extends AppCompatActivity {
                 scrollLayout.invalidate();
                 scrollLayout.requestLayout();
                 resize = true;
+               */
 
                 //scrollLayout.invalidate();
                 //scrollLayout.requestLayout();
