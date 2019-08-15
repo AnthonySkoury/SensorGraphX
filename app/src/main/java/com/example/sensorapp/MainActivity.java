@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
     int finalHeight;
     int finalWidth;
     /* Objects Used */
+    LayoutWrapContentUpdater resizer;
+
+    LinearLayout scrollLayout;
     DataReceiver dataReceiver;
     RelativeLayout positionLayout;
     PositionDisplay positionGraph;
@@ -88,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
     boolean stop=true;
     private boolean isCheckedZUPT = false;
     private boolean isCheckedAltitude = false;
+    boolean resize;
 
     /* Permissions Variables */
     int GET_FROM_GALLERY = 1;
@@ -555,10 +559,19 @@ public class MainActivity extends AppCompatActivity {
                 positionLayout.setLayoutParams(rel_btn);
 */
 
-                positionLayout.getLayoutParams().height = 4000;
-                positionLayout.getLayoutParams().width = 400;
-                positionLayout.invalidate();
-                positionLayout.requestLayout();
+                //positionLayout.getLayoutParams().height = 4000;
+                //positionLayout.getLayoutParams().width = 600;
+                ViewGroup.LayoutParams lp = positionGraph.getLayoutParams();
+                lp.width=200;
+                lp.height=6000;
+                positionGraph.setLayoutParams(lp);
+                scrollLayout.invalidate();
+                scrollLayout.requestLayout();
+                resize = true;
+                lp.width=600;
+                lp.height=1000;
+                //scrollLayout.invalidate();
+                //scrollLayout.requestLayout();
 
                 //layoutScale();
                 //adjustScale();
@@ -635,6 +648,8 @@ public class MainActivity extends AppCompatActivity {
      */
     protected void StartApp(){
 
+        resizer = new LayoutWrapContentUpdater();
+        scrollLayout = (LinearLayout)findViewById(R.id.ScrollLayout);
         positionLayout = (RelativeLayout)findViewById(R.id.PositionLayout);
         backgroundView = (ImageView)findViewById(R.id.BackgroundImage);
         backgroundView.setImageResource(R.drawable.ic_adjust_green_24dp);
@@ -747,6 +762,9 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                if(resize){
+                                    resizer.wrapContentAgain(scrollLayout);
+                                }
                                 Tasks();
 
                             }
