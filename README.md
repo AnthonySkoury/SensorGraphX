@@ -11,7 +11,7 @@ This Android App is used to connect via Wi-Fi to a prototype device with sensors
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-####Note
+#### Note
 You may want to check out my documentation for the project code [here](https://anthonyskoury.github.io/SensorGraphX/).
 
 ### Prerequisites
@@ -35,22 +35,22 @@ Knowledge and skills needed
 
 To get a developer environment running please do the following:
 
-####Initial setup
+#### Initial setup
 
 * Have Android Studio downloaded
 * Open it and do first time settings
 
-####Creating the project
+#### Creating the project
 
 * Create a new project in Android Studio
 * Clone the repository via [Git](https://help.github.com/en/articles/cloning-a-repository) or through Android Studio itself
 
-####Project Setup
+#### Project Setup
 
 * Build the project (green hammer on top right corner) then press Run (green triangle top right corner) for first time testing
 
 
-####Demo
+#### Demo
 
 ## Building then running the program
 
