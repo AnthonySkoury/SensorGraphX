@@ -19,10 +19,10 @@ You may want to check out my documentation for the project code [here](https://a
 What things you need to install the software and how to install them
 
 
-* [Android Studio] (https://developer.android.com/studio) for Android development and deploying
-* [Git] (https://git-scm.com/) for version control
-* [Developer options] (https://www.digitaltrends.com/mobile/how-to-get-developer-options-on-android/) to deploy your app onto your phone through Android Studio
-* [ADB] (https://developer.android.com/studio/command-line/adb) driver needed for your PC to deploy and debug a connected Android device
+* [Android Studio](https://developer.android.com/studio) for Android development and deploying
+* [Git](https://git-scm.com/) for version control
+* [Developer options](https://www.digitaltrends.com/mobile/how-to-get-developer-options-on-android/) to deploy your app onto your phone through Android Studio
+* [ADB](https://developer.android.com/studio/command-line/adb) driver needed for your PC to deploy and debug a connected Android device
 
 
 Knowledge and skills needed
@@ -68,7 +68,7 @@ You can run your app from Android Studio on a device emulator in Android Studio 
 For deploying on a physical device follow these steps
 
 * You will need to enable [developer mode](https://www.digitaltrends.com/mobile/how-to-get-developer-options-on-android/) on your Android device in order to run apps from Android Studio.
-* Make sure [ADB] (https://developer.android.com/studio/command-line/adb) driver is installed on your PC so Android Studio recognizes your device.
+* Make sure [ADB](https://developer.android.com/studio/command-line/adb) driver is installed on your PC so Android Studio recognizes your device.
 
 Simply build then press run, selecting your connected device to deploy the test app through Android Studio.
 
