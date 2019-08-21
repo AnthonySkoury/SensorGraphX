@@ -122,6 +122,9 @@ public class MainActivity extends AppCompatActivity {
     private String m_File_Upload = "";
     private String m_File_Download = "";
 
+    private double m_Origin_X = 0.0;
+    private double m_Origin_Y = 0.0;
+
     private int m_Max_RangeX2=20;
     private int m_Max_RangeY2=20;
     private int m_Max_RangeX3=20;
@@ -234,10 +237,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_set_origin:
                 return true;
             case R.id.action_set_origin_x:
-
+                itemAction("Enter New X Origin", R.id.action_set_origin_x);
                 return true;
             case R.id.action_set_origin_y:
-
+                itemAction("Enter New Y Origin", R.id.action_set_origin_y);
                 return true;
             case R.id.ZUPT:
                 isCheckedZUPT = !item.isChecked();
@@ -370,53 +373,88 @@ public class MainActivity extends AppCompatActivity {
                 handleIP();
                 break;
 
+            case R.id.action_set_origin_x:
+                try {
+                    m_Origin_X = Double.parseDouble(input);
+                    handleOriginX();
+                } catch (NumberFormatException e){ e.printStackTrace(); break; }
+                break;
+            case R.id.action_set_origin_y:
+                try {
+                    m_Origin_Y = Double.parseDouble(input);
+                    handleOriginY();
+                } catch (NumberFormatException e){ e.printStackTrace(); break; }
+                break;
+
             case R.id.action_set_x_range:
-                m_Max_RangeX=Integer.parseInt(input);
-                handleRangeX();
+                try {
+                    m_Max_RangeX=Integer.parseInt(input);
+                    handleRangeX();
+                } catch (NumberFormatException e){ e.printStackTrace(); break; }
                 break;
             case R.id.action_set_y_range:
-                m_Max_RangeY=Integer.parseInt(input);
-                handleRangeY();
+                try {
+                    m_Max_RangeY = Integer.parseInt(input);
+                    handleRangeY();
+                } catch (NumberFormatException e){ e.printStackTrace(); break; }
                 break;
             case R.id.action_set_z_range:
-                m_Max_RangeZ=Integer.parseInt(input);
-                handleRangeZ();
+                try {
+                    m_Max_RangeZ = Integer.parseInt(input);
+                    handleRangeZ();
+                } catch (NumberFormatException e){ e.printStackTrace(); break; }
                 break;
 
             case R.id.action_set_x2_range:
-                m_Max_RangeX2=Integer.parseInt(input);
-                handleRangeAccX();
+                try {
+                    m_Max_RangeX2 = Integer.parseInt(input);
+                    handleRangeAccX();
+                } catch (NumberFormatException e){ e.printStackTrace(); break; }
                 break;
             case R.id.action_set_y2_range:
-                m_Max_RangeY2=Integer.parseInt(input);
-                handleRangeAccY();
+                try {
+                    m_Max_RangeY2 = Integer.parseInt(input);
+                    handleRangeAccY();
+                } catch (NumberFormatException e){ e.printStackTrace(); break; }
                 break;
 
             case R.id.action_set_x3_range:
-                m_Max_RangeX3=Integer.parseInt(input);
-                handleRangeAltX();
+                try {
+                    m_Max_RangeX3 = Integer.parseInt(input);
+                    handleRangeAltX();
+                } catch (NumberFormatException e){ e.printStackTrace(); break; }
                 break;
             case R.id.action_set_y3_range:
-                m_Max_RangeY3=Integer.parseInt(input);
-                handleRangeAltY();
+                try {
+                    m_Max_RangeY3 = Integer.parseInt(input);
+                    handleRangeAltY();
+                } catch (NumberFormatException e){ e.printStackTrace(); break; }
                 break;
 
             case R.id.action_set_x4_range:
-                m_Max_RangeX4=Integer.parseInt(input);
-                handleRangeGyroX();
+                try {
+                    m_Max_RangeX4 = Integer.parseInt(input);
+                    handleRangeGyroX();
+                } catch (NumberFormatException e){ e.printStackTrace(); break; }
                 break;
             case R.id.action_set_y4_range:
-                m_Max_RangeY4=Integer.parseInt(input);
-                handleRangeGyroY();
+                try {
+                    m_Max_RangeY4 = Integer.parseInt(input);
+                    handleRangeGyroY();
+                } catch (NumberFormatException e){ e.printStackTrace(); break; }
                 break;
 
             case R.id.action_set_sampling:
-                m_Sample_Rate=Long.parseLong(input);
-                handleSampling();
+                try {
+                    m_Sample_Rate = Long.parseLong(input);
+                    handleSampling();
+                } catch (NumberFormatException e){ e.printStackTrace(); break; }
                 break;
             case R.id.action_set_maxpoints:
-                m_Max_Points=Integer.parseInt(input);
-                handleMaxPoints();
+                try {
+                    m_Max_Points = Integer.parseInt(input);
+                    handleMaxPoints();
+                } catch (NumberFormatException e){ e.printStackTrace(); break; }
                 break;
             case R.id.action_set_background:
                 handleBackground();
@@ -442,6 +480,14 @@ public class MainActivity extends AppCompatActivity {
     protected void handleIP(){
         //appManager.setIP(m_IP);
         dataReceiver.changeURL(m_IP);
+    }
+
+    protected void handleOriginX(){
+        dataReceiver.setOriginX(m_Origin_X);
+    }
+
+    protected void handleOriginY(){
+        dataReceiver.setOriginY(m_Origin_Y);
     }
 
     /**

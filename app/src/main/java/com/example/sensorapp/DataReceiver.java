@@ -35,6 +35,9 @@ public class DataReceiver{
     double tempXYZ;
     int ZUPT_status;
 
+    double originX = 0.0;
+    double originY = 0.0;
+
     int reset_flag=0;
     int ZUPT_flag=0;
     int Altimeter_flag=0;
@@ -69,6 +72,14 @@ public class DataReceiver{
         this.currentGyro  = new double[2];
         this.timer = new Timer();
         timer.startTime();
+    }
+
+    public void setOriginX(double x){
+        originX = x;
+    }
+
+    public void setOriginY(double y){
+        originY = y;
     }
 
     /**
@@ -165,10 +176,10 @@ public class DataReceiver{
                 runtime= Long.toString(timer.getElapsedTimeSecs());
                 break;
             case "x":
-                currentPosition[0]=genRandomDouble();
+                currentPosition[0]=genRandomDouble()+originX;
                 break;
             case "y":
-                currentPosition[1]=genRandomDouble();
+                currentPosition[1]=genRandomDouble()+originY;
                 break;
             case "z":
                 currentPosition[2]=genRandomDouble();
@@ -202,10 +213,10 @@ public class DataReceiver{
                 appManager.updateRunTime(Integer.parseInt(value));
                 break;
             case "x":
-                currentPosition[0]=Double.parseDouble(value);
+                currentPosition[0]=Double.parseDouble(value)+originX;
                 break;
             case "y":
-                currentPosition[1]=Double.parseDouble(value);
+                currentPosition[1]=Double.parseDouble(value)+originY;
                 break;
             case "z":
                 currentPosition[2]=-Double.parseDouble(value);
