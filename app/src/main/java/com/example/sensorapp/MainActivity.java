@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -223,6 +224,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_set_background:
                 handleBackground();
+                return true;
+            case R.id.action_rotate_background:
+                rotateImage();
                 return true;
             case R.id.action_reset_background:
                 handleResetBackground();
@@ -561,7 +565,6 @@ public class MainActivity extends AppCompatActivity {
             background = null;
             try {
 
-
                 if(firstResize){
                     originalPosHeight = positionLayout.getMeasuredHeight();
                     originalPosWidth = positionLayout.getMeasuredWidth();
@@ -574,8 +577,8 @@ public class MainActivity extends AppCompatActivity {
                 //resize=true;
                 setOriginalSize();
 
-                System.out.println("This is imageview w: "+backgroundView.getMeasuredWidth());
-                System.out.println("This is imageview h: "+backgroundView.getMeasuredHeight());
+                //System.out.println("This is imageview w: "+backgroundView.getMeasuredWidth());
+                //System.out.println("This is imageview h: "+backgroundView.getMeasuredHeight());
 
                 //TimeUnit.MILLISECONDS.sleep(2000);
 
@@ -604,6 +607,32 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void rotateImage(){
+        setOriginalSize();
+        Matrix matrix = new Matrix();
+
+        matrix.postRotate(90);
+
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(background, background.getWidth(), background.getHeight(), true);
+
+        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+
+        background = rotatedBitmap;
+
+        backgroundView.setImageBitmap(rotatedBitmap);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setNewSize();
+            }
+        }, 100);
+
+        firstResize=false;
+
     }
 
     public void setOriginalSize(){
