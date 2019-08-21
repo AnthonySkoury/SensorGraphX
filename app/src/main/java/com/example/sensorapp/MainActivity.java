@@ -231,6 +231,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_reset_background:
                 handleResetBackground();
                 return true;
+            case R.id.action_set_origin:
+                return true;
+            case R.id.action_set_origin_x:
+
+                return true;
+            case R.id.action_set_origin_y:
+
+                return true;
             case R.id.ZUPT:
                 isCheckedZUPT = !item.isChecked();
                 item.setChecked(isCheckedZUPT);
@@ -637,6 +645,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void setOriginalSize(){
 
+        if(firstResize){
+            originalPosHeight = positionLayout.getMeasuredHeight();
+            originalPosWidth = positionLayout.getMeasuredWidth();
+            return;
+        }
         backgroundView.setImageDrawable(null);
 
         params.height = originalPosHeight;

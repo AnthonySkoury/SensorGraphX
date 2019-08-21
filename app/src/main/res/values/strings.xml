@@ -24,6 +24,11 @@
     <string name="background">Upload Floor Plan Map</string>
     <string name="rotate_background">Rotate Background</string>
     <string name="reset_background">Reset Background</string>
+    <string name="origin">Set Origin Point</string>
+
+    <string name="originX">Set Origin For X</string>
+    <string name="originY">Set Origin For Y</string>
+
     <string name="ZUPT">Toggle ZUPT</string>
     <string name="Altitude">Toggle Altitude</string>
 
