@@ -30,7 +30,7 @@
     <string name="originY">Set Origin For Y</string>
 
     <string name="ZUPT">Toggle ZUPT</string>
-    <string name="Altitude">Toggle Altitude</string>
+    <string name="Altitude">Toggle Altimeter</string>
 
     <string name="range">Set Pos. &amp; Alt. Range Limit</string>
     <string name="rangeX">Set X Position Range Limit</string>

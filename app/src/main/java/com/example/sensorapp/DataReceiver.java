@@ -39,21 +39,21 @@ public class DataReceiver{
     double originY = 0.0;
 
     int reset_flag=0;
-    int ZUPT_flag=0;
-    int Altimeter_flag=0;
+    int ZUPT_flag=1;
+    int Altimeter_flag=1;
 
     DocumentBuilder docbuilder;
     Document doc;
 
     /* For simulator on computer */
-    String m_IP = "http://%s/Service/xyzDisplay";
-    String ip = "128.195.207.30:8001";
-    String URL_Upload = "http://%s/Service/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
+    //String m_IP = "http://%s/Service/xyzDisplay";
+    //String ip = "128.195.207.30:8001";
+    //String URL_Upload = "http://%s/Service/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
 
     /* For prototype physical device (different links) */
-    //String m_IP = "http://%s/WebService/xyzDisplay";
-    //String ip = "192.168.48.2:8001";
-    //String URL_Upload = "http://%s/WebService/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
+    String m_IP = "http://%s/WebService/xyzDisplay";
+    String ip = "192.168.48.2:8001";
+    String URL_Upload = "http://%s/WebService/xyzDisplay?ZUPT_control_test=%d&reset_data=%d&Altimeter_control_test=%d";
 
     String runtime="0";
     Timer timer;
@@ -275,9 +275,9 @@ public class DataReceiver{
         }
         try
         {
-            //ParseURL();
-            //ParseXML(doc);
-            TestData();
+            ParseURL();
+            ParseXML(doc);
+            //TestData();
             return 0;
 
         }

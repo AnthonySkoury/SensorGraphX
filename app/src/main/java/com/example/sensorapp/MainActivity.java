@@ -117,8 +117,8 @@ public class MainActivity extends AppCompatActivity {
     private int m_Max_RangeX=60;
     private int m_Max_RangeY=60;
     private int m_Max_RangeZ=60;
-    private long m_Sample_Rate=1000;
-    private int m_Max_Points=100;
+    private long m_Sample_Rate=250;
+    private int m_Max_Points=500;
     private String m_File_Upload = "";
     private String m_File_Download = "";
 
@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_set_range:
-                positionGraph.resizeView(500,1000);
+
                 return true;
             case R.id.action_set_x_range:
                 itemAction("Enter X Range Limit (in meters)", R.id.action_set_x_range);
